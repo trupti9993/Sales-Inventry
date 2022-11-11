@@ -1,0 +1,147 @@
+
+Add postman extension to chrome:
+
+https://chrome.google.com/webstore/detail/postman/fhbjgbiflinjbdggehcddcbncdddomop?hl=en&pli=1&_ind=category%252Fextensions%253Fhl%253Den&_asi=1&source=5
+
+
+Employee -> 
+
+   POST: http://localhost:8080/employee/saveEmployee
+
+   Body -> raw -> JSON (application/json)
+   {  
+		"empName" : "A",
+		"mobileNo" : "12345678",
+		"email" : "a@gmail.com",
+		"address" : "Pune",
+		"password" : "***"
+   }
+	   
+   
+   
+   GET:  http://localhost:8080/employee/getEmployee/{empId}
+         e.g- http://localhost:8080/employee/getEmployee/1
+   
+   GET:  http://localhost:8080/employee/getAllEmployeeData
+   
+Party -> 
+   
+   POST: http://localhost:8080/party/saveParty
+   
+   Body -> raw -> JSON (application/json) 
+   {  
+		"partyName" : "A",
+		"mobileNo" : "12345678",
+		"email" : "a@gmail.com",
+		"address" : "Pune"
+   }
+
+   GET:  http://localhost:8080/party/getParty/{partyId}
+         e.g- http://localhost:8080/party/getParty/1
+   
+   GET:  http://localhost:8080/party/getAllPartyData
+   
+Product -> 
+   
+   POST: http://localhost:8080/product/saveProduct
+   
+    Body -> raw -> JSON (application/json)
+	{  
+		"prodName" : "WHEAT",
+		"prodType" : "FOOD",
+		"prodUnit" : "KG",
+		"noOfDecimals" : "2"
+		
+	}
+   
+   GET:  http://localhost:8080/product/getProduct/{productId}
+         e.g- http://localhost:8080/product/getProduct/1
+   
+   GET:  http://localhost:8080/product/getAllProductData
+   
+   
+Purchase -> 
+   
+   POST: http://localhost:8080/purchase/savePurchase
+   
+    Body -> raw -> JSON (application/json)
+	{  
+		"empId" : "1",
+		"partyId" : "1",
+		"prodId" : "1",
+		"quantity" : "10",
+		"rate" : "10",
+		"amount" : "100",
+		"discount" : "0",
+		"tax" : "0",
+		"netAmount" : "100"
+	}
+
+   GET:  http://localhost:8080/purchase/getPurchase/{purchaseId}
+         e.g- http://localhost:8080/purchase/getPurchase/1
+   
+   GET:  http://localhost:8080/purchase/getAllPurchaseData
+   
+Sale -> 
+   
+   POST: http://localhost:8080/sales/saveSales
+   
+     Body -> raw -> JSON (application/json)
+   {  
+		"empId" : "1",
+		"partyId" : "1",
+		"prodId" : "1",
+		"quantity" : "10",
+		"rate" : "10",
+		"amount" : "100",
+		"discount" : "0",
+		"tax" : "0",
+		"netAmount" : "100"
+   }
+
+   
+   GET:  http://localhost:8080/sales/getSales/{saleId}
+         e.g- http://localhost:8080/sales/getSales/1
+   
+   GET:  http://localhost:8080/sales/getAllSalesData 
+   
+Payment -> 
+   
+   POST: http://localhost:8080/payment/savePayment
+   
+    Body -> raw -> JSON (application/json)
+   {  
+	"empId" : "1",
+	"partyId" : "1",
+    "purchaseId" : "1",
+	"amount" : "100"
+   }
+
+
+   
+   GET:  http://localhost:8080/payment/getPayment/{paymentId}
+         e.g- http://localhost:8080/payment/getPayment/1
+   
+   GET:  http://localhost:8080/payment/getAllPaymentData 
+   
+Receipt -> 
+   
+   POST: http://localhost:8080/receipt/saveReceipt
+   
+    Body -> raw -> JSON (application/json)
+    {  
+	"empId" : "1",
+	"partyId" : "1",
+    "salesId" : "1",
+	"amount" : "100"
+   }
+
+   
+   GET:  http://localhost:8080/receipt/getReceipt/{receiptId}
+         e.g-  http://localhost:8080/receipt/getReceipt/1
+   
+   GET:  http://localhost:8080/receipt/getAllReceiptData 
+   
+   
+   
+   

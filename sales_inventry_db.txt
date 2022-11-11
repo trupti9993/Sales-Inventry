@@ -1,0 +1,130 @@
+DROP DATABASE if exists sales_inventery;
+CREATE DATABASE sales_inventery;
+USE sales_inventery;
+
+
+DROP TABLE if EXISTS employee;
+
+CREATE TABLE `employee` (
+	`emp_id` INT NOT NULL AUTO_INCREMENT,
+	`emp_name` VARCHAR(25) NOT NULL,
+	`address` VARCHAR(250),
+	`email` VARCHAR(25),
+	`mobile_no` VARCHAR(25),
+	`password`  VARCHAR(25),
+	PRIMARY KEY (`emp_id`)
+)
+COLLATE='latin1_swedish_ci'
+ENGINE=InnoDB
+;
+
+/*
+custor and supplier
+*/
+DROP TABLE if EXISTS party;
+
+CREATE TABLE `party` (
+	`party_id` INT NOT NULL AUTO_INCREMENT,
+	`party_name` VARCHAR(25) NOT NULL,
+	`address` VARCHAR(250),
+	`email` VARCHAR(25),
+	`mobile_no` VARCHAR(25),
+	PRIMARY KEY (`party_id`)
+)
+COLLATE='latin1_swedish_ci'
+ENGINE=InnoDB
+;
+
+
+DROP TABLE if EXISTS product;
+CREATE TABLE `product` (
+	`prod_id` INT NOT NULL AUTO_INCREMENT,
+	`prod_name` VARCHAR(25) NOT NULL,
+	`prod_type` VARCHAR(25) NOT NULL,
+	`prod_unit` VARCHAR(25), 
+	`no_of_decimals`  INT,
+	PRIMARY KEY (`prod_id`)
+)
+COLLATE='latin1_swedish_ci'
+ENGINE=InnoDB
+;
+
+DROP TABLE if exists purchase;
+CREATE TABLE `purchase` (
+	`purchase_id` INT NOT NULL AUTO_INCREMENT,
+	`date` DATETIME NOT NULL,
+	`emp_id` INT NOT NULL,
+	`party_id` INT NOT NULL,
+	`prod_id` INT NOT NULL,
+	`quantity`  DOUBLE,
+	`rate`  DOUBLE,
+	`amount`  DOUBLE,
+	`discount`  DOUBLE,
+	`tax`  DOUBLE,
+	`net_amount`  DOUBLE,
+	PRIMARY KEY (`purchase_id`),
+	FOREIGN KEY (`emp_id`) REFERENCES `employee` (`emp_id`),
+	FOREIGN KEY (`party_id`) REFERENCES `party` (`party_id`)
+)
+COLLATE='latin1_swedish_ci'
+ENGINE=InnoDB
+;
+
+
+DROP TABLE if exists sales;
+CREATE TABLE `sales` (
+	`sales_id` INT NOT NULL AUTO_INCREMENT,
+	`date` DATETIME NOT NULL,
+	`emp_id` INT NOT NULL,
+	`party_id` INT NOT NULL,
+	`prod_id` INT NOT NULL,
+	`quantity`  DOUBLE,
+	`rate`  DOUBLE,
+	`amount`  DOUBLE,
+	`discount`  DOUBLE,
+	`tax`  DOUBLE,
+	`net_amount`  DOUBLE,
+	PRIMARY KEY (`sales_id`),
+	FOREIGN KEY (`emp_id`) REFERENCES `employee` (`emp_id`),
+	FOREIGN KEY (`party_id`) REFERENCES `party` (`party_id`)
+)
+COLLATE='latin1_swedish_ci'
+ENGINE=InnoDB
+;
+
+DROP TABLE if exists payment;
+CREATE TABLE `payment` (
+	`payment_id` INT NOT NULL AUTO_INCREMENT,
+	`date` DATETIME NOT NULL,
+	`emp_id` INT NOT NULL,
+	`party_id` INT NOT NULL,
+	`purchase_id` INT NOT NULL,
+	`amount`  DOUBLE,
+	PRIMARY KEY (`payment_id`),
+	FOREIGN KEY (`emp_id`) REFERENCES `employee` (`emp_id`),
+	FOREIGN KEY (`party_id`) REFERENCES `party` (`party_id`),
+	FOREIGN KEY (`purchase_id`) REFERENCES `purchase` (`purchase_id`)
+)
+COLLATE='latin1_swedish_ci'
+ENGINE=InnoDB
+;
+
+DROP TABLE if exists receipt;
+CREATE TABLE `receipt` (
+	`receipt_id` INT NOT NULL AUTO_INCREMENT,
+	`date` DATETIME NOT NULL,
+	`emp_id` INT NOT NULL,
+	`party_id` INT NOT NULL,
+	`sales_id` INT NOT NULL,
+	`amount`  DOUBLE,
+	PRIMARY KEY (`receipt_id`),
+	FOREIGN KEY (`emp_id`) REFERENCES `employee` (`emp_id`),
+	FOREIGN KEY (`party_id`) REFERENCES `party` (`party_id`),
+	FOREIGN KEY (`sales_id`) REFERENCES `sales` (`sales_id`)
+)
+COLLATE='latin1_swedish_ci'
+ENGINE=InnoDB
+;
+
+
+
