@@ -1,0 +1,289 @@
+ https://www.youtube.com/watch?v=BnknNTN8icw
+ 
+We are creating micro services as follows:
+ a) Catlog Serivice (catlog-service -> port: 9001)
+    -> Employee Creation
+	-> Party Creation (Customer, Supplier, Agent)
+	-> Product Creation
+ b) Stock Service (stock-service -> port: 9002)
+	-> Purchase 
+	-> Sale
+ c) Billing Service (billing-service -> port: 9003)
+    -> Payment (Pay payment of purchase invoice)
+	-> Receipt (Receive payment of sale invoice)
+	
+	
+	
+	  //======================== Microservice configuration =====================================
+ Steps::
+ 1) Create Rest API
+ 
+ Go to https://start.spring.io/
+ 
+ a) Create Catlog Serivice
+ 
+  Project-> Maven Project
+  Language-> Java
+  Group -> com.sales_inventry
+  Artifact -> catlog
+  Name -> Catloag Service
+  Description-> Catloag Service
+  Package name-> com.sales_inventry.catlog
+  Packaging-> Jar
+  Java-> 1.8 
+  
+  -> add dependancies ->  Spring Web , Lombok ,Spring Data JPA ,MySQL Driver,Eureka Discovery Client 
+  
+  => Generate project and open in eclipse
+  
+  b) Create Stock Serivice
+ 
+  Project-> Maven Project
+  Language-> Java
+  Group -> com.sales_inventry
+  Artifact -> stock
+  Name -> Stock Service
+  Description-> Stock Service
+  Package name-> com.sales_inventry.stock
+  Packaging-> Jar
+  Java-> 1.8 
+  
+  -> add dependancies ->  Spring Web , Lombok ,Spring Data JPA ,MySQL Driver,Eureka Discovery Client 
+  
+  => Generate project and open in eclipse
+  
+   c) Create Billing Serivice
+ 
+  Project-> Maven Project
+  Language-> Java
+  Group -> com.sales_inventry
+  Artifact -> billing
+  Name -> Billing Service
+  Description-> Billing Service
+  Package name-> com.sales_inventry.billing
+  Packaging-> Jar
+  Java-> 1.8 
+  
+  -> add dependancies ->  Spring Web , Lombok ,Spring Data JPA ,MySQL Driver, Eureka Discovery Client 
+  
+  => Generate project and open in eclipse
+  
+  Now create all Api, services and repository in respective project.
+  
+  Now test all api mentioned in sales_inventry_rest_api with post man.
+  
+  #Catlog Serivice
+  http://localhost:9001/employee
+  http://localhost:9001/party
+  http://localhost:9001/product
+  
+  #Stock Serivice
+  
+  http://localhost:9002/purchase
+  http://localhost:9002/sale
+  
+  #Billing Serivice
+  http://localhost:9003/payment
+  http://localhost:9003/receipt
+  
+  It is difficult to manage all services and its ports so we will create service registry. 
+  
+  2)Create Serivice Registry
+ 
+ Go to https://start.spring.io/
+ 
+  Project-> Maven Project
+  Language-> Java
+  Group -> com.sales_inventry
+  Artifact ->  service_registry
+  Name -> Service Registry
+  Description-> Service Registry
+  Package name-> com.sales_inventry.service_registry
+  Packaging-> Jar
+  Java-> 1.8 
+  
+  -> add dependancies ->  Eureka Server
+  
+  => Generate project and open in eclipse
+  
+  /********** add below config ******************/
+  
+	server:
+	  port: 8761
+	  
+	eureka:
+	  client:
+		register-with-eureka: false
+		fetch-registry: false
+  /**********************************************/
+  
+  3) add configuration Eureka Discovery Client  and configuration in all microservices
+  
+  e.g- 
+  /********** add below config ******************/
+	spring:
+	  application:
+		name: BILLING-SERVICE
+	  
+	server:
+	  port: 9003
+	  
+	eureka:
+	  client:
+		register-with-eureka: true
+		fetch-registry: true
+		  defaultZone: http://localhost:8761/eureka/
+		instance:
+		  hostname: localhost 
+	/**********************************************/  
+	
+	4) Now run  Service Registry and all micro services. Then you can see list of registerd microservices at http://localhost:8761/
+	
+	5) Create the API gateway  
+	
+	Go to https://start.spring.io/
+	 
+	  Project-> Maven Project
+	  Language-> Java
+	  Group -> com.sales_inventry
+	  Artifact ->  api_gateway
+	  Name -> API Gate Way
+	  Description-> API Gate Way
+	  Package name-> com.sales_inventry.api_gateway
+	  Packaging-> Jar
+	  Java-> 1.8 
+	  
+	  -> add dependancies ->  Eureka Discovery Client,Gateway ,Spring Boot Actuator, Hystrix
+	  
+	  => Generate project and open in eclipse
+	  
+	  /********** add below config ******************/
+		server:
+		  port: 9191
+		  
+		spring:
+		  application:
+			name: API-GATEWAY
+		  cloud:
+			gateway:
+			  routes:
+				- id: CATLOG-SERVICE
+				  uri: lb://CATLOG-SERVICE
+				  predicates:
+				   - Path=/employee/**,/product/**,/party/**
+				- id: STOCK-SERVICE
+				  uri: lb://STOCK-SERVICE
+				  predicates:
+					- Path=/purchase/**,/sale/**
+				- id: BILLING-SERVICE
+				  uri: lb://BILLING-SERVICE
+				  predicates:
+					- Path=/payment/**,/receipt/**
+				  
+		  
+		eureka:
+		  client:
+			register-with-eureka: true
+			fetch-registry: true
+			defaultZone: http://localhost:8761/eureka/
+			instance:
+			  hostname: localhost 
+
+
+	/**********************************************/
+	
+	6) Add Circuit breaker to know which service is not running and give fallback
+	 
+	 add hystrix dependancy to API GATEWAY add below configuration
+	 
+	 /********** add below config ******************/
+	server:
+	  port: 9191
+	  
+	spring:
+	  application:
+		name: API-GATEWAY
+	  cloud:
+		gateway:
+		  routes:
+			- id: CATLOG-SERVICE
+			  uri: lb://CATLOG-SERVICE
+			  predicates:
+			   - Path=/employee/**,/product/**,/party/**
+			  filters:
+				- name: CircuitBreaker
+				  args:
+					name: CATLOG-SERVICE
+					fallbackuri: forward:/CatlogServiceFallBack
+			- id: STOCK-SERVICE
+			  uri: lb://STOCK-SERVICE
+			  predicates:
+				- Path=/purchase/**,/sale/**
+			  filters:
+				- name: CircuitBreaker
+				  args:
+					name: STOCK-SERVICE
+					fallbackuri: forward:/StockServiceFallBack
+			- id: BILLING-SERVICE
+			  uri: lb://BILLING-SERVICE
+			  predicates:
+				- Path=/payment/**,/receipt/**
+			  filters:
+				- name: CircuitBreaker
+				  args:
+					name: BILLING-SERVICE
+					fallbackuri: forward:/BillingServiceFallBack
+					
+	hystrix:
+	  command:
+		fallbackcmd:
+		  execution:
+			isolation:
+			  thread:
+				timeoutInMilliseconds: 4000
+				
+	management:
+	  endpoints:
+		web:
+		  exposure:
+			include: hystrix.stream
+	  
+	eureka:
+	  client:
+		register-with-eureka: true
+		fetch-registry: true
+		defaultZone: http://localhost:8761/eureka/
+		instance:
+		  hostname: localhost 
+	 /**********************************************/
+	 
+	 7) Create project Hystrix dashboard, Add dependancies Eureka client , Hystrix dashboard
+	 
+	/**********************************************/
+	server:
+	  port: 9295
+
+	spring:
+	  application:
+		name: HYSTRIX-DASHBOARD
+
+
+	hystrix:
+	  dashboard:
+		proxy-stream-allow-list: "*"
+		
+	/**********************************************/
+	
+	Run -> Service Discovery
+	    -> API-GATEWAY
+		-> DYSTRIX DASHBOARD
+		-> CATLOG-SERVICE
+		-> STOCK-SERVICE
+		-> BILLING-SERVICE
+	
+	run:-> http://localhost:9295/hystrix
+	 and monitor stream: http://localhost:9191/actuator/hystrix.stream	 
+	 http://localhost:8761/
+
+   Now test app api on API Gateway http://localhost:9191/
+/********************************************/
