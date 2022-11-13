@@ -1,0 +1,59 @@
+server:
+  port: 9191
+  
+spring:
+  application:
+    name: API-GATEWAY
+  cloud:
+    gateway:
+      routes:
+        - id: CATLOG-SERVICE
+          uri: lb://CATLOG-SERVICE
+          predicates:
+           - Path=/employee/**,/product/**,/party/**
+          filters:
+            - name: CircuitBreaker
+              args:
+                name: CATLOG-SERVICE
+                fallbackuri: forward:/CatlogServiceFallBack
+        - id: STOCK-SERVICE
+          uri: lb://STOCK-SERVICE
+          predicates:
+            - Path=/purchase/**,/sale/**
+          filters:
+            - name: CircuitBreaker
+              args:
+                name: STOCK-SERVICE
+                fallbackuri: forward:/StockServiceFallBack
+        - id: BILLING-SERVICE
+          uri: lb://BILLING-SERVICE
+          predicates:
+            - Path=/payment/**,/receipt/**
+          filters:
+            - name: CircuitBreaker
+              args:
+                name: BILLING-SERVICE
+                fallbackuri: forward:/BillingServiceFallBack
+                
+hystrix:
+  command:
+    fallbackcmd:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 4000
+            
+management:
+  endpoints:
+    web:
+      exposure:
+        include: hystrix.stream
+  
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    defaultZone: http://localhost:8761/eureka/
+    instance:
+      hostname: localhost 
+
