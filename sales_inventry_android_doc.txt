@@ -1,0 +1,13 @@
+https://www.youtube.com/watch?v=8P3lglutFTY
+https://www.youtube.com/watch?v=yxMQPmmb-EQ
+https://www.youtube.com/watch?v=sxcBN4sdjxs
+
+
+Navigation -> 
+https://www.youtube.com/watch?v=B-AnhaLBLKM
+https://www.youtube.com/watch?v=vFmKpioS95E
+https://www.youtube.com/watch?v=HbV-6UzhFb4
+
+
+RetrofitService -> change url ->   .baseUrl("http://192.168.1.14:8080
+
