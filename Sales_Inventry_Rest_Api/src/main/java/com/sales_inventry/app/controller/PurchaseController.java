@@ -26,7 +26,7 @@ public class PurchaseController {
 		purchaseService.savePurchaseToDB(purchase);
 
 		Response response = new Response();
-		response.setPartyResponseData(purchase.getPurchaseId());
+		response.setPurchaseResponseData(purchase.getPurchaseId());
 		response.setStatus(Response.SUCCESS_STATUS);
 
 		return ResponseEntity.ok(response);
