@@ -15,7 +15,7 @@ public interface EmployeeApi {
   Call<ResponseEntity> getAllEmployees();
 
   @POST("/employee/saveEmployee")
-  Call<EmployeeDTO> save(@Body EmployeeDTO employee);
+  Call<EmployeeDTO> saveEmployee(@Body EmployeeDTO employee);
 
   @GET("/employee/getEmployee/{empId}")
   Call<ResponseEntity> getEmployee(@Path("empId") Integer empId);

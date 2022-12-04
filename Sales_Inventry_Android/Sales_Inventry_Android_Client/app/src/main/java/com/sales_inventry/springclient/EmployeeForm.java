@@ -91,7 +91,7 @@ public class EmployeeForm extends AppCompatActivity {
       employee.setMobileNo(mobile);
       employee.setPassword(pass);
 
-      employeeApi.save(employee)
+      employeeApi.saveEmployee(employee)
           .enqueue(new Callback<EmployeeDTO>() {
             @Override
             public void onResponse(Call<EmployeeDTO> call, Response<EmployeeDTO> response) {
