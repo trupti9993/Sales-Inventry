@@ -19,7 +19,6 @@
 DROP DATABASE IF EXISTS `sales_inventery`;
 CREATE DATABASE IF NOT EXISTS `sales_inventery` /*!40100 DEFAULT CHARACTER SET latin1 */;
 USE `sales_inventery`;
-
 -- Dumping structure for procedure sales_inventery.deleteEmployee
 DROP PROCEDURE IF EXISTS `deleteEmployee`;
 DELIMITER //
@@ -33,7 +32,13 @@ BEGIN
 DECLARE FoundCount INT;
 SET status=0;
 
-	SELECT COUNT(*) into FoundCount FROM purchase WHERE emp_id = empId;	
+	select sum(cnt) into FoundCount
+from (
+    select count(*) as cnt from purchase WHERE emp_id = empId
+    union all
+    select count(*) as cnt from sales WHERE emp_id = empId
+    
+) as cnt;
 	
 	if FoundCount=0 THEN
 		DELETE FROM employee WHERE emp_id = empId;	
