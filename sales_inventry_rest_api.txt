@@ -24,6 +24,9 @@ Employee ->
    
    GET:  http://localhost:8080/employee/getAllEmployeeData
    
+   POST: http://localhost:8080/employee/deleteEmployee/{empId}
+         http://localhost:8080/employee/deleteEmployee/1
+   
 Party -> 
    
    POST: http://localhost:8080/party/saveParty
