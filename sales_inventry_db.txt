@@ -1,130 +1,194 @@
-DROP DATABASE if exists sales_inventery;
-CREATE DATABASE sales_inventery;
-USE sales_inventery;
+-- --------------------------------------------------------
+-- Host:                         127.0.0.1
+-- Server version:               5.5.30 - MySQL Community Server (GPL)
+-- Server OS:                    Win32
+-- HeidiSQL Version:             12.1.0.6537
+-- --------------------------------------------------------
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET NAMES utf8 */;
+/*!50503 SET NAMES utf8mb4 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 
-DROP TABLE if EXISTS employee;
+-- Dumping database structure for sales_inventery
+DROP DATABASE IF EXISTS `sales_inventery`;
+CREATE DATABASE IF NOT EXISTS `sales_inventery` /*!40100 DEFAULT CHARACTER SET latin1 */;
+USE `sales_inventery`;
 
-CREATE TABLE `employee` (
-	`emp_id` INT NOT NULL AUTO_INCREMENT,
-	`emp_name` VARCHAR(25) NOT NULL,
-	`address` VARCHAR(250),
-	`email` VARCHAR(25),
-	`mobile_no` VARCHAR(25),
-	`password`  VARCHAR(25),
-	PRIMARY KEY (`emp_id`)
+-- Dumping structure for procedure sales_inventery.deleteEmployee
+DROP PROCEDURE IF EXISTS `deleteEmployee`;
+DELIMITER //
+CREATE PROCEDURE `deleteEmployee`(
+	IN `empId` INT,
+	OUT `status` INT
+
 )
-COLLATE='latin1_swedish_ci'
-ENGINE=InnoDB
-;
+BEGIN
 
-/*
-custor and supplier
-*/
-DROP TABLE if EXISTS party;
+DECLARE FoundCount INT;
+SET status=0;
 
-CREATE TABLE `party` (
-	`party_id` INT NOT NULL AUTO_INCREMENT,
-	`party_name` VARCHAR(25) NOT NULL,
-	`address` VARCHAR(250),
-	`email` VARCHAR(25),
-	`mobile_no` VARCHAR(25),
-	PRIMARY KEY (`party_id`)
-)
-COLLATE='latin1_swedish_ci'
-ENGINE=InnoDB
-;
+	SELECT COUNT(*) into FoundCount FROM purchase WHERE emp_id = empId;	
+	
+	if FoundCount=0 THEN
+		DELETE FROM employee WHERE emp_id = empId;	
+		SET status=1;
+	END IF;
 
+END//
+DELIMITER ;
 
-DROP TABLE if EXISTS product;
-CREATE TABLE `product` (
-	`prod_id` INT NOT NULL AUTO_INCREMENT,
-	`prod_name` VARCHAR(25) NOT NULL,
-	`prod_type` VARCHAR(25) NOT NULL,
-	`prod_unit` VARCHAR(25), 
-	`no_of_decimals`  INT,
-	PRIMARY KEY (`prod_id`)
-)
-COLLATE='latin1_swedish_ci'
-ENGINE=InnoDB
-;
+-- Dumping structure for table sales_inventery.employee
+DROP TABLE IF EXISTS `employee`;
+CREATE TABLE IF NOT EXISTS `employee` (
+  `emp_id` int(11) NOT NULL AUTO_INCREMENT,
+  `emp_name` varchar(25) NOT NULL,
+  `address` varchar(250) DEFAULT NULL,
+  `email` varchar(25) DEFAULT NULL,
+  `mobile_no` varchar(25) DEFAULT NULL,
+  `password` varchar(25) DEFAULT NULL,
+  `man_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`emp_id`),
+  KEY `FK_employee_employee` (`man_id`),
+  CONSTRAINT `FK_employee_employee` FOREIGN KEY (`man_id`) REFERENCES `employee` (`emp_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
-DROP TABLE if exists purchase;
-CREATE TABLE `purchase` (
-	`purchase_id` INT NOT NULL AUTO_INCREMENT,
-	`date` DATETIME NOT NULL,
-	`emp_id` INT NOT NULL,
-	`party_id` INT NOT NULL,
-	`prod_id` INT NOT NULL,
-	`quantity`  DOUBLE,
-	`rate`  DOUBLE,
-	`amount`  DOUBLE,
-	`discount`  DOUBLE,
-	`tax`  DOUBLE,
-	`net_amount`  DOUBLE,
-	PRIMARY KEY (`purchase_id`),
-	FOREIGN KEY (`emp_id`) REFERENCES `employee` (`emp_id`),
-	FOREIGN KEY (`party_id`) REFERENCES `party` (`party_id`)
-)
-COLLATE='latin1_swedish_ci'
-ENGINE=InnoDB
-;
+-- Dumping data for table sales_inventery.employee: ~2 rows (approximately)
+DELETE FROM `employee`;
+INSERT INTO `employee` (`emp_id`, `emp_name`, `address`, `email`, `mobile_no`, `password`, `man_id`) VALUES
+	(1, 'A', 'A', NULL, NULL, NULL, NULL),
+	(2, 'B', 'B', NULL, NULL, NULL, 1);
 
+-- Dumping structure for table sales_inventery.party
+DROP TABLE IF EXISTS `party`;
+CREATE TABLE IF NOT EXISTS `party` (
+  `party_id` int(11) NOT NULL AUTO_INCREMENT,
+  `party_name` varchar(25) NOT NULL,
+  `address` varchar(250) DEFAULT NULL,
+  `email` varchar(25) DEFAULT NULL,
+  `mobile_no` varchar(25) DEFAULT NULL,
+  PRIMARY KEY (`party_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
-DROP TABLE if exists sales;
-CREATE TABLE `sales` (
-	`sales_id` INT NOT NULL AUTO_INCREMENT,
-	`date` DATETIME NOT NULL,
-	`emp_id` INT NOT NULL,
-	`party_id` INT NOT NULL,
-	`prod_id` INT NOT NULL,
-	`quantity`  DOUBLE,
-	`rate`  DOUBLE,
-	`amount`  DOUBLE,
-	`discount`  DOUBLE,
-	`tax`  DOUBLE,
-	`net_amount`  DOUBLE,
-	PRIMARY KEY (`sales_id`),
-	FOREIGN KEY (`emp_id`) REFERENCES `employee` (`emp_id`),
-	FOREIGN KEY (`party_id`) REFERENCES `party` (`party_id`)
-)
-COLLATE='latin1_swedish_ci'
-ENGINE=InnoDB
-;
+-- Dumping data for table sales_inventery.party: ~2 rows (approximately)
+DELETE FROM `party`;
+INSERT INTO `party` (`party_id`, `party_name`, `address`, `email`, `mobile_no`) VALUES
+	(1, 'A', NULL, NULL, NULL),
+	(2, 'B', NULL, NULL, NULL);
 
-DROP TABLE if exists payment;
-CREATE TABLE `payment` (
-	`payment_id` INT NOT NULL AUTO_INCREMENT,
-	`date` DATETIME NOT NULL,
-	`emp_id` INT NOT NULL,
-	`party_id` INT NOT NULL,
-	`purchase_id` INT NOT NULL,
-	`amount`  DOUBLE,
-	PRIMARY KEY (`payment_id`),
-	FOREIGN KEY (`emp_id`) REFERENCES `employee` (`emp_id`),
-	FOREIGN KEY (`party_id`) REFERENCES `party` (`party_id`),
-	FOREIGN KEY (`purchase_id`) REFERENCES `purchase` (`purchase_id`)
-)
-COLLATE='latin1_swedish_ci'
-ENGINE=InnoDB
-;
+-- Dumping structure for table sales_inventery.payment
+DROP TABLE IF EXISTS `payment`;
+CREATE TABLE IF NOT EXISTS `payment` (
+  `payment_id` int(11) NOT NULL AUTO_INCREMENT,
+  `date` datetime NOT NULL,
+  `emp_id` int(11) NOT NULL,
+  `party_id` int(11) NOT NULL,
+  `purchase_id` int(11) NOT NULL,
+  `amount` double DEFAULT NULL,
+  PRIMARY KEY (`payment_id`),
+  KEY `emp_id` (`emp_id`),
+  KEY `party_id` (`party_id`),
+  KEY `purchase_id` (`purchase_id`),
+  CONSTRAINT `payment_ibfk_1` FOREIGN KEY (`emp_id`) REFERENCES `employee` (`emp_id`),
+  CONSTRAINT `payment_ibfk_2` FOREIGN KEY (`party_id`) REFERENCES `party` (`party_id`),
+  CONSTRAINT `payment_ibfk_3` FOREIGN KEY (`purchase_id`) REFERENCES `purchase` (`purchase_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-DROP TABLE if exists receipt;
-CREATE TABLE `receipt` (
-	`receipt_id` INT NOT NULL AUTO_INCREMENT,
-	`date` DATETIME NOT NULL,
-	`emp_id` INT NOT NULL,
-	`party_id` INT NOT NULL,
-	`sales_id` INT NOT NULL,
-	`amount`  DOUBLE,
-	PRIMARY KEY (`receipt_id`),
-	FOREIGN KEY (`emp_id`) REFERENCES `employee` (`emp_id`),
-	FOREIGN KEY (`party_id`) REFERENCES `party` (`party_id`),
-	FOREIGN KEY (`sales_id`) REFERENCES `sales` (`sales_id`)
-)
-COLLATE='latin1_swedish_ci'
-ENGINE=InnoDB
-;
+-- Dumping data for table sales_inventery.payment: ~0 rows (approximately)
+DELETE FROM `payment`;
 
+-- Dumping structure for table sales_inventery.product
+DROP TABLE IF EXISTS `product`;
+CREATE TABLE IF NOT EXISTS `product` (
+  `prod_id` int(11) NOT NULL AUTO_INCREMENT,
+  `prod_name` varchar(25) NOT NULL,
+  `prod_type` varchar(25) NOT NULL,
+  `prod_unit` varchar(25) DEFAULT NULL,
+  `no_of_decimals` int(11) DEFAULT NULL,
+  PRIMARY KEY (`prod_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
+-- Dumping data for table sales_inventery.product: ~1 rows (approximately)
+DELETE FROM `product`;
+INSERT INTO `product` (`prod_id`, `prod_name`, `prod_type`, `prod_unit`, `no_of_decimals`) VALUES
+	(1, 'A', 'A', NULL, NULL);
 
+-- Dumping structure for table sales_inventery.purchase
+DROP TABLE IF EXISTS `purchase`;
+CREATE TABLE IF NOT EXISTS `purchase` (
+  `purchase_id` int(11) NOT NULL AUTO_INCREMENT,
+  `date` datetime NOT NULL,
+  `emp_id` int(11) NOT NULL,
+  `party_id` int(11) NOT NULL,
+  `quantity` double DEFAULT NULL,
+  `rate` double DEFAULT NULL,
+  `amount` double DEFAULT NULL,
+  `discount` double DEFAULT NULL,
+  `tax` double DEFAULT NULL,
+  `net_amount` double DEFAULT NULL,
+  PRIMARY KEY (`purchase_id`),
+  KEY `emp_id` (`emp_id`),
+  KEY `party_id` (`party_id`),
+  CONSTRAINT `purchase_ibfk_1` FOREIGN KEY (`emp_id`) REFERENCES `employee` (`emp_id`),
+  CONSTRAINT `purchase_ibfk_2` FOREIGN KEY (`party_id`) REFERENCES `party` (`party_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+
+-- Dumping data for table sales_inventery.purchase: ~1 rows (approximately)
+DELETE FROM `purchase`;
+INSERT INTO `purchase` (`purchase_id`, `date`, `emp_id`, `party_id`, `quantity`, `rate`, `amount`, `discount`, `tax`, `net_amount`) VALUES
+	(1, '2022-11-29 00:27:06', 1, 1, 1, 1, 1, 1, 1, 1);
+
+-- Dumping structure for table sales_inventery.receipt
+DROP TABLE IF EXISTS `receipt`;
+CREATE TABLE IF NOT EXISTS `receipt` (
+  `receipt_id` int(11) NOT NULL AUTO_INCREMENT,
+  `date` datetime NOT NULL,
+  `emp_id` int(11) NOT NULL,
+  `party_id` int(11) NOT NULL,
+  `sales_id` int(11) NOT NULL,
+  `amount` double DEFAULT NULL,
+  PRIMARY KEY (`receipt_id`),
+  KEY `emp_id` (`emp_id`),
+  KEY `party_id` (`party_id`),
+  KEY `sales_id` (`sales_id`),
+  CONSTRAINT `receipt_ibfk_1` FOREIGN KEY (`emp_id`) REFERENCES `employee` (`emp_id`),
+  CONSTRAINT `receipt_ibfk_2` FOREIGN KEY (`party_id`) REFERENCES `party` (`party_id`),
+  CONSTRAINT `receipt_ibfk_3` FOREIGN KEY (`sales_id`) REFERENCES `sales` (`sales_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- Dumping data for table sales_inventery.receipt: ~0 rows (approximately)
+DELETE FROM `receipt`;
+
+-- Dumping structure for table sales_inventery.sales
+DROP TABLE IF EXISTS `sales`;
+CREATE TABLE IF NOT EXISTS `sales` (
+  `sales_id` int(11) NOT NULL AUTO_INCREMENT,
+  `date` datetime NOT NULL,
+  `emp_id` int(11) NOT NULL,
+  `party_id` int(11) NOT NULL,
+  `quantity` double DEFAULT NULL,
+  `rate` double DEFAULT NULL,
+  `amount` double DEFAULT NULL,
+  `discount` double DEFAULT NULL,
+  `tax` double DEFAULT NULL,
+  `net_amount` double DEFAULT NULL,
+  PRIMARY KEY (`sales_id`),
+  KEY `emp_id` (`emp_id`),
+  KEY `party_id` (`party_id`),
+  CONSTRAINT `sales_ibfk_1` FOREIGN KEY (`emp_id`) REFERENCES `employee` (`emp_id`),
+  CONSTRAINT `sales_ibfk_2` FOREIGN KEY (`party_id`) REFERENCES `party` (`party_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- Dumping data for table sales_inventery.sales: ~0 rows (approximately)
+DELETE FROM `sales`;
+
+/*!40103 SET TIME_ZONE=IFNULL(@OLD_TIME_ZONE, 'system') */;
+/*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
+/*!40014 SET FOREIGN_KEY_CHECKS=IFNULL(@OLD_FOREIGN_KEY_CHECKS, 1) */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40111 SET SQL_NOTES=IFNULL(@OLD_SQL_NOTES, 1) */;
