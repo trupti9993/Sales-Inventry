@@ -24,40 +24,35 @@
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:layout_marginBottom="5dp"
-      android:hint="@string/form_name" />
+      android:hint="Product Name" />
 
     <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/form_textFieldMobileNo"
+        android:id="@+id/form_textFieldProdType"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="5dp"
-        android:hint="Mobile No" />
+        android:hint="Prod Type" />
 
     <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/form_textFieldEmail"
+        android:id="@+id/form_textFieldProdUnit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="5dp"
-        android:hint="Email" />
+        android:hint="Prod Unit" />
 
     <com.google.android.material.textfield.TextInputEditText
-      android:id="@+id/form_textFieldAddress"
+      android:id="@+id/form_textFieldNoOfDecimal"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:layout_marginBottom="5dp"
-      android:hint="Address" />
+      android:hint="No of Decimal" />
 
-    <com.google.android.material.textfield.TextInputEditText
-      android:id="@+id/form_textFieldPassword"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:layout_marginBottom="5dp"
-      android:hint="Password" />
+
   </LinearLayout>
 
   <com.google.android.material.button.MaterialButton
     android:id="@+id/form_buttonSave"
-    android:text="@string/button_save_employee"
+    android:text="SAVE PRODUCT"
     android:layout_alignParentBottom="true"
     android:minHeight="60dp"
     android:layout_width="match_parent"

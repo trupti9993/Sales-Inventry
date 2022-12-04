@@ -39,7 +39,7 @@ public class PartyForm extends AppCompatActivity {
     TextInputEditText inputEditMobileNo = findViewById(R.id.form_textFieldMobileNo);
     TextInputEditText inputEditEmail = findViewById(R.id.form_textFieldEmail);
     TextInputEditText inputEditAddress = findViewById(R.id.form_textFieldAddress);
-    TextInputEditText inputEditPass = findViewById(R.id.form_textFieldPassword);
+
     MaterialButton buttonSave = findViewById(R.id.form_buttonSave);
 
      inputEditTextId.setVisibility(View.INVISIBLE);
@@ -58,7 +58,7 @@ public class PartyForm extends AppCompatActivity {
                        inputEditMobileNo.setText(partyDTO.getMobileNo());
                        inputEditEmail.setText(partyDTO.getEmail());
                        inputEditAddress.setText(partyDTO.getAddress());
-                     //  inputEditPass.setText(partyDTO.getPassword());
+
                        inputEditTextId.setText(String.valueOf( partyDTO.getPartyId()));
                    }
 
@@ -74,7 +74,7 @@ public class PartyForm extends AppCompatActivity {
        inputEditMobileNo.setText("");
        inputEditEmail.setText("");
        inputEditAddress.setText("");
-       inputEditPass.setText("");
+
        inputEditTextId.setText("-1");
    }
 
@@ -86,7 +86,7 @@ public class PartyForm extends AppCompatActivity {
       String address = String.valueOf(inputEditAddress.getText());
       String email = String.valueOf(inputEditEmail.getText());
       String mobile = String.valueOf(inputEditMobileNo.getText());
-      String pass = String.valueOf(inputEditPass.getText());
+
       Integer partyId=Integer.parseInt(String.valueOf(inputEditTextId.getText()));
 
         PartyDTO party = new PartyDTO();
@@ -95,7 +95,7 @@ public class PartyForm extends AppCompatActivity {
         party.setAddress(address);
         party.setEmail(email);
         party.setMobileNo(mobile);
-        //party.setPassword(pass);
+
 
         partyApi.saveParty(party)
           .enqueue(new Callback<PartyDTO>() {

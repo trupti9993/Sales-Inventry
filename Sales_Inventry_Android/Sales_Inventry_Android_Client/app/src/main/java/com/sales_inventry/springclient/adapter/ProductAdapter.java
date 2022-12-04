@@ -53,8 +53,8 @@ try {
    ProductDTO product = productList.get(position);
   Integer productId=product.getProdId();
    holder.name.setText(product.getProdName());
- // holder.address.setText(product.getAddress());
- // holder.email.setText(product.getEmail());
+  holder.prodType.setText(product.getProdType());
+  holder.prodUnit.setText(product.getProdUnit());
 
   holder.updateBtn.setOnClickListener(view -> productListActivity.updateProduct(productId));
   holder.deleteBtn.setOnClickListener(view -> productListActivity.deleteProduct(productId));

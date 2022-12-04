@@ -49,7 +49,7 @@ public class PartyListActivity extends AppCompatActivity {
 
     FloatingActionButton floatingActionButton = findViewById(R.id.employeeList_fab);
     floatingActionButton.setOnClickListener(view -> {
-      Intent intent = new Intent(this, EmployeeForm.class);
+      Intent intent = new Intent(this, PartyForm.class);
       startActivity(intent);
     });
   }
@@ -78,8 +78,8 @@ public class PartyListActivity extends AppCompatActivity {
   }
 
 
-  private void populateListView(List<PartyDTO> employeeList) {
-      PartyAdapter partyAdapter = new PartyAdapter(employeeList,this);
+  private void populateListView(List<PartyDTO> partyList) {
+      PartyAdapter partyAdapter = new PartyAdapter(partyList,this);
       recyclerView.setAdapter(partyAdapter);
   }
 

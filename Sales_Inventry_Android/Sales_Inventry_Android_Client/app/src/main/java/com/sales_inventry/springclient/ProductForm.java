@@ -36,10 +36,10 @@ public class ProductForm extends AppCompatActivity {
   private void initializeComponents() {
     TextInputEditText inputEditTextName = findViewById(R.id.form_textFieldName);
     TextInputEditText inputEditTextId = findViewById(R.id.form_textFieldId);
-    TextInputEditText inputEditMobileNo = findViewById(R.id.form_textFieldMobileNo);
-    TextInputEditText inputEditEmail = findViewById(R.id.form_textFieldEmail);
-    TextInputEditText inputEditAddress = findViewById(R.id.form_textFieldAddress);
-    TextInputEditText inputEditPass = findViewById(R.id.form_textFieldPassword);
+    TextInputEditText inputEditProdType = findViewById(R.id.form_textFieldProdType);
+    TextInputEditText inputEditProdUnit = findViewById(R.id.form_textFieldProdUnit);
+    TextInputEditText inputEditNoOfDecimal = findViewById(R.id.form_textFieldNoOfDecimal);
+
     MaterialButton buttonSave = findViewById(R.id.form_buttonSave);
 
      inputEditTextId.setVisibility(View.INVISIBLE);
@@ -52,14 +52,14 @@ public class ProductForm extends AppCompatActivity {
                .enqueue(new Callback<ResponseEntity>() {
                    @Override
                    public void onResponse(Call<ResponseEntity> call, Response<ResponseEntity> response) {
-                       ProductDTO employeeDTO= (ProductDTO) response.body().getProductData();
+                       ProductDTO productDTO= (ProductDTO) response.body().getProductData();
 
-                      /* inputEditTextName.setText(employeeDTO.getEmpName());
-                       inputEditMobileNo.setText(employeeDTO.getMobileNo());
-                       inputEditEmail.setText(employeeDTO.getEmail());
-                       inputEditAddress.setText(employeeDTO.getAddress());
-                       inputEditPass.setText(employeeDTO.getPassword());
-                       inputEditTextId.setText(String.valueOf( employeeDTO.getEmployeeId()));*/
+                      inputEditTextName.setText(productDTO.getProdName());
+                       inputEditProdType.setText(productDTO.getProdType());
+                       inputEditProdUnit.setText(productDTO.getProdUnit());
+                       inputEditNoOfDecimal.setText(productDTO.getNoOfDecimals());
+
+                       inputEditTextId.setText(String.valueOf( productDTO.getProdId()));
                    }
 
                    @Override
@@ -71,10 +71,10 @@ public class ProductForm extends AppCompatActivity {
        ProductListActivity.setProductId(-1);
     }else {
        inputEditTextName.setText("");
-       inputEditMobileNo.setText("");
-       inputEditEmail.setText("");
-       inputEditAddress.setText("");
-       inputEditPass.setText("");
+       inputEditProdType.setText("");
+       inputEditProdUnit.setText("");
+       inputEditNoOfDecimal.setText("");
+
        inputEditTextId.setText("-1");
    }
 
@@ -83,19 +83,19 @@ public class ProductForm extends AppCompatActivity {
 
     buttonSave.setOnClickListener(view -> {
       String name = String.valueOf(inputEditTextName.getText());
-      String address = String.valueOf(inputEditAddress.getText());
-      String email = String.valueOf(inputEditEmail.getText());
-      String mobile = String.valueOf(inputEditMobileNo.getText());
-      String pass = String.valueOf(inputEditPass.getText());
+      String prodType = String.valueOf(inputEditProdType.getText());
+      String prodUnit = String.valueOf(inputEditProdUnit.getText());
+      String noOfDecimal = String.valueOf(inputEditNoOfDecimal.getText());
+
       Integer productId=Integer.parseInt(String.valueOf(inputEditTextId.getText()));
 
         ProductDTO product = new ProductDTO();
-    /*  employee.setEmpName(name);
-        employee.setEmployeeId(employeeId);
-      employee.setAddress(address);
-      employee.setEmail(email);
-      employee.setMobileNo(mobile);
-      employee.setPassword(pass);*/
+        product.setProdName(name);
+        product.setProdId(productId);
+        product.setProdType(prodType);
+        product.setProdUnit(prodUnit);
+        product.setNoOfDecimals(Integer.parseInt(noOfDecimal));
+
 
         productApi.saveProduct(product)
           .enqueue(new Callback<ProductDTO>() {
