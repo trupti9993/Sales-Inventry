@@ -43,6 +43,140 @@ SET status=0;
 END//
 DELIMITER ;
 
+-- Dumping structure for procedure sales_inventery.deleteParty
+DROP PROCEDURE IF EXISTS `deleteParty`;
+DELIMITER //
+CREATE PROCEDURE `deleteParty`(
+	IN `partyId` INT,
+	OUT `status` INT
+
+)
+BEGIN
+
+DECLARE FoundCount INT;
+SET status=0;
+
+	SELECT COUNT(*) into FoundCount FROM purchase WHERE party_id = partyId;	
+	
+	if FoundCount=0 THEN
+		DELETE FROM party WHERE party_id = partyId;		
+		SET status=1;
+	END IF;
+
+END//
+DELIMITER ;
+
+-- Dumping structure for procedure sales_inventery.deletePayment
+DROP PROCEDURE IF EXISTS `deletePayment`;
+DELIMITER //
+CREATE PROCEDURE `deletePayment`(
+	IN `paymentId` INT,
+	OUT `status` INT
+
+)
+BEGIN
+
+
+SET status=0;
+
+
+		DELETE FROM payment WHERE payment_id = paymentId;	
+		SET status=1;
+
+
+END//
+DELIMITER ;
+
+-- Dumping structure for procedure sales_inventery.deleteProduct
+DROP PROCEDURE IF EXISTS `deleteProduct`;
+DELIMITER //
+CREATE PROCEDURE `deleteProduct`(
+	IN `productId` INT,
+	OUT `status` INT
+
+)
+BEGIN
+
+DECLARE FoundCount INT;
+SET status=0;
+
+	SELECT COUNT(*) into FoundCount FROM purchase WHERE prod_id = productId;	
+	
+	if FoundCount=0 THEN
+		DELETE FROM product  WHERE prod_id = productId;	
+		SET status=1;
+	END IF;
+
+END//
+DELIMITER ;
+
+-- Dumping structure for procedure sales_inventery.deletePurchase
+DROP PROCEDURE IF EXISTS `deletePurchase`;
+DELIMITER //
+CREATE PROCEDURE `deletePurchase`(
+	IN `purchaseId` INT,
+	OUT `status` INT
+
+)
+BEGIN
+
+DECLARE FoundCount INT;
+SET status=0;
+
+	SELECT COUNT(*) into FoundCount FROM payment WHERE purchase_id = purchaseId;	
+	
+	if FoundCount=0 THEN
+		DELETE FROM purchase WHERE purchase_id = purchaseId;		
+		SET status=1;
+	END IF;
+
+END//
+DELIMITER ;
+
+-- Dumping structure for procedure sales_inventery.deleteReceipt
+DROP PROCEDURE IF EXISTS `deleteReceipt`;
+DELIMITER //
+CREATE PROCEDURE `deleteReceipt`(
+	IN `receiptId` INT,
+	OUT `status` INT
+
+)
+BEGIN
+
+
+SET status=0;
+
+
+		DELETE FROM receipt WHERE receipt_id = receiptId;	
+		SET status=1;
+
+
+END//
+DELIMITER ;
+
+-- Dumping structure for procedure sales_inventery.deleteSale
+DROP PROCEDURE IF EXISTS `deleteSale`;
+DELIMITER //
+CREATE PROCEDURE `deleteSale`(
+	IN `saleId` INT,
+	OUT `status` INT
+
+)
+BEGIN
+
+DECLARE FoundCount INT;
+SET status=0;
+
+	SELECT COUNT(*) into FoundCount FROM receipt WHERE sale_id = saleId;	
+	
+	if FoundCount=0 THEN
+		DELETE FROM sales WHERE sale_id = saleId;	
+		SET status=1;
+	END IF;
+
+END//
+DELIMITER ;
+
 -- Dumping structure for table sales_inventery.employee
 DROP TABLE IF EXISTS `employee`;
 CREATE TABLE IF NOT EXISTS `employee` (
@@ -58,11 +192,8 @@ CREATE TABLE IF NOT EXISTS `employee` (
   CONSTRAINT `FK_employee_employee` FOREIGN KEY (`man_id`) REFERENCES `employee` (`emp_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
--- Dumping data for table sales_inventery.employee: ~2 rows (approximately)
+-- Dumping data for table sales_inventery.employee: ~0 rows (approximately)
 DELETE FROM `employee`;
-INSERT INTO `employee` (`emp_id`, `emp_name`, `address`, `email`, `mobile_no`, `password`, `man_id`) VALUES
-	(1, 'A', 'A', NULL, NULL, NULL, NULL),
-	(2, 'B', 'B', NULL, NULL, NULL, 1);
 
 -- Dumping structure for table sales_inventery.party
 DROP TABLE IF EXISTS `party`;
@@ -75,11 +206,8 @@ CREATE TABLE IF NOT EXISTS `party` (
   PRIMARY KEY (`party_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
--- Dumping data for table sales_inventery.party: ~2 rows (approximately)
+-- Dumping data for table sales_inventery.party: ~0 rows (approximately)
 DELETE FROM `party`;
-INSERT INTO `party` (`party_id`, `party_name`, `address`, `email`, `mobile_no`) VALUES
-	(1, 'A', NULL, NULL, NULL),
-	(2, 'B', NULL, NULL, NULL);
 
 -- Dumping structure for table sales_inventery.payment
 DROP TABLE IF EXISTS `payment`;
@@ -113,10 +241,8 @@ CREATE TABLE IF NOT EXISTS `product` (
   PRIMARY KEY (`prod_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
--- Dumping data for table sales_inventery.product: ~1 rows (approximately)
+-- Dumping data for table sales_inventery.product: ~0 rows (approximately)
 DELETE FROM `product`;
-INSERT INTO `product` (`prod_id`, `prod_name`, `prod_type`, `prod_unit`, `no_of_decimals`) VALUES
-	(1, 'A', 'A', NULL, NULL);
 
 -- Dumping structure for table sales_inventery.purchase
 DROP TABLE IF EXISTS `purchase`;
@@ -138,10 +264,8 @@ CREATE TABLE IF NOT EXISTS `purchase` (
   CONSTRAINT `purchase_ibfk_2` FOREIGN KEY (`party_id`) REFERENCES `party` (`party_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
--- Dumping data for table sales_inventery.purchase: ~1 rows (approximately)
+-- Dumping data for table sales_inventery.purchase: ~0 rows (approximately)
 DELETE FROM `purchase`;
-INSERT INTO `purchase` (`purchase_id`, `date`, `emp_id`, `party_id`, `quantity`, `rate`, `amount`, `discount`, `tax`, `net_amount`) VALUES
-	(1, '2022-11-29 00:27:06', 1, 1, 1, 1, 1, 1, 1, 1);
 
 -- Dumping structure for table sales_inventery.receipt
 DROP TABLE IF EXISTS `receipt`;
