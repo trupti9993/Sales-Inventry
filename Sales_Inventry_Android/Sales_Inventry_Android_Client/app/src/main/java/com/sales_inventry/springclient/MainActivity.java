@@ -38,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
 
                 int id = item.getItemId();
                 drawerLayout.closeDrawer(GravityCompat.START);
+                Intent intent=null;
                 try {
                 switch (id)
                 {
@@ -45,26 +46,31 @@ public class MainActivity extends AppCompatActivity {
                     case R.id.nav_home:
                         Toast.makeText(MainActivity.this, "Home is Clicked", Toast.LENGTH_SHORT).show();break;
                     case R.id.nav_employee:
-
-                    Intent intent = new Intent(MainActivity.this, EmployeeListActivity.class);
-
-                    startActivity(intent);
+                     intent = new Intent(MainActivity.this, EmployeeListActivity.class);
                     break;
-
                     case R.id.nav_party:
-                        Toast.makeText(MainActivity.this, "Party is Clicked",Toast.LENGTH_SHORT).show();break;
+                         intent = new Intent(MainActivity.this, PartyListActivity.class);
+                        break;
                     case R.id.nav_product:
-                        Toast.makeText(MainActivity.this, "Product is Clicked",Toast.LENGTH_SHORT).show();break;
+                        intent = new Intent(MainActivity.this, ProductListActivity.class);
+                        break;
                     case R.id.nav_purchase:
-                        Toast.makeText(MainActivity.this, "Purchase is Clicked",Toast.LENGTH_SHORT).show();break;
+                        intent = new Intent(MainActivity.this, PurchaseListActivity.class);
+                        break;
                     case R.id.nav_sale:
-                        Toast.makeText(MainActivity.this, "Sale is Clicked",Toast.LENGTH_SHORT).show();break;
+                        intent = new Intent(MainActivity.this, SaleListActivity.class);
+                        break;
 
                     case R.id.nav_payment:
-                        Toast.makeText(MainActivity.this, "Payment is Clicked",Toast.LENGTH_SHORT).show();break;
+                        intent = new Intent(MainActivity.this, PaymentListActivity.class);
+                        break;
                     case R.id.nav_receipt:
-                        Toast.makeText(MainActivity.this, "Receipt is clicked",Toast.LENGTH_SHORT).show();break;
+                        intent = new Intent(MainActivity.this, ReceiptListActivity.class);
+                        break;
 
+                }
+                if(intent!=null){
+                    startActivity(intent);
                 }
 
                     return true;

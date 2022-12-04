@@ -17,6 +17,7 @@
         <category android:name="android.intent.category.LAUNCHER" />
       </intent-filter>
     </activity>
+
     <activity
         android:exported="true"
         android:label="Employee list"
@@ -25,6 +26,62 @@
         android:exported="true"
         android:name=".EmployeeForm"
         android:label="Create new employee"/>
+
+    <activity
+        android:exported="true"
+        android:label="Party list"
+        android:name=".PartyListActivity" />
+    <activity
+        android:exported="true"
+        android:name=".PartyForm"
+        android:label="Create new party"/>
+
+    <activity
+        android:exported="true"
+        android:label="Product list"
+        android:name=".ProductListActivity" />
+    <activity
+        android:exported="true"
+        android:name=".ProductForm"
+        android:label="Create new product"/>
+
+    <activity
+        android:exported="true"
+        android:label="Payment list"
+        android:name=".PaymentListActivity" />
+    <activity
+        android:exported="true"
+        android:name=".PaymentForm"
+        android:label="Create new payment"/>
+
+    <activity
+        android:exported="true"
+        android:label="Receipt list"
+        android:name=".ReceiptListActivity" />
+    <activity
+        android:exported="true"
+        android:name=".ReceiptForm"
+        android:label="Create new receipt"/>
+
+    <activity
+        android:exported="true"
+        android:label="Purchase list"
+        android:name=".PurchaseListActivity" />
+    <activity
+        android:exported="true"
+        android:name=".PurchaseForm"
+        android:label="Create new purchase"/>
+
+    <activity
+        android:exported="true"
+        android:label="Sale list"
+        android:name=".SaleListActivity" />
+    <activity
+        android:exported="true"
+        android:name=".SaleForm"
+        android:label="Create new sale"/>
+
+
   </application>
 
   <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
