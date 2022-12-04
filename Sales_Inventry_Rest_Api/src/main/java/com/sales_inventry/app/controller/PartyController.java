@@ -26,7 +26,7 @@ public class PartyController {
 		partyService.savePartyToDB(party);
 
 		Response response = new Response();
-		response.setResponseData(party.getPartyId());
+		response.setPartyResponseData(party.getPartyId());
 		response.setStatus(Response.SUCCESS_STATUS);
 
 		return ResponseEntity.ok(response);
@@ -34,13 +34,13 @@ public class PartyController {
 	}
 
 	@GetMapping("/getParty/{partyId}")
-	public ResponseEntity<Response> saveEmployeesToDB(@PathVariable("partyId") Integer partyId) throws Exception {
+	public ResponseEntity<Response> getParty(@PathVariable("partyId") Integer partyId) throws Exception {
 
 		PartyDTO party = partyService.getParty(partyId);
 
 		Response response = new Response();
 		response.setStatus(Response.SUCCESS_STATUS);
-		response.setResponseData(party);
+		response.setPartyData(party);
 
 		return ResponseEntity.ok(response);
 	}
@@ -49,7 +49,7 @@ public class PartyController {
 	public ResponseEntity<Response> getAllPartyDetails() {
 
 		Response response = new Response();
-		response.setResponseData(partyService.getAllPartyDetails());
+		response.setPartyResponseData(partyService.getAllPartyDetails());
 		response.setStatus(Response.SUCCESS_STATUS);
 
 		return ResponseEntity.ok(response);

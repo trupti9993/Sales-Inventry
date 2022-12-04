@@ -26,7 +26,7 @@ public class ReceiptController {
 		receiptService.saveReceiptToDB(receipt);
 
 		Response response = new Response();
-		response.setResponseData(receipt.getReceiptId());
+		response.setReceiptResponseData(receipt.getReceiptId());
 		response.setStatus(Response.SUCCESS_STATUS);
 
 		return ResponseEntity.ok(response);
@@ -34,13 +34,13 @@ public class ReceiptController {
 	}
 
 	@GetMapping("/getReceipt/{receiptId}")
-	public ResponseEntity<Response> saveEmployeesToDB(@PathVariable("receiptId") Integer receiptId) throws Exception {
+	public ResponseEntity<Response> getReceipt(@PathVariable("receiptId") Integer receiptId) throws Exception {
 
 		ReceiptDTO receipt = receiptService.getReceipt(receiptId);
 
 		Response response = new Response();
 		response.setStatus(Response.SUCCESS_STATUS);
-		response.setResponseData(receipt);
+		response.setReceiptData(receipt);
 
 		return ResponseEntity.ok(response);
 	}
@@ -49,7 +49,7 @@ public class ReceiptController {
 	public ResponseEntity<Response> getAllReceiptDetails() {
 
 		Response response = new Response();
-		response.setResponseData(receiptService.getAllReciptsDetails());
+		response.setReceiptResponseData(receiptService.getAllReciptsDetails());
 		response.setStatus(Response.SUCCESS_STATUS);
 
 		return ResponseEntity.ok(response);

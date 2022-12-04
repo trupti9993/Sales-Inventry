@@ -70,9 +70,18 @@ public class EmployeeDTO {
 		this.setEmail(emp.getEmail());
 		this.setPassword(emp.getPassword());
 		this.setAddress(emp.getAddress());
+		this.setEmployeeId(emp.getEmployeeId());
 	}
 
 	public EmployeeDTO() {
 	}
+
+	@Override
+	public String toString() {
+		return "EmployeeDTO [employeeId=" + employeeId + ", empName=" + empName + ", mobileNo=" + mobileNo + ", email="
+				+ email + ", address=" + address + ", password=" + password + "]";
+	}
+	
+	
 
 }

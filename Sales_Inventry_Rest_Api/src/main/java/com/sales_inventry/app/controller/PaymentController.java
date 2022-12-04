@@ -26,7 +26,7 @@ public class PaymentController {
 		paymentService.savePaymentToDB(payment);
 
 		Response response = new Response();
-		response.setResponseData(payment.getPaymentId());
+		response.setPaymentResponseData(payment.getPaymentId());
 		response.setStatus(Response.SUCCESS_STATUS);
 
 		return ResponseEntity.ok(response);
@@ -34,13 +34,13 @@ public class PaymentController {
 	}
 
 	@GetMapping("/getPayment/{paymentId}")
-	public ResponseEntity<Response> saveEmployeesToDB(@PathVariable("paymentId") Integer paymentId) throws Exception {
+	public ResponseEntity<Response> getPayment(@PathVariable("paymentId") Integer paymentId) throws Exception {
 
 		PaymentDTO payment = paymentService.getPayment(paymentId);
 
 		Response response = new Response();
 		response.setStatus(Response.SUCCESS_STATUS);
-		response.setResponseData(payment);
+		response.setPaymentData(payment);
 
 		return ResponseEntity.ok(response);
 	}
@@ -49,7 +49,7 @@ public class PaymentController {
 	public ResponseEntity<Response> getAllPaymentDetails() {
 
 		Response response = new Response();
-		response.setResponseData(paymentService.getAllPaymentDetails());
+		response.setPaymentResponseData(paymentService.getAllPaymentDetails());
 		response.setStatus(Response.SUCCESS_STATUS);
 
 		return ResponseEntity.ok(response);

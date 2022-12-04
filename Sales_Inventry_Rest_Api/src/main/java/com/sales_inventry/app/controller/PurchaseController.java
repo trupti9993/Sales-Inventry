@@ -26,7 +26,7 @@ public class PurchaseController {
 		purchaseService.savePurchaseToDB(purchase);
 
 		Response response = new Response();
-		response.setResponseData(purchase.getPurchaseId());
+		response.setPartyResponseData(purchase.getPurchaseId());
 		response.setStatus(Response.SUCCESS_STATUS);
 
 		return ResponseEntity.ok(response);
@@ -34,13 +34,13 @@ public class PurchaseController {
 	}
 
 	@GetMapping("/getPurchase/{purchaseId}")
-	public ResponseEntity<Response> saveEmployeesToDB(@PathVariable("purchaseId") Integer purchaseId) throws Exception {
+	public ResponseEntity<Response> getPurchase(@PathVariable("purchaseId") Integer purchaseId) throws Exception {
 
 		PurchaseDTO purchase = purchaseService.getPurchase(purchaseId);
 
 		Response response = new Response();
 		response.setStatus(Response.SUCCESS_STATUS);
-		response.setResponseData(purchase);
+		response.setPurchaseData(purchase);
 
 		return ResponseEntity.ok(response);
 	}
@@ -49,7 +49,7 @@ public class PurchaseController {
 	public ResponseEntity<Response> getAllPurchaseDetails() {
 
 		Response response = new Response();
-		response.setResponseData(purchaseService.getAllPurchaseDetails());
+		response.setPurchaseData(purchaseService.getAllPurchaseDetails());
 		response.setStatus(Response.SUCCESS_STATUS);
 
 		return ResponseEntity.ok(response);

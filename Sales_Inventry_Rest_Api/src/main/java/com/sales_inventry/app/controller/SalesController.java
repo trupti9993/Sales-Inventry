@@ -26,7 +26,7 @@ public class SalesController {
 		salesService.saveSalesToDB(sales);
 
 		Response response = new Response();
-		response.setResponseData(sales.getSalesId());
+		response.setSaleResponseData(sales.getSalesId());
 		response.setStatus(Response.SUCCESS_STATUS);
 
 		return ResponseEntity.ok(response);
@@ -34,13 +34,13 @@ public class SalesController {
 	}
 
 	@GetMapping("/getSales/{saleId}")
-	public ResponseEntity<Response> saveEmployeesToDB(@PathVariable("saleId") Integer saleId) throws Exception {
+	public ResponseEntity<Response> getSale(@PathVariable("saleId") Integer saleId) throws Exception {
 
 		SalesDTO sales = salesService.getSale(saleId);
 
 		Response response = new Response();
 		response.setStatus(Response.SUCCESS_STATUS);
-		response.setResponseData(sales);
+		response.setSaleData(sales);
 
 		return ResponseEntity.ok(response);
 	}
@@ -49,7 +49,7 @@ public class SalesController {
 	public ResponseEntity<Response> getAllSalesDetails() {
 
 		Response response = new Response();
-		response.setResponseData(salesService.getAllSalesDetails());
+		response.setSaleResponseData(salesService.getAllSalesDetails());
 		response.setStatus(Response.SUCCESS_STATUS);
 
 		return ResponseEntity.ok(response);

@@ -59,6 +59,9 @@ public class Employee {
 		this.setEmail(employeeDto.getEmail());
 		this.setPassword(employeeDto.getPassword());
 		this.setAddress(employeeDto.getAddress());
+		if(employeeDto.getEmployeeId()!=null&&employeeDto.getEmployeeId()!=-1) {
+			this.setEmployeeId(employeeDto.getEmployeeId());
+		}
 	}
 
 	public Employee() {

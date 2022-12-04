@@ -26,7 +26,7 @@ public class EmployeeController {
 		employeeService.saveEmployeeToDB(employee);
 
 		Response response = new Response();
-		response.setResponseData(employee.getEmployeeId());
+		response.setEmpResponseData(employee.getEmployeeId());
 		response.setStatus(Response.SUCCESS_STATUS);
 
 		return ResponseEntity.ok(response);
@@ -34,13 +34,13 @@ public class EmployeeController {
 	}
 
 	@GetMapping("/getEmployee/{empId}")
-	public ResponseEntity<Response> saveEmployeesToDB(@PathVariable("empId") Integer empId) throws Exception {
+	public ResponseEntity<Response> getEmployee(@PathVariable("empId") Integer empId) throws Exception {
 
 		EmployeeDTO emp = employeeService.getEmployee(empId);
 
 		Response response = new Response();
 		response.setStatus(Response.SUCCESS_STATUS);
-		response.setResponseData(emp);
+		response.setEmpData(emp);
 
 		return ResponseEntity.ok(response);
 	}
@@ -49,11 +49,22 @@ public class EmployeeController {
 	public ResponseEntity<Response> getAllEmpDetails() {
 
 		Response response = new Response();
-		response.setResponseData(employeeService.getAllEmployeeDetails());
+		response.setEmpResponseData(employeeService.getAllEmployeeDetails());
 		response.setStatus(Response.SUCCESS_STATUS);
 
 		return ResponseEntity.ok(response);
 
+	}
+
+	@PostMapping("/deleteEmployee/{empId}")
+	public ResponseEntity<Response> deleteEmployee(@PathVariable("empId") Integer empId) throws Exception {
+
+		Integer result = employeeService.deleteEmployee(empId);
+
+		Response response = new Response();
+		response.setStatus(result == 0 ? Response.FAIL_STATUS : Response.SUCCESS_STATUS);
+
+		return ResponseEntity.ok(response);
 	}
 
 }

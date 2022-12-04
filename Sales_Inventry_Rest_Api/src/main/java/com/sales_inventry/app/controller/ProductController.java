@@ -26,7 +26,7 @@ public class ProductController {
 		productService.saveProductToDB(product);
 
 		Response response = new Response();
-		response.setResponseData(product.getProdId());
+		response.setProductResponseData(product.getProdId());
 		response.setStatus(Response.SUCCESS_STATUS);
 
 		return ResponseEntity.ok(response);
@@ -34,13 +34,13 @@ public class ProductController {
 	}
 
 	@GetMapping("/getProduct/{productId}")
-	public ResponseEntity<Response> saveEmployeesToDB(@PathVariable("productId") Integer productId) throws Exception {
+	public ResponseEntity<Response> getProduct(@PathVariable("productId") Integer productId) throws Exception {
 
 		ProductDTO product = productService.getProduct(productId);
 
 		Response response = new Response();
 		response.setStatus(Response.SUCCESS_STATUS);
-		response.setResponseData(product);
+		response.setProductData(product);
 
 		return ResponseEntity.ok(response);
 	}
@@ -49,7 +49,7 @@ public class ProductController {
 	public ResponseEntity<Response> getAllProductDetails() {
 
 		Response response = new Response();
-		response.setResponseData(productService.getAllProductsDetails());
+		response.setProductResponseData(productService.getAllProductsDetails());
 		response.setStatus(Response.SUCCESS_STATUS);
 
 		return ResponseEntity.ok(response);

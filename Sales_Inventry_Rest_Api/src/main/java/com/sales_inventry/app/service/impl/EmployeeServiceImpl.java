@@ -47,4 +47,9 @@ public class EmployeeServiceImpl implements EmployeeService {
 		return new EmployeeDTO(employee.get());
 	}
 
+	@Override
+	public Integer deleteEmployee(Integer employeeId) throws Exception {
+		return employeeRepository.deleteEmployee(employeeId);
+	}
+
 }

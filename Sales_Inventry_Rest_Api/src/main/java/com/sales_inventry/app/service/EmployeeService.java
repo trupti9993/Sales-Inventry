@@ -11,5 +11,7 @@ public interface EmployeeService {
 	void saveEmployeeToDB(EmployeeDTO employee);
 
 	EmployeeDTO getEmployee(Integer employeeId) throws Exception;
+	
+	Integer deleteEmployee(Integer employeeId) throws Exception;
 
 }
