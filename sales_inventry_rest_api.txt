@@ -44,6 +44,9 @@ Party ->
    
    GET:  http://localhost:8080/party/getAllPartyData
    
+   POST: http://localhost:8080/party/deleteParty/{partyId}
+         http://localhost:8080/party/deleteParty/1
+   
 Product -> 
    
    POST: http://localhost:8080/product/saveProduct
@@ -61,6 +64,9 @@ Product ->
          e.g- http://localhost:8080/product/getProduct/1
    
    GET:  http://localhost:8080/product/getAllProductData
+   
+    POST: http://localhost:8080/product/deleteProduct/{productId}
+         http://localhost:8080/product/deleteProduct/1
    
    
 Purchase -> 
@@ -85,6 +91,9 @@ Purchase ->
    
    GET:  http://localhost:8080/purchase/getAllPurchaseData
    
+    POST: http://localhost:8080/purchase/deletePurchase/{purchaseId}
+         http://localhost:8080/purchase/deletePurchase/1
+   
 Sale -> 
    
    POST: http://localhost:8080/sales/saveSales
@@ -108,6 +117,9 @@ Sale ->
    
    GET:  http://localhost:8080/sales/getAllSalesData 
    
+   POST: http://localhost:8080/sales/deleteSale/{saleId}
+         http://localhost:8080/sales/deleteSale/1
+   
 Payment -> 
    
    POST: http://localhost:8080/payment/savePayment
@@ -127,6 +139,9 @@ Payment ->
    
    GET:  http://localhost:8080/payment/getAllPaymentData 
    
+  POST: http://localhost:8080/payment/deletePayment/{paymentId}
+        http://localhost:8080/payment/deletePayment/1
+   
 Receipt -> 
    
    POST: http://localhost:8080/receipt/saveReceipt
@@ -145,6 +160,7 @@ Receipt ->
    
    GET:  http://localhost:8080/receipt/getAllReceiptData 
    
-   
+   POST: http://localhost:8080/receipt/deleteReceipt/{receiptId}
+         http://localhost:8080/receipt/deleteReceipt/1
    
    
