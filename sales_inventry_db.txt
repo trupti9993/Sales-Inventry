@@ -121,6 +121,15 @@ SET status=0;
 
 	SELECT COUNT(*) into FoundCount FROM purchase WHERE prod_id = productId;	
 	
+	select sum(cnt) into FoundCount
+from (
+    select count(*) as cnt from purchase WHERE prod_id = productId
+    union all
+    select count(*) as cnt from sales WHERE prod_id = productId
+    
+    
+) as cnt;
+	
 	if FoundCount=0 THEN
 		DELETE FROM product  WHERE prod_id = productId;	
 		SET status=1;
