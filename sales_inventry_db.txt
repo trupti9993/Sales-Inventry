@@ -98,10 +98,8 @@ BEGIN
 
 SET status=0;
 
-
 		DELETE FROM payment WHERE payment_id = paymentId;	
 		SET status=1;
-
 
 END//
 DELIMITER ;
@@ -279,6 +277,7 @@ CREATE TABLE IF NOT EXISTS `purchase` (
   `date` datetime NOT NULL,
   `emp_id` int(11) NOT NULL,
   `party_id` int(11) NOT NULL,
+  `prod_id` int(11) NOT NULL,
   `quantity` double DEFAULT NULL,
   `rate` double DEFAULT NULL,
   `amount` double DEFAULT NULL,
@@ -289,7 +288,8 @@ CREATE TABLE IF NOT EXISTS `purchase` (
   KEY `emp_id` (`emp_id`),
   KEY `party_id` (`party_id`),
   CONSTRAINT `purchase_ibfk_1` FOREIGN KEY (`emp_id`) REFERENCES `employee` (`emp_id`),
-  CONSTRAINT `purchase_ibfk_2` FOREIGN KEY (`party_id`) REFERENCES `party` (`party_id`)
+  CONSTRAINT `purchase_ibfk_2` FOREIGN KEY (`party_id`) REFERENCES `party` (`party_id`),
+  CONSTRAINT `purchase_ibfk_3` FOREIGN KEY (`prod_id`) REFERENCES `product` (`prod_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 
 -- Dumping data for table sales_inventery.purchase: ~0 rows (approximately)
@@ -323,6 +323,7 @@ CREATE TABLE IF NOT EXISTS `sales` (
   `date` datetime NOT NULL,
   `emp_id` int(11) NOT NULL,
   `party_id` int(11) NOT NULL,
+  `prod_id` int(11) NOT NULL,
   `quantity` double DEFAULT NULL,
   `rate` double DEFAULT NULL,
   `amount` double DEFAULT NULL,
@@ -333,7 +334,8 @@ CREATE TABLE IF NOT EXISTS `sales` (
   KEY `emp_id` (`emp_id`),
   KEY `party_id` (`party_id`),
   CONSTRAINT `sales_ibfk_1` FOREIGN KEY (`emp_id`) REFERENCES `employee` (`emp_id`),
-  CONSTRAINT `sales_ibfk_2` FOREIGN KEY (`party_id`) REFERENCES `party` (`party_id`)
+  CONSTRAINT `sales_ibfk_2` FOREIGN KEY (`party_id`) REFERENCES `party` (`party_id`),
+  CONSTRAINT `sales_ibfk_3` FOREIGN KEY (`prod_id`) REFERENCES `product` (`prod_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- Dumping data for table sales_inventery.sales: ~0 rows (approximately)
