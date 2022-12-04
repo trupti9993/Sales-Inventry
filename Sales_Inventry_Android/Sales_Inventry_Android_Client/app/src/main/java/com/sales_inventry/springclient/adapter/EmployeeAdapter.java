@@ -12,6 +12,8 @@ import com.sales_inventry.springclient.EmployeeForm;
 import com.sales_inventry.springclient.EmployeeListActivity;
 import com.sales_inventry.springclient.R;
 import com.sales_inventry.springclient.model.EmployeeDTO;
+import com.sales_inventry.springclient.reotrfit.EmployeeApi;
+import com.sales_inventry.springclient.reotrfit.RetrofitService;
 
 import java.util.List;
 import java.util.logging.Level;
@@ -21,8 +23,11 @@ public class EmployeeAdapter extends RecyclerView.Adapter<EmployeeHolder> {
 
   private List<EmployeeDTO> employeeList;
 
-  public EmployeeAdapter(List<EmployeeDTO> employeeList) {
+  private EmployeeListActivity employeeListActivity;
+
+  public EmployeeAdapter(List<EmployeeDTO> employeeList, EmployeeListActivity employeeListActivity) {
     this.employeeList = employeeList;
+    this.employeeListActivity=employeeListActivity;
   }
 
   @NonNull
@@ -36,13 +41,19 @@ public class EmployeeAdapter extends RecyclerView.Adapter<EmployeeHolder> {
   @Override
   public void onBindViewHolder(@NonNull EmployeeHolder holder, int position) {
 
+    RetrofitService retrofitService = new RetrofitService();
+    EmployeeApi employeeApi = retrofitService.getRetrofit().create(EmployeeApi.class);
+
 
 try {
    EmployeeDTO employee = employeeList.get(position);
-
+  Integer employeeId=employee.getEmployeeId();
    holder.name.setText(employee.getEmpName());
   holder.address.setText(employee.getAddress());
   holder.email.setText(employee.getEmail());
+
+  holder.updateBtn.setOnClickListener(view -> employeeListActivity.updateEmployee(employeeId));
+  holder.deleteBtn.setOnClickListener(view -> employeeListActivity.deleteEmployee(employeeId));
 } catch (Exception e){
   Toast.makeText(null, "Save failed!!!", Toast.LENGTH_SHORT).show();
   Logger.getLogger(EmployeeForm.class.getName()).log(Level.SEVERE, "Error occurred", e);

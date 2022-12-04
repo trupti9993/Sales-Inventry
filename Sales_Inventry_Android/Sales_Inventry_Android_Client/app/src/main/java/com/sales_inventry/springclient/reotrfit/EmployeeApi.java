@@ -1,19 +1,25 @@
 package com.sales_inventry.springclient.reotrfit;
 
 import com.sales_inventry.springclient.model.EmployeeDTO;
-import com.sales_inventry.springclient.model.ResponseEntity;
+import com.sales_inventry.springclient.model.EmployeeResponseEntity;
 
-import java.util.List;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.Path;
 
 public interface EmployeeApi {
 
   @GET("/employee/getAllEmployeeData")
-  Call<ResponseEntity> getAllEmployees();
+  Call<EmployeeResponseEntity> getAllEmployees();
 
   @POST("/employee/saveEmployee")
   Call<EmployeeDTO> save(@Body EmployeeDTO employee);
+
+  @GET("/employee/getEmployee/{empId}")
+  Call<EmployeeResponseEntity> getEmployee(@Path("empId") Integer empId);
+
+  @POST("/employee/deleteEmployee/{empId}")
+  Call<EmployeeResponseEntity> deleteEmployee(@Path("empId") Integer empId);
 }

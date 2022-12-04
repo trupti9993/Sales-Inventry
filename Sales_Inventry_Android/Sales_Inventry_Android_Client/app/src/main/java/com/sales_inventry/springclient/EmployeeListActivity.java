@@ -8,18 +8,33 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.sales_inventry.springclient.adapter.EmployeeAdapter;
 import com.sales_inventry.springclient.model.EmployeeDTO;
-import com.sales_inventry.springclient.model.ResponseEntity;
+import com.sales_inventry.springclient.model.EmployeeResponseEntity;
 import com.sales_inventry.springclient.reotrfit.EmployeeApi;
 import com.sales_inventry.springclient.reotrfit.RetrofitService;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 public class EmployeeListActivity extends AppCompatActivity {
 
+    private static Integer employeeId=-1;
+    public static Integer getEmployeeId() {
+        return employeeId;
+    }
+
+    public static void setEmployeeId(Integer empId) {
+         employeeId=empId;
+    }
+
   private RecyclerView recyclerView;
+
+    RetrofitService retrofitService = new RetrofitService();
+    EmployeeApi employeeApi = retrofitService.getRetrofit().create(EmployeeApi.class);
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -37,27 +52,31 @@ public class EmployeeListActivity extends AppCompatActivity {
   }
 
   private void loadEmployees() {
-    RetrofitService retrofitService = new RetrofitService();
-    EmployeeApi employeeApi = retrofitService.getRetrofit().create(EmployeeApi.class);
+
     employeeApi.getAllEmployees()
-        .enqueue(new Callback<ResponseEntity>() {
+        .enqueue(new Callback<EmployeeResponseEntity>() {
           @Override
-          public void onResponse(Call<ResponseEntity> call, Response<ResponseEntity> response) {
+          public void onResponse(Call<EmployeeResponseEntity> call, Response<EmployeeResponseEntity> response) {
+           try {
+               List<EmployeeDTO> responseData = (List<EmployeeDTO>) response.body().getResponseData();
 
-            List<EmployeeDTO> responseData =  response.body().getResponseData();
+               populateListView(responseData);
+           }catch (Exception e){
+               Toast.makeText(EmployeeListActivity.this, "Save successful! "+e.toString(), Toast.LENGTH_SHORT).show();
 
-            populateListView(responseData);
+           }
           }
 
           @Override
-          public void onFailure(Call<ResponseEntity> call, Throwable t) {
+          public void onFailure(Call<EmployeeResponseEntity> call, Throwable t) {
             Toast.makeText(EmployeeListActivity.this, "Failed to load employees ", Toast.LENGTH_SHORT).show();
           }
         });
   }
 
+
   private void populateListView(List<EmployeeDTO> employeeList) {
-      EmployeeAdapter employeeAdapter = new EmployeeAdapter(employeeList);
+      EmployeeAdapter employeeAdapter = new EmployeeAdapter(employeeList,this);
       recyclerView.setAdapter(employeeAdapter);
   }
 
@@ -66,4 +85,31 @@ public class EmployeeListActivity extends AppCompatActivity {
     super.onResume();
     loadEmployees();
   }
+
+    public void deleteEmployee(Integer employeeId) {
+        employeeApi.deleteEmployee(employeeId).enqueue(new Callback<EmployeeResponseEntity>() {
+            @Override
+            public void onResponse(Call<EmployeeResponseEntity> call, Response<EmployeeResponseEntity> response) {
+
+                Toast.makeText(EmployeeListActivity.this, "Delete successful! ", Toast.LENGTH_SHORT).show();
+
+                loadEmployees();
+            }
+
+            @Override
+            public void onFailure(Call<EmployeeResponseEntity> call, Throwable t) {
+
+                Toast.makeText(EmployeeListActivity.this, "Delete failed!!!", Toast.LENGTH_SHORT).show();
+                Logger.getLogger(EmployeeForm.class.getName()).log(Level.SEVERE, "Error occurred", t);
+            }
+        });
+
+
+    }
+
+    public void updateEmployee(Integer employeeId) {
+        EmployeeListActivity.setEmployeeId(employeeId);
+        Intent intent = new Intent(this, EmployeeForm.class);
+        startActivity(intent);
+    }
 }
