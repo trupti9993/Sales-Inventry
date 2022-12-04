@@ -37,6 +37,10 @@ from (
     select count(*) as cnt from purchase WHERE emp_id = empId
     union all
     select count(*) as cnt from sales WHERE emp_id = empId
+    union all
+    select count(*) as cnt from payment WHERE emp_id = empId
+    union all
+    select count(*) as cnt from receipt WHERE emp_id = empId
     
 ) as cnt;
 	
