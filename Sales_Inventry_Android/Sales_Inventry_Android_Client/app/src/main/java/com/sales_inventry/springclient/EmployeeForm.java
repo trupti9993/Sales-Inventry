@@ -6,7 +6,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import com.sales_inventry.springclient.model.EmployeeDTO;
-import com.sales_inventry.springclient.model.EmployeeResponseEntity;
+import com.sales_inventry.springclient.model.ResponseEntity;
 import com.sales_inventry.springclient.reotrfit.EmployeeApi;
 import com.sales_inventry.springclient.reotrfit.RetrofitService;
 import com.google.android.material.button.MaterialButton;
@@ -43,9 +43,9 @@ public class EmployeeForm extends AppCompatActivity {
 
    if(EmployeeListActivity.getEmployeeId()!=-1){
        employeeApi.getEmployee(EmployeeListActivity.getEmployeeId())
-               .enqueue(new Callback<EmployeeResponseEntity>() {
+               .enqueue(new Callback<ResponseEntity>() {
                    @Override
-                   public void onResponse(Call<EmployeeResponseEntity> call, Response<EmployeeResponseEntity> response) {
+                   public void onResponse(Call<ResponseEntity> call, Response<ResponseEntity> response) {
                        EmployeeDTO employeeDTO= (EmployeeDTO) response.body().getEmpData();
 
                        inputEditTextName.setText(employeeDTO.getEmpName());
@@ -57,7 +57,7 @@ public class EmployeeForm extends AppCompatActivity {
                    }
 
                    @Override
-                   public void onFailure(Call<EmployeeResponseEntity> call, Throwable t) {
+                   public void onFailure(Call<ResponseEntity> call, Throwable t) {
                        Toast.makeText(EmployeeForm.this, "Employee Fetch failed!!!", Toast.LENGTH_SHORT).show();
                        Logger.getLogger(EmployeeForm.class.getName()).log(Level.SEVERE, "Error occurred", t);
                    }

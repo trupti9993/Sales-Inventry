@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.sales_inventry.springclient.adapter.EmployeeAdapter;
 import com.sales_inventry.springclient.model.EmployeeDTO;
-import com.sales_inventry.springclient.model.EmployeeResponseEntity;
+import com.sales_inventry.springclient.model.ResponseEntity;
 import com.sales_inventry.springclient.reotrfit.EmployeeApi;
 import com.sales_inventry.springclient.reotrfit.RetrofitService;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -54,11 +54,11 @@ public class EmployeeListActivity extends AppCompatActivity {
   private void loadEmployees() {
 
     employeeApi.getAllEmployees()
-        .enqueue(new Callback<EmployeeResponseEntity>() {
+        .enqueue(new Callback<ResponseEntity>() {
           @Override
-          public void onResponse(Call<EmployeeResponseEntity> call, Response<EmployeeResponseEntity> response) {
+          public void onResponse(Call<ResponseEntity> call, Response<ResponseEntity> response) {
            try {
-               List<EmployeeDTO> responseData = (List<EmployeeDTO>) response.body().getResponseData();
+               List<EmployeeDTO> responseData = (List<EmployeeDTO>) response.body().getEmpResponseData();
 
                populateListView(responseData);
            }catch (Exception e){
@@ -68,7 +68,7 @@ public class EmployeeListActivity extends AppCompatActivity {
           }
 
           @Override
-          public void onFailure(Call<EmployeeResponseEntity> call, Throwable t) {
+          public void onFailure(Call<ResponseEntity> call, Throwable t) {
             Toast.makeText(EmployeeListActivity.this, "Failed to load employees ", Toast.LENGTH_SHORT).show();
           }
         });
@@ -87,9 +87,9 @@ public class EmployeeListActivity extends AppCompatActivity {
   }
 
     public void deleteEmployee(Integer employeeId) {
-        employeeApi.deleteEmployee(employeeId).enqueue(new Callback<EmployeeResponseEntity>() {
+        employeeApi.deleteEmployee(employeeId).enqueue(new Callback<ResponseEntity>() {
             @Override
-            public void onResponse(Call<EmployeeResponseEntity> call, Response<EmployeeResponseEntity> response) {
+            public void onResponse(Call<ResponseEntity> call, Response<ResponseEntity> response) {
 
                 Toast.makeText(EmployeeListActivity.this, "Delete successful! ", Toast.LENGTH_SHORT).show();
 
@@ -97,7 +97,7 @@ public class EmployeeListActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<EmployeeResponseEntity> call, Throwable t) {
+            public void onFailure(Call<ResponseEntity> call, Throwable t) {
 
                 Toast.makeText(EmployeeListActivity.this, "Delete failed!!!", Toast.LENGTH_SHORT).show();
                 Logger.getLogger(EmployeeForm.class.getName()).log(Level.SEVERE, "Error occurred", t);

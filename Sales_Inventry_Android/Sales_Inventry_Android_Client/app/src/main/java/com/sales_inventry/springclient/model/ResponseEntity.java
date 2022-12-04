@@ -12,12 +12,12 @@ public class ResponseEntity {
 		this.status = status;
 	}
 
-	public List<EmployeeDTO> getResponseData() {
-		return responseData;
+	public List<EmployeeDTO> getEmpResponseData() {
+		return empResponseData;
 	}
 
-	public void setResponseData(List<EmployeeDTO> responseData) {
-		this.responseData = responseData;
+	public void setEmpResponseData(List<EmployeeDTO> empResponseData) {
+		this.empResponseData = empResponseData;
 	}
 
 	public static String SUCCESS_STATUS = "SUCCESS";
@@ -26,6 +26,15 @@ public class ResponseEntity {
 
 	private String status;
 
-	private List<EmployeeDTO> responseData;
+	private List<EmployeeDTO> empResponseData;
 
+	private EmployeeDTO empData;
+
+	public EmployeeDTO getEmpData() {
+		return empData;
+	}
+
+	public void setEmpData(EmployeeDTO empData) {
+		this.empData = empData;
+	}
 }

@@ -1,7 +1,7 @@
 package com.sales_inventry.springclient.reotrfit;
 
 import com.sales_inventry.springclient.model.EmployeeDTO;
-import com.sales_inventry.springclient.model.EmployeeResponseEntity;
+import com.sales_inventry.springclient.model.ResponseEntity;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -12,14 +12,14 @@ import retrofit2.http.Path;
 public interface EmployeeApi {
 
   @GET("/employee/getAllEmployeeData")
-  Call<EmployeeResponseEntity> getAllEmployees();
+  Call<ResponseEntity> getAllEmployees();
 
   @POST("/employee/saveEmployee")
   Call<EmployeeDTO> save(@Body EmployeeDTO employee);
 
   @GET("/employee/getEmployee/{empId}")
-  Call<EmployeeResponseEntity> getEmployee(@Path("empId") Integer empId);
+  Call<ResponseEntity> getEmployee(@Path("empId") Integer empId);
 
   @POST("/employee/deleteEmployee/{empId}")
-  Call<EmployeeResponseEntity> deleteEmployee(@Path("empId") Integer empId);
+  Call<ResponseEntity> deleteEmployee(@Path("empId") Integer empId);
 }
