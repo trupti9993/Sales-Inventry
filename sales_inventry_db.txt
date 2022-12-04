@@ -65,7 +65,17 @@ BEGIN
 DECLARE FoundCount INT;
 SET status=0;
 
-	SELECT COUNT(*) into FoundCount FROM purchase WHERE party_id = partyId;	
+	select sum(cnt) into FoundCount
+from (
+    select count(*) as cnt from purchase WHERE party_id = partyId
+    union all
+    select count(*) as cnt from sales WHERE party_id = partyId
+    union all
+    select count(*) as cnt from payment WHERE party_id = partyId
+    union all
+    select count(*) as cnt from receipt WHERE party_id = partyId
+    
+) as cnt;
 	
 	if FoundCount=0 THEN
 		DELETE FROM party WHERE party_id = partyId;		
