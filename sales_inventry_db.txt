@@ -193,10 +193,10 @@ BEGIN
 DECLARE FoundCount INT;
 SET status=0;
 
-	SELECT COUNT(*) into FoundCount FROM receipt WHERE sale_id = saleId;	
+	SELECT COUNT(*) into FoundCount FROM receipt WHERE sales_id = saleId;	
 	
 	if FoundCount=0 THEN
-		DELETE FROM sales WHERE sale_id = saleId;	
+		DELETE FROM sales WHERE sales_id = saleId;	
 		SET status=1;
 	END IF;
 
