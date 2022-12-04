@@ -49,7 +49,7 @@ public class PurchaseController {
 	public ResponseEntity<Response> getAllPurchaseDetails() {
 
 		Response response = new Response();
-		response.setPurchaseData(purchaseService.getAllPurchaseDetails());
+		response.setPurchaseResponseData(purchaseService.getAllPurchaseDetails());
 		response.setStatus(Response.SUCCESS_STATUS);
 
 		return ResponseEntity.ok(response);
