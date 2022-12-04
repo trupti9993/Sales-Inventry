@@ -11,5 +11,7 @@ public interface SalesService {
 	void saveSalesToDB(SalesDTO sale);
 
 	SalesDTO getSale(Integer saleId) throws Exception;
+	
+	Integer deleteSale(Integer saleId) throws Exception;
 
 }

@@ -47,4 +47,9 @@ public class ProductServiceImpl implements ProductService {
 		return product.isPresent() ? new ProductDTO(product.get()) : null;
 	}
 
+	@Override
+	public Integer deleteProduct(Integer productId) throws Exception {
+		return productRepository.deleteProduct(productId);
+	}
+
 }

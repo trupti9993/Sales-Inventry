@@ -12,4 +12,6 @@ public interface PartyService {
 
 	PartyDTO getParty(Integer partyId) throws Exception;
 
+	Integer deleteParty(Integer partyId) throws Exception;
+
 }

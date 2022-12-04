@@ -12,4 +12,6 @@ public interface PurchaseService {
 
 	PurchaseDTO getPurchase(Integer purchaseId) throws Exception;
 
+	Integer deletePurchase(Integer purchaseId) throws Exception;
+
 }

@@ -21,7 +21,7 @@ public class PaymentController {
 	PaymentService paymentService;
 
 	@PostMapping(value = "/savePayment")
-	public ResponseEntity<Response> saveEmployee(@RequestBody PaymentDTO payment) {
+	public ResponseEntity<Response> savePayment(@RequestBody PaymentDTO payment) {
 
 		paymentService.savePaymentToDB(payment);
 
@@ -54,6 +54,17 @@ public class PaymentController {
 
 		return ResponseEntity.ok(response);
 
+	}
+
+	@PostMapping("/deletePayment/{paymentId}")
+	public ResponseEntity<Response> deletePayment(@PathVariable("paymentId") Integer paymentId) throws Exception {
+
+		Integer result = paymentService.deletePayment(paymentId);
+
+		Response response = new Response();
+		response.setStatus(result == 0 ? Response.FAIL_STATUS : Response.SUCCESS_STATUS);
+
+		return ResponseEntity.ok(response);
 	}
 
 }

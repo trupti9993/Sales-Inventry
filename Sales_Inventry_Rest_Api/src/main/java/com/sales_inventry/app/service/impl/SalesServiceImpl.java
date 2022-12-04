@@ -73,4 +73,9 @@ public class SalesServiceImpl implements SalesService {
 		return record.isPresent() ? new SalesDTO(record.get()) : null;
 	}
 
+	@Override
+	public Integer deleteSale(Integer saleId) throws Exception {
+		return salesRepository.deleteSale(saleId);
+	}
+
 }

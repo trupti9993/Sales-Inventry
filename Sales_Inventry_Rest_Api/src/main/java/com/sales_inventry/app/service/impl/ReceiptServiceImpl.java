@@ -66,4 +66,9 @@ public class ReceiptServiceImpl implements ReceiptService {
 		return party.isPresent() ? new ReceiptDTO(party.get()) : null;
 	}
 
+	@Override
+	public Integer deleteReceipt(Integer receiptId) throws Exception {
+		return receiptRepository.deleteReceipt(receiptId);
+	}
+
 }

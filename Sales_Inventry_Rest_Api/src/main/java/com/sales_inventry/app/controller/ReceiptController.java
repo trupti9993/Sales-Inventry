@@ -21,7 +21,7 @@ public class ReceiptController {
 	ReceiptService receiptService;
 
 	@PostMapping(value = "/saveReceipt")
-	public ResponseEntity<Response> saveEmployee(@RequestBody ReceiptDTO receipt) {
+	public ResponseEntity<Response> saveReceipt(@RequestBody ReceiptDTO receipt) {
 
 		receiptService.saveReceiptToDB(receipt);
 
@@ -54,6 +54,17 @@ public class ReceiptController {
 
 		return ResponseEntity.ok(response);
 
+	}
+
+	@PostMapping("/deleteReceipt/{receiptId}")
+	public ResponseEntity<Response> deleteReceipt(@PathVariable("receiptId") Integer receiptId) throws Exception {
+
+		Integer result = receiptService.deleteReceipt(receiptId);
+
+		Response response = new Response();
+		response.setStatus(result == 0 ? Response.FAIL_STATUS : Response.SUCCESS_STATUS);
+
+		return ResponseEntity.ok(response);
 	}
 
 }

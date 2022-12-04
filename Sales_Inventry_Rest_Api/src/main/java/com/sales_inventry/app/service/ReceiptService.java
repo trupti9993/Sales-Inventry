@@ -11,5 +11,7 @@ public interface ReceiptService {
 	void saveReceiptToDB(ReceiptDTO receipt);
 
 	ReceiptDTO getReceipt(Integer receiptId) throws Exception;
+	
+	Integer deleteReceipt(Integer receiptId) throws Exception;
 
 }

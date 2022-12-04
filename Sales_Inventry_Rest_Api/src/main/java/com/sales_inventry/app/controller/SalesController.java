@@ -21,7 +21,7 @@ public class SalesController {
 	SalesService salesService;
 
 	@PostMapping(value = "/saveSales")
-	public ResponseEntity<Response> saveEmployee(@RequestBody SalesDTO sales) {
+	public ResponseEntity<Response> saveSale(@RequestBody SalesDTO sales) {
 
 		salesService.saveSalesToDB(sales);
 
@@ -54,6 +54,17 @@ public class SalesController {
 
 		return ResponseEntity.ok(response);
 
+	}
+
+	@PostMapping("/deleteSale/{saleId}")
+	public ResponseEntity<Response> deleteSale(@PathVariable("saleId") Integer saleId) throws Exception {
+
+		Integer result = salesService.deleteSale(saleId);
+
+		Response response = new Response();
+		response.setStatus(result == 0 ? Response.FAIL_STATUS : Response.SUCCESS_STATUS);
+
+		return ResponseEntity.ok(response);
 	}
 
 }

@@ -12,4 +12,6 @@ public interface ProductService {
 
 	ProductDTO getProduct(Integer prodId) throws Exception;
 
+	Integer deleteProduct(Integer productId) throws Exception;
+
 }

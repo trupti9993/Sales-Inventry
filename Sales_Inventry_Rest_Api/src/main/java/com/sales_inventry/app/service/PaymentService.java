@@ -12,4 +12,6 @@ public interface PaymentService {
 
 	PaymentDTO getPayment(Integer paymentId) throws Exception;
 
+	Integer deletePayment(Integer paymentId) throws Exception;
+
 }

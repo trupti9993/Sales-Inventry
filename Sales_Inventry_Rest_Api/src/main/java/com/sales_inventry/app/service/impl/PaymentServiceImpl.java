@@ -66,4 +66,9 @@ public class PaymentServiceImpl implements PaymentService {
 		return party.isPresent() ? new PaymentDTO(party.get()) : null;
 	}
 
+	@Override
+	public Integer deletePayment(Integer paymentId) throws Exception {
+		return paymentRepository.deletePayment(paymentId);
+	}
+
 }

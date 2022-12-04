@@ -73,4 +73,9 @@ public class PurchaseServiceImpl implements PurchaseService {
 		return record.isPresent() ? new PurchaseDTO(record.get()) : null;
 	}
 
+	@Override
+	public Integer deletePurchase(Integer purchaseId) throws Exception {
+		return purchaseRepository.deletePurchase(purchaseId);
+	}
+
 }

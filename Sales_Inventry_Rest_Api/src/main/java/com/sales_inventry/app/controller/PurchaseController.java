@@ -21,7 +21,7 @@ public class PurchaseController {
 	PurchaseService purchaseService;
 
 	@PostMapping(value = "/savePurchase")
-	public ResponseEntity<Response> saveEmployee(@RequestBody PurchaseDTO purchase) {
+	public ResponseEntity<Response> savePurchase(@RequestBody PurchaseDTO purchase) {
 
 		purchaseService.savePurchaseToDB(purchase);
 
@@ -54,6 +54,17 @@ public class PurchaseController {
 
 		return ResponseEntity.ok(response);
 
+	}
+
+	@PostMapping("/deletePurchase/{purchaseId}")
+	public ResponseEntity<Response> deletePurchase(@PathVariable("purchaseId") Integer purchaseId) throws Exception {
+
+		Integer result = purchaseService.deletePurchase(purchaseId);
+
+		Response response = new Response();
+		response.setStatus(result == 0 ? Response.FAIL_STATUS : Response.SUCCESS_STATUS);
+
+		return ResponseEntity.ok(response);
 	}
 
 }

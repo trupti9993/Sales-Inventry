@@ -21,7 +21,7 @@ public class ProductController {
 	ProductService productService;
 
 	@PostMapping(value = "/saveProduct")
-	public ResponseEntity<Response> saveEmployee(@RequestBody ProductDTO product) {
+	public ResponseEntity<Response> saveProduct(@RequestBody ProductDTO product) {
 
 		productService.saveProductToDB(product);
 
@@ -54,6 +54,17 @@ public class ProductController {
 
 		return ResponseEntity.ok(response);
 
+	}
+
+	@PostMapping("/deleteProduct/{productId}")
+	public ResponseEntity<Response> deleteProduct(@PathVariable("productId") Integer productId) throws Exception {
+
+		Integer result = productService.deleteProduct(productId);
+
+		Response response = new Response();
+		response.setStatus(result == 0 ? Response.FAIL_STATUS : Response.SUCCESS_STATUS);
+
+		return ResponseEntity.ok(response);
 	}
 
 }

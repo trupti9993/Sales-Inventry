@@ -47,4 +47,9 @@ public class PartyServiceImpl implements PartyService {
 		return party.isPresent() ? new PartyDTO(party.get()) : null;
 	}
 
+	@Override
+	public Integer deleteParty(Integer partyId) throws Exception {
+		return partyRepository.deleteParty(partyId);
+	}
+
 }
