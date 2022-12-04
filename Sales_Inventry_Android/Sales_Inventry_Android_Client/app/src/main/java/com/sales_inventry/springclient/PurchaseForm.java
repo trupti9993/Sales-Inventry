@@ -28,7 +28,7 @@ public class PurchaseForm extends AppCompatActivity {
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    setContentView(R.layout.create_employee);
+    setContentView(R.layout.create_purchase);
 
     initializeComponents();
   }

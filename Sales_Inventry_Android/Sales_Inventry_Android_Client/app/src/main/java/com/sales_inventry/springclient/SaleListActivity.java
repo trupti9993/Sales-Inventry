@@ -46,7 +46,7 @@ public class SaleListActivity extends AppCompatActivity {
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    setContentView(R.layout.activity_employee_list);
+    setContentView(R.layout.activity_sale_list);
 
     recyclerView = findViewById(R.id.employeeList_recyclerView);
     recyclerView.setLayoutManager(new LinearLayoutManager(this));

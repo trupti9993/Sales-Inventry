@@ -38,7 +38,7 @@ public class PurchaseAdapter extends RecyclerView.Adapter<PurchaseHolder> {
   @Override
   public PurchaseHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
     View view = LayoutInflater.from(parent.getContext())
-        .inflate(R.layout.list_employee_item, parent, false);
+        .inflate(R.layout.list_purchase_item, parent, false);
     return new PurchaseHolder(view);
   }
 
