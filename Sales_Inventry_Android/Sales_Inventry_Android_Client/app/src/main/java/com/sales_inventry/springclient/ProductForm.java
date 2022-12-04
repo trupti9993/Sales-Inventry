@@ -55,9 +55,9 @@ public class ProductForm extends AppCompatActivity {
                        ProductDTO productDTO= (ProductDTO) response.body().getProductData();
 
                       inputEditTextName.setText(productDTO.getProdName());
-                       inputEditProdType.setText(productDTO.getProdType());
-                       inputEditProdUnit.setText(productDTO.getProdUnit());
-                       inputEditNoOfDecimal.setText(productDTO.getNoOfDecimals());
+                      inputEditProdType.setText(productDTO.getProdType());
+                        inputEditProdUnit.setText(productDTO.getProdUnit());
+                       inputEditNoOfDecimal.setText( String.valueOf(productDTO.getNoOfDecimals()));
 
                        inputEditTextId.setText(String.valueOf( productDTO.getProdId()));
                    }
