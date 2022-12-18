@@ -55,4 +55,8 @@ public class ProductDTO {
 		this.noOfDecimals = noOfDecimals;
 	}
 
+	@Override
+	public String toString() {
+		return prodName ;
+	}
 }

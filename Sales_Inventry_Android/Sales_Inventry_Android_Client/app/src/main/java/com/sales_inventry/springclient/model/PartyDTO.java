@@ -55,4 +55,8 @@ public class PartyDTO {
 		this.address = address;
 	}
 
+	@Override
+	public String toString() {
+		return  partyName ;
+	}
 }
