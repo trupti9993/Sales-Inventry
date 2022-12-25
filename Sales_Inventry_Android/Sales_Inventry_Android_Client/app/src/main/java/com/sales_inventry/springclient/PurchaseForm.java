@@ -54,6 +54,18 @@ public class PurchaseForm extends AppCompatActivity implements AdapterView.OnIte
 
     Spinner employeeDropDown;
 
+    TextInputEditText inputEditTextQyantity ;
+
+    TextInputEditText inputEditTextRate ;
+
+    TextInputEditText inputEditAmount ;
+
+    TextInputEditText inputEditDiscount ;
+
+    TextInputEditText inputEditTax ;
+
+    TextInputEditText inputEditNetAmount ;
+
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -84,21 +96,27 @@ public class PurchaseForm extends AppCompatActivity implements AdapterView.OnIte
       LocalDate now = LocalDate.now();
       inputEditTextDate.setText(now.getDayOfMonth()+"/"+now.getMonthValue()+"/"+now.getYear());
 
-      TextInputEditText inputEditTextQyantity = findViewById(R.id.form_textFieldQuantity);
+       inputEditTextQyantity = findViewById(R.id.form_textFieldQuantity);
 
       inputEditTextQyantity.setOnClickListener(this);
 
-      TextInputEditText inputEditTextRate = findViewById(R.id.form_textFieldRate);
+       inputEditTextRate = findViewById(R.id.form_textFieldRate);
 
-      TextInputEditText inputEditAmount = findViewById(R.id.form_textFieldAmount);
+      inputEditTextRate.setOnClickListener(this);
 
+      inputEditAmount = findViewById(R.id.form_textFieldAmount);
 
+      inputEditAmount.setOnClickListener(this);
 
-      TextInputEditText inputEditDiscount = findViewById(R.id.form_textFieldDiscount);
+       inputEditDiscount = findViewById(R.id.form_textFieldDiscount);
 
-      TextInputEditText inputEditTax = findViewById(R.id.form_textFieldTax);
+      inputEditDiscount.setOnClickListener(this);
 
-      TextInputEditText inputEditNetAmount = findViewById(R.id.form_textFieldNetAmount);
+       inputEditTax = findViewById(R.id.form_textFieldTax);
+      inputEditTax.setOnClickListener(this);
+
+       inputEditNetAmount = findViewById(R.id.form_textFieldNetAmount);
+      inputEditNetAmount.setOnClickListener(this);
 
       MaterialButton buttonSave = findViewById(R.id.form_buttonSave);
 
@@ -383,6 +401,32 @@ public class PurchaseForm extends AppCompatActivity implements AdapterView.OnIte
 
     @Override
     public void onClick(View view) {
-        view.
+        String qty = String.valueOf(inputEditTextQyantity.getText());
+        Double quantity=  Double.parseDouble(qty.equals("")?"0":qty);
+
+        String rateStr = String.valueOf(inputEditTextRate.getText());
+        Double rate= Double.parseDouble(rateStr.equals("")?"0":rateStr);
+
+
+        Double amount= quantity*rate;
+
+        inputEditAmount.setText(String.valueOf(amount));
+
+
+        String dis = String.valueOf(inputEditDiscount.getText());
+        Double discount= Double.parseDouble(dis.equals("")?"0":dis);
+
+        Double discAmt=amount*discount/100;
+
+        String taxStr= String.valueOf(inputEditTax.getText());
+        Double tax= Double.parseDouble(taxStr.equals("")?"0":taxStr);
+
+        double amountAfterDiscount = amount - discAmt;
+
+        Double taxAmt= amountAfterDiscount * tax/100 ;
+
+        Double netAmount= amountAfterDiscount+taxAmt;
+
+        inputEditNetAmount.setText(String.valueOf(netAmount));
     }
 }
