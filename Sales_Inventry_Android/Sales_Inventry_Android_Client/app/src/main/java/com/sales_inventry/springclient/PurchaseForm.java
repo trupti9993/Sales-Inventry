@@ -3,6 +3,7 @@
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -27,7 +28,11 @@ import com.sales_inventry.springclient.reotrfit.ProductApi;
 import com.sales_inventry.springclient.reotrfit.PurchaseApi;
 import com.sales_inventry.springclient.reotrfit.RetrofitService;
 
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -42,7 +47,7 @@ public class PurchaseForm extends AppCompatActivity implements AdapterView.OnIte
     ProductApi productApi = retrofitService.getRetrofit().create(ProductApi.class);
     PartyApi partyApi = retrofitService.getRetrofit().create(PartyApi.class);
     EmployeeApi employeeApi = retrofitService.getRetrofit().create(EmployeeApi.class);
-
+    SimpleDateFormat formatter=new SimpleDateFormat("dd/MM/yyyy");
     Spinner productDropDown;
 
     Spinner partyDropDown;
@@ -58,27 +63,43 @@ public class PurchaseForm extends AppCompatActivity implements AdapterView.OnIte
   }
 
   private void initializeComponents() {
-    TextInputEditText inputEditTextName = findViewById(R.id.form_textFieldName);
-    TextInputEditText inputEditTextId = findViewById(R.id.form_textFieldId);
-    TextInputEditText inputEditMobileNo = findViewById(R.id.form_textFieldMobileNo);
-    TextInputEditText inputEditEmail = findViewById(R.id.form_textFieldEmail);
-    TextInputEditText inputEditAddress = findViewById(R.id.form_textFieldAddress);
-    TextInputEditText inputEditPass = findViewById(R.id.form_textFieldPassword);
-    MaterialButton buttonSave = findViewById(R.id.form_buttonSave);
+
+      TextInputEditText inputEditTextId = findViewById(R.id.form_textFieldId);
 
       EditText inputEditTextDate = findViewById(R.id.form_textFieldDate);
 
-      productDropDown = (Spinner) findViewById(R.id.form_textFieldProduct                  );
+      productDropDown = (Spinner) findViewById(R.id.form_textFieldProduct);
       productDropDown.setOnItemSelectedListener(this);
 
-       partyDropDown= (Spinner) findViewById(R.id.form_textFieldParty                  );
+      partyDropDown= (Spinner) findViewById(R.id.form_textFieldParty);
       partyDropDown.setOnItemSelectedListener(this);
 
-       employeeDropDown= (Spinner) findViewById(R.id.form_textFieldEmployee                  );
+      employeeDropDown= (Spinner) findViewById(R.id.form_textFieldEmployee);
       employeeDropDown.setOnItemSelectedListener(this);
 
 
-     inputEditTextId.setVisibility(View.INVISIBLE);
+      inputEditTextId.setVisibility(View.INVISIBLE);
+
+
+      LocalDate now = LocalDate.now();
+      inputEditTextDate.setText(now.getDayOfMonth()+"/"+now.getMonthValue()+"/"+now.getYear());
+
+      TextInputEditText inputEditTextQyantity = findViewById(R.id.form_textFieldQuantity);
+
+      TextInputEditText inputEditTextRate = findViewById(R.id.form_textFieldRate);
+
+      TextInputEditText inputEditAmount = findViewById(R.id.form_textFieldAmount);
+
+
+
+      TextInputEditText inputEditDiscount = findViewById(R.id.form_textFieldDiscount);
+
+      TextInputEditText inputEditTax = findViewById(R.id.form_textFieldTax);
+
+      TextInputEditText inputEditNetAmount = findViewById(R.id.form_textFieldNetAmount);
+
+      MaterialButton buttonSave = findViewById(R.id.form_buttonSave);
+
 
       // perform click event on edit text
       inputEditTextDate.setOnClickListener(new View.OnClickListener() {
@@ -134,11 +155,11 @@ public class PurchaseForm extends AppCompatActivity implements AdapterView.OnIte
                });
        PurchaseListActivity.setPurchaseId(-1);
     }else {
-       inputEditTextName.setText("");
-       inputEditMobileNo.setText("");
-       inputEditEmail.setText("");
-       inputEditAddress.setText("");
-       inputEditPass.setText("");
+     //  inputEditTextName.setText("");
+       //inputEditMobileNo.setText("");
+       //inputEditEmail.setText("");
+       //inputEditAddress.setText("");
+       //inputEditPass.setText("");
        inputEditTextId.setText("-1");
    }
 
@@ -146,39 +167,77 @@ public class PurchaseForm extends AppCompatActivity implements AdapterView.OnIte
 
 
     buttonSave.setOnClickListener(view -> {
-      String name = String.valueOf(inputEditTextName.getText());
-      String address = String.valueOf(inputEditAddress.getText());
-      String email = String.valueOf(inputEditEmail.getText());
-      String mobile = String.valueOf(inputEditMobileNo.getText());
-      String pass = String.valueOf(inputEditPass.getText());
-      Integer purchaseId=Integer.parseInt(String.valueOf(inputEditTextId.getText()));
+    try{
+            Integer purchaseId=Integer.parseInt(String.valueOf(inputEditTextId.getText()));
 
-      PurchaseDTO purchase = new PurchaseDTO();
-      /*employee.setEmpName(name);
-        employee.setEmployeeId(employeeId);
-      employee.setAddress(address);
-      employee.setEmail(email);
-      employee.setMobileNo(mobile);
-      employee.setPassword(pass);*/
 
-      purchaseApi.savePurchase(purchase)
-          .enqueue(new Callback<PurchaseDTO>() {
-            @Override
-            public void onResponse(Call<PurchaseDTO> call, Response<PurchaseDTO> response) {
 
-              Toast.makeText(PurchaseForm.this, "Save successful! ", Toast.LENGTH_SHORT).show();
+            String dateStr = String.valueOf(inputEditTextDate.getText());
+            Date date=formatter.parse(dateStr); ;
 
-              Intent intent = new Intent(PurchaseForm.this, PurchaseListActivity.class);
-              startActivity(intent);
-            }
+            Integer productId=  ((ProductDTO)productDropDown.getSelectedItem()).getProdId();
 
-            @Override
-            public void onFailure(Call<PurchaseDTO> call, Throwable t) {
-              Toast.makeText(PurchaseForm.this, "Save failed!!!", Toast.LENGTH_SHORT).show();
-              Logger.getLogger(PurchaseForm.class.getName()).log(Level.SEVERE, "Error occurred", t);
-            }
-          });
+            Integer partyId= ((PartyDTO)partyDropDown.getSelectedItem()).getPartyId();
+
+            Integer empId= ((EmployeeDTO)employeeDropDown.getSelectedItem()).getEmployeeId();
+
+
+            String qty = String.valueOf(inputEditTextQyantity.getText());
+            Double quantity=  Double.parseDouble(qty.equals("")?"0":qty);
+
+            String rateStr = String.valueOf(inputEditTextRate.getText());
+            Double rate= Double.parseDouble(rateStr.equals("")?"0":rateStr);
+
+            String amt = String.valueOf(inputEditAmount.getText());
+            Double amount= Double.parseDouble( amt.equals("")?"0":amt);
+
+
+            String dis = String.valueOf(inputEditDiscount.getText());
+            Double discount= Double.parseDouble(dis.equals("")?"0":dis);
+
+            String taxStr= String.valueOf(inputEditTax.getText());
+            Double tax= Double.parseDouble(taxStr.equals("")?"0":taxStr);
+
+            String rateAmt = String.valueOf(inputEditNetAmount.getText());
+            Double netAmount= Double.parseDouble(rateAmt.equals("")?"0":rateAmt);
+
+             PurchaseDTO purchase = new PurchaseDTO();
+             purchase.setPurchaseId(purchaseId);
+             purchase.setEmpId(empId);
+             purchase.setProdId(productId);
+             purchase.setPartyId(partyId);
+
+             purchase.setQuantity(quantity);
+             purchase.setRate(rate);
+             purchase.setAmount(amount);
+
+             purchase.setDiscount(discount);
+             purchase.setTax(tax);
+
+             purchase.setNetAmount(netAmount);
+
+          purchaseApi.savePurchase(purchase)
+              .enqueue(new Callback<PurchaseDTO>() {
+                @Override
+                public void onResponse(Call<PurchaseDTO> call, Response<PurchaseDTO> response) {
+
+                  Toast.makeText(PurchaseForm.this, "Save successful! ", Toast.LENGTH_SHORT).show();
+
+                  Intent intent = new Intent(PurchaseForm.this, PurchaseListActivity.class);
+                  startActivity(intent);
+                }
+
+                @Override
+                public void onFailure(Call<PurchaseDTO> call, Throwable t) {
+                  Toast.makeText(PurchaseForm.this, "Save failed!!!", Toast.LENGTH_SHORT).show();
+                  Logger.getLogger(PurchaseForm.class.getName()).log(Level.SEVERE, "Error occurred", t);
+                }
+              });
+    } catch(Exception e){
+        Toast.makeText(PurchaseForm.this, "Save failed!!! "+e.toString(), Toast.LENGTH_SHORT).show();
+    }
     });
+
   }
 
     @Override
@@ -189,19 +248,19 @@ public class PurchaseForm extends AppCompatActivity implements AdapterView.OnIte
             case R.id.form_textFieldProduct:
                 ProductDTO prod = (ProductDTO) adapterView.getSelectedItem();
 
-                Toast.makeText(getApplicationContext(), prod.getProdName() +" >> ", Toast.LENGTH_LONG).show();
+              //  Toast.makeText(getApplicationContext(), prod.getProdName() +" >> ", Toast.LENGTH_LONG).show();
                 break;
 
             case R.id.form_textFieldParty:
                 PartyDTO party = (PartyDTO) adapterView.getSelectedItem();
 
-                Toast.makeText(getApplicationContext(), party.getPartyName() +" >> ", Toast.LENGTH_LONG).show();
+                //Toast.makeText(getApplicationContext(), party.getPartyName() +" >> ", Toast.LENGTH_LONG).show();
                 break;
 
             case R.id.form_textFieldEmployee:
                 EmployeeDTO emp = (EmployeeDTO) adapterView.getSelectedItem();
 
-                Toast.makeText(getApplicationContext(), emp.getEmpName() +" >> ", Toast.LENGTH_LONG).show();
+                //Toast.makeText(getApplicationContext(), emp.getEmpName() +" >> ", Toast.LENGTH_LONG).show();
                 break;
         }
 
