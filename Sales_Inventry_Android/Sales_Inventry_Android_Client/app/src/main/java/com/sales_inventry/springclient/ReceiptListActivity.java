@@ -69,7 +69,7 @@ public class ReceiptListActivity extends AppCompatActivity {
 
                populateListView(responseData);
            }catch (Exception e){
-               Toast.makeText(ReceiptListActivity.this, "Save successful! "+e.toString(), Toast.LENGTH_SHORT).show();
+               Toast.makeText(ReceiptListActivity.this, "Save successful! "+ e, Toast.LENGTH_SHORT).show();
 
            }
           }

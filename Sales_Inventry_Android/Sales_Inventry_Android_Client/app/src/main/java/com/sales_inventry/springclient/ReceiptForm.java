@@ -1,8 +1,14 @@
 package com.sales_inventry.springclient;
 
+import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.DatePicker;
+import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -10,13 +16,22 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
 import com.sales_inventry.springclient.model.EmployeeDTO;
+import com.sales_inventry.springclient.model.PartyDTO;
+
 import com.sales_inventry.springclient.model.ReceiptDTO;
 import com.sales_inventry.springclient.model.ResponseEntity;
 import com.sales_inventry.springclient.model.SalesDTO;
-import com.sales_inventry.springclient.reotrfit.EmployeeApi;
+
 import com.sales_inventry.springclient.reotrfit.ReceiptApi;
 import com.sales_inventry.springclient.reotrfit.RetrofitService;
-
+import com.sales_inventry.springclient.reotrfit.SaleApi;
+import com.sales_inventry.springclient.reotrfit.PartyApi;
+import com.sales_inventry.springclient.reotrfit.EmployeeApi;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -24,97 +39,296 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class ReceiptForm extends AppCompatActivity {
-
-  @Override
-  protected void onCreate(Bundle savedInstanceState) {
-    super.onCreate(savedInstanceState);
-    setContentView(R.layout.create_recipt);
-
-    initializeComponents();
-  }
-
-  private void initializeComponents() {
-    TextInputEditText inputEditTextName = findViewById(R.id.form_textFieldName);
-    TextInputEditText inputEditTextId = findViewById(R.id.form_textFieldId);
-    TextInputEditText inputEditMobileNo = findViewById(R.id.form_textFieldMobileNo);
-    TextInputEditText inputEditEmail = findViewById(R.id.form_textFieldEmail);
-    TextInputEditText inputEditAddress = findViewById(R.id.form_textFieldAddress);
-    TextInputEditText inputEditPass = findViewById(R.id.form_textFieldPassword);
-    MaterialButton buttonSave = findViewById(R.id.form_buttonSave);
-
-     inputEditTextId.setVisibility(View.INVISIBLE);
-
-      RetrofitService retrofitService = new RetrofitService();
-      ReceiptApi receiptApi = retrofitService.getRetrofit().create(ReceiptApi.class);
-
-   if(ReceiptListActivity.getReceiptId()!=-1){
-       receiptApi.getReceipt(ReceiptListActivity.getReceiptId())
-               .enqueue(new Callback<ResponseEntity>() {
-                   @Override
-                   public void onResponse(Call<ResponseEntity> call, Response<ResponseEntity> response) {
-                       ReceiptDTO receiptDTO= (ReceiptDTO) response.body().getReceiptData();
-
-                      /* inputEditTextName.setText(employeeDTO.getEmpName());
-                       inputEditMobileNo.setText(employeeDTO.getMobileNo());
-                       inputEditEmail.setText(employeeDTO.getEmail());
-                       inputEditAddress.setText(employeeDTO.getAddress());
-                       inputEditPass.setText(employeeDTO.getPassword());
-                       inputEditTextId.setText(String.valueOf( employeeDTO.getEmployeeId()));*/
-                   }
-
-                   @Override
-                   public void onFailure(Call<ResponseEntity> call, Throwable t) {
-                       Toast.makeText(ReceiptForm.this, "Receipt Fetch failed!!!", Toast.LENGTH_SHORT).show();
-                       Logger.getLogger(ReceiptForm.class.getName()).log(Level.SEVERE, "Error occurred", t);
-                   }
-               });
-       ReceiptListActivity.setReceiptId(-1);
-    }else {
-       inputEditTextName.setText("");
-       inputEditMobileNo.setText("");
-       inputEditEmail.setText("");
-       inputEditAddress.setText("");
-       inputEditPass.setText("");
-       inputEditTextId.setText("-1");
-   }
+public class ReceiptForm extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
 
+    RetrofitService retrofitService = new RetrofitService();
+    SaleApi saleApi = retrofitService.getRetrofit().create(SaleApi.class);
+    PartyApi partyApi = retrofitService.getRetrofit().create(PartyApi.class);
+    EmployeeApi employeeApi = retrofitService.getRetrofit().create(EmployeeApi.class);
+    SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+
+    Spinner saleDropDown;
+
+    Spinner partyDropDown;
+
+    Spinner employeeDropDown;
 
 
-    buttonSave.setOnClickListener(view -> {
-      String name = String.valueOf(inputEditTextName.getText());
-      String address = String.valueOf(inputEditAddress.getText());
-      String email = String.valueOf(inputEditEmail.getText());
-      String mobile = String.valueOf(inputEditMobileNo.getText());
-      String pass = String.valueOf(inputEditPass.getText());
-      Integer receiptId=Integer.parseInt(String.valueOf(inputEditTextId.getText()));
+    TextInputEditText inputEditAmount;
 
-        ReceiptDTO receipt = new ReceiptDTO();
-      /*employee.setEmpName(name);
-        employee.setEmployeeId(employeeId);
-      employee.setAddress(address);
-      employee.setEmail(email);
-      employee.setMobileNo(mobile);
-      employee.setPassword(pass);*/
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.create_recipt);
 
-        receiptApi.saveReceipt(receipt)
-          .enqueue(new Callback<ReceiptDTO>() {
+        initializeComponents();
+    }
+
+    private void initializeComponents() {
+        TextInputEditText inputEditTextId = findViewById(R.id.form_textFieldId);
+
+        EditText inputEditTextDate = findViewById(R.id.form_textFieldDate);
+
+        saleDropDown = (Spinner) findViewById(R.id.form_textFieldSale);
+        saleDropDown.setOnItemSelectedListener(this);
+
+        partyDropDown = (Spinner) findViewById(R.id.form_textFieldParty);
+        partyDropDown.setOnItemSelectedListener(this);
+
+        employeeDropDown = (Spinner) findViewById(R.id.form_textFieldEmployee);
+        employeeDropDown.setOnItemSelectedListener(this);
+
+
+        inputEditTextId.setVisibility(View.INVISIBLE);
+
+
+        LocalDate now = LocalDate.now();
+        inputEditTextDate.setText(now.getDayOfMonth() + "/" + now.getMonthValue() + "/" + now.getYear());
+
+        inputEditAmount = findViewById(R.id.form_textFieldAmount);
+
+
+        MaterialButton buttonSave = findViewById(R.id.form_buttonSave);
+
+
+        // perform click event on edit text
+        inputEditTextDate.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onResponse(Call<ReceiptDTO> call, Response<ReceiptDTO> response) {
+            public void onClick(View v) {
+                // calender class's instance and get current date , month and year from calender
+                final Calendar c = Calendar.getInstance();
+                int mYear = c.get(Calendar.YEAR); // current year
+                int mMonth = c.get(Calendar.MONTH); // current month
+                int mDay = c.get(Calendar.DAY_OF_MONTH); // current day
+                // date picker dialog
+                DatePickerDialog datePickerDialog = new DatePickerDialog(ReceiptForm.this,
+                        new DatePickerDialog.OnDateSetListener() {
 
-              Toast.makeText(ReceiptForm.this, "Save successful! ", Toast.LENGTH_SHORT).show();
+                            @Override
+                            public void onDateSet(DatePicker view, int year,
+                                                  int monthOfYear, int dayOfMonth) {
+                                // set day of month , month and year value in the edit text
+                                inputEditTextDate.setText(dayOfMonth + "/"
+                                        + (monthOfYear + 1) + "/" + year);
 
-              Intent intent = new Intent(ReceiptForm.this, ReceiptListActivity.class);
-              startActivity(intent);
+                            }
+                        }, mYear, mMonth, mDay);
+                datePickerDialog.show();
             }
+        });
 
-            @Override
-            public void onFailure(Call<ReceiptDTO> call, Throwable t) {
-              Toast.makeText(ReceiptForm.this, "Save failed!!!", Toast.LENGTH_SHORT).show();
-              Logger.getLogger(ReceiptForm.class.getName()).log(Level.SEVERE, "Error occurred", t);
+
+        RetrofitService retrofitService = new RetrofitService();
+        ReceiptApi receiptApi = retrofitService.getRetrofit().create(ReceiptApi.class);
+
+        if (ReceiptListActivity.getReceiptId() != -1) {
+            receiptApi.getReceipt(ReceiptListActivity.getReceiptId())
+                    .enqueue(new Callback<ResponseEntity>() {
+                        @Override
+                        public void onResponse(Call<ResponseEntity> call, Response<ResponseEntity> response) {
+                            ReceiptDTO receiptDTO = (ReceiptDTO) response.body().getReceiptData();
+                        }
+
+                        @Override
+                        public void onFailure(Call<ResponseEntity> call, Throwable t) {
+                            Toast.makeText(ReceiptForm.this, "Receipt Fetch failed!!!", Toast.LENGTH_SHORT).show();
+                            Logger.getLogger(ReceiptForm.class.getName()).log(Level.SEVERE, "Error occurred", t);
+                        }
+                    });
+            ReceiptListActivity.setReceiptId(-1);
+        } else {
+
+            inputEditTextId.setText("-1");
+        }
+
+
+        buttonSave.setOnClickListener(view -> {
+            try {
+                Integer receiptId = Integer.parseInt(String.valueOf(inputEditTextId.getText()));
+
+                String dateStr = String.valueOf(inputEditTextDate.getText());
+                Date date = formatter.parse(dateStr);
+
+                Integer salesId = ((SalesDTO) saleDropDown.getSelectedItem()).getSalesId();
+
+                Integer partyId = ((PartyDTO) partyDropDown.getSelectedItem()).getPartyId();
+
+                Integer empId = ((EmployeeDTO) employeeDropDown.getSelectedItem()).getEmployeeId();
+
+
+                String amt = String.valueOf(inputEditAmount.getText());
+                Double amount = Double.parseDouble(amt.equals("") ? "0" : amt);
+
+
+                ReceiptDTO receipt = new ReceiptDTO();
+                receipt.setSalesId(salesId);
+                receipt.setEmpId(empId);
+                receipt.setReceiptId(receiptId);
+                receipt.setPartyId(partyId);
+
+                receipt.setAmount(amount);
+
+
+                receiptApi.saveReceipt(receipt)
+                        .enqueue(new Callback<ReceiptDTO>() {
+                            @Override
+                            public void onResponse(Call<ReceiptDTO> call, Response<ReceiptDTO> response) {
+
+                                Toast.makeText(ReceiptForm.this, "Save successful! ", Toast.LENGTH_SHORT).show();
+
+                                Intent intent = new Intent(ReceiptForm.this, ReceiptListActivity.class);
+                                startActivity(intent);
+                            }
+
+                            @Override
+                            public void onFailure(Call<ReceiptDTO> call, Throwable t) {
+                                Toast.makeText(ReceiptForm.this, "Save failed!!!", Toast.LENGTH_SHORT).show();
+                                Logger.getLogger(ReceiptForm.class.getName()).log(Level.SEVERE, "Error occurred", t);
+                            }
+                        });
+            } catch (Exception e) {
+                Toast.makeText(ReceiptForm.this, "Save failed!!! " + e, Toast.LENGTH_SHORT).show();
             }
-          });
-    });
-  }
+        });
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+
+        switch (adapterView.getId()) {
+            case R.id.form_textFieldProduct:
+                ReceiptDTO purchase = (ReceiptDTO) adapterView.getSelectedItem();
+
+                //  Toast.makeText(getApplicationContext(), prod.getProdName() +" >> ", Toast.LENGTH_LONG).show();
+                break;
+
+            case R.id.form_textFieldParty:
+                PartyDTO party = (PartyDTO) adapterView.getSelectedItem();
+
+                //Toast.makeText(getApplicationContext(), party.getPartyName() +" >> ", Toast.LENGTH_LONG).show();
+                break;
+
+            case R.id.form_textFieldEmployee:
+                EmployeeDTO emp = (EmployeeDTO) adapterView.getSelectedItem();
+
+                //Toast.makeText(getApplicationContext(), emp.getEmpName() +" >> ", Toast.LENGTH_LONG).show();
+                break;
+        }
+
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> adapterView) {
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        getAllPurchaseData();
+        loadAllParty();
+        loadAllEmployee();
+    }
+
+    private void loadAllParty() {
+        {
+
+            partyApi.getAllParty()
+                    .enqueue(new Callback<ResponseEntity>() {
+                        @Override
+                        public void onResponse(Call<ResponseEntity> call, Response<ResponseEntity> response) {
+                            try {
+                                List<PartyDTO> responseData = (List<PartyDTO>) response.body().getPartyResponseData();
+
+                                populatePartyListView(responseData);
+                            } catch (Exception e) {
+                                Toast.makeText(ReceiptForm.this, "Save successful! " + e, Toast.LENGTH_SHORT).show();
+
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<ResponseEntity> call, Throwable t) {
+                            Toast.makeText(ReceiptForm.this, "Failed to load employees ", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+        }
+    }
+
+    private void loadAllEmployee() {
+        {
+
+            employeeApi.getAllEmployees()
+                    .enqueue(new Callback<ResponseEntity>() {
+                        @Override
+                        public void onResponse(Call<ResponseEntity> call, Response<ResponseEntity> response) {
+                            try {
+                                List<EmployeeDTO> responseData = (List<EmployeeDTO>) response.body().getEmpResponseData();
+
+                                populateEmployeeListView(responseData);
+                            } catch (Exception e) {
+                                Toast.makeText(ReceiptForm.this, "Save successful! " + e, Toast.LENGTH_SHORT).show();
+
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<ResponseEntity> call, Throwable t) {
+                            Toast.makeText(ReceiptForm.this, "Failed to load employees ", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+        }
+    }
+
+    private void getAllPurchaseData() {
+
+        saleApi.getAllSalesData()
+                .enqueue(new Callback<ResponseEntity>() {
+                    @Override
+                    public void onResponse(Call<ResponseEntity> call, Response<ResponseEntity> response) {
+                        try {
+                            List<SalesDTO> responseData = (List<SalesDTO>) response.body().getSaleResponseData();
+
+                            populateSaleListView(responseData);
+                        } catch (Exception e) {
+                            Toast.makeText(ReceiptForm.this, "Save successful! " + e, Toast.LENGTH_SHORT).show();
+
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<ResponseEntity> call, Throwable t) {
+                        Toast.makeText(ReceiptForm.this, "Failed to load employees ", Toast.LENGTH_SHORT).show();
+                    }
+                });
+    }
+
+
+    private void populateEmployeeListView(List<EmployeeDTO> employeeList) {
+
+        //Creating the ArrayAdapter instance having the bank name list
+        ArrayAdapter aa = new ArrayAdapter(this, android.R.layout.simple_spinner_item, employeeList);
+        aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        //Setting the ArrayAdapter data on the Spinner
+        employeeDropDown.setAdapter(aa);
+    }
+
+    private void populatePartyListView(List<PartyDTO> partyList) {
+
+        //Creating the ArrayAdapter instance having the bank name list
+        ArrayAdapter aa = new ArrayAdapter(this, android.R.layout.simple_spinner_item, partyList);
+        aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        //Setting the ArrayAdapter data on the Spinner
+        partyDropDown.setAdapter(aa);
+    }
+
+    private void populateSaleListView(List<SalesDTO> saleList) {
+
+        //Creating the ArrayAdapter instance having the bank name list
+        ArrayAdapter aa = new ArrayAdapter(this, android.R.layout.simple_spinner_item, saleList);
+        aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        //Setting the ArrayAdapter data on the Spinner
+        saleDropDown.setAdapter(aa);
+    }
 }

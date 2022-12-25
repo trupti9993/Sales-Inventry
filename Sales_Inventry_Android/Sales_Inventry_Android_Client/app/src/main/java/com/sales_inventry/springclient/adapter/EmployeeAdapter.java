@@ -21,9 +21,9 @@ import java.util.logging.Logger;
 
 public class EmployeeAdapter extends RecyclerView.Adapter<EmployeeHolder> {
 
-  private List<EmployeeDTO> employeeList;
+  private final List<EmployeeDTO> employeeList;
 
-  private EmployeeListActivity employeeListActivity;
+  private final EmployeeListActivity employeeListActivity;
 
   public EmployeeAdapter(List<EmployeeDTO> employeeList, EmployeeListActivity employeeListActivity) {
     this.employeeList = employeeList;

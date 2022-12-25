@@ -65,7 +65,7 @@ public class PartyListActivity extends AppCompatActivity {
 
                populateListView(responseData);
            }catch (Exception e){
-               Toast.makeText(PartyListActivity.this, "Save successful! "+e.toString(), Toast.LENGTH_SHORT).show();
+               Toast.makeText(PartyListActivity.this, "Save successful! "+ e, Toast.LENGTH_SHORT).show();
 
            }
           }

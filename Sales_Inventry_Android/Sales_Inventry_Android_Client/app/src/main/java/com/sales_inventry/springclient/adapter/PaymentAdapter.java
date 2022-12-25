@@ -26,9 +26,9 @@ import java.util.logging.Logger;
 
 public class PaymentAdapter extends RecyclerView.Adapter<PaymentHolder> {
 
-  private List<PaymentDTO> paymentList;
+  private final List<PaymentDTO> paymentList;
 
-  private PaymentListActivity paymentListActivity;
+  private final PaymentListActivity paymentListActivity;
 
   public PaymentAdapter(List<PaymentDTO> paymentList, PaymentListActivity paymentListActivity) {
     this.paymentList = paymentList;

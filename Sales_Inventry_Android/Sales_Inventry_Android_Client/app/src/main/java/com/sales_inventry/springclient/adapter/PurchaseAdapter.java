@@ -25,9 +25,9 @@ import java.util.logging.Logger;
 
 public class PurchaseAdapter extends RecyclerView.Adapter<PurchaseHolder> {
 
-  private List<PurchaseDTO> purchaseList;
+  private final List<PurchaseDTO> purchaseList;
 
-  private PurchaseListActivity   purchaseListActivity;
+  private final PurchaseListActivity   purchaseListActivity;
 
   public PurchaseAdapter(List<PurchaseDTO> purchaseList, PurchaseListActivity purchaseListActivity) {
     this.purchaseList = purchaseList;

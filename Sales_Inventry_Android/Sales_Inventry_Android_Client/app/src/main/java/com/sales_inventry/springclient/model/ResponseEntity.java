@@ -161,4 +161,5 @@ public class ResponseEntity {
 	public void setSaleData(SalesDTO saleData) {
 		this.saleData = saleData;
 	}
+
 }

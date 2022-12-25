@@ -24,9 +24,9 @@ import java.util.logging.Logger;
 
 public class SaleAdapter extends RecyclerView.Adapter<SaleHolder> {
 
-  private List<SalesDTO> saleList;
+  private final List<SalesDTO> saleList;
 
-  private SaleListActivity saleListActivity;
+  private final SaleListActivity saleListActivity;
 
   public SaleAdapter(List<SalesDTO> saleList, SaleListActivity saleListActivity) {
     this.saleList = saleList;

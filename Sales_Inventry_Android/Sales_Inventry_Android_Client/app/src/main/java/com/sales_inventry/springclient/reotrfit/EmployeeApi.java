@@ -22,4 +22,5 @@ public interface EmployeeApi {
 
   @POST("/employee/deleteEmployee/{empId}")
   Call<ResponseEntity> deleteEmployee(@Path("empId") Integer empId);
+
 }

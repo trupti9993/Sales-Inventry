@@ -25,9 +25,9 @@ import java.util.logging.Logger;
 
 public class ProductAdapter extends RecyclerView.Adapter<ProductHolder> {
 
-  private List<ProductDTO> productList;
+  private final List<ProductDTO> productList;
 
-  private ProductListActivity productListActivity;
+  private final ProductListActivity productListActivity;
 
   public ProductAdapter(List<ProductDTO> productList, ProductListActivity productListActivity) {
     this.productList = productList;

@@ -59,4 +59,5 @@ public class PartyDTO {
 	public String toString() {
 		return  partyName ;
 	}
+
 }

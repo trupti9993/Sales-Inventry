@@ -177,7 +177,7 @@ public class SaleForm extends AppCompatActivity  implements AdapterView.OnItemSe
             Integer purchaseId=Integer.parseInt(String.valueOf(inputEditTextId.getText()));
 
             String dateStr = String.valueOf(inputEditTextDate.getText());
-            Date date=formatter.parse(dateStr); ;
+            Date date=formatter.parse(dateStr);
 
             Integer productId=  ((ProductDTO)productDropDown.getSelectedItem()).getProdId();
 
@@ -241,7 +241,7 @@ public class SaleForm extends AppCompatActivity  implements AdapterView.OnItemSe
             }
           });
         } catch(Exception e){
-            Toast.makeText(SaleForm.this, "Save failed!!! "+e.toString(), Toast.LENGTH_SHORT).show();
+            Toast.makeText(SaleForm.this, "Save failed!!! "+ e, Toast.LENGTH_SHORT).show();
         }
     });
   }
@@ -295,7 +295,7 @@ public class SaleForm extends AppCompatActivity  implements AdapterView.OnItemSe
 
                                 populatePartyListView(responseData);
                             }catch (Exception e){
-                                Toast.makeText(SaleForm.this, "Save successful! "+e.toString(), Toast.LENGTH_SHORT).show();
+                                Toast.makeText(SaleForm.this, "Save successful! "+ e, Toast.LENGTH_SHORT).show();
 
                             }
                         }
@@ -320,7 +320,7 @@ public class SaleForm extends AppCompatActivity  implements AdapterView.OnItemSe
 
                                 populateEmployeeListView(responseData);
                             }catch (Exception e){
-                                Toast.makeText(SaleForm.this, "Save successful! "+e.toString(), Toast.LENGTH_SHORT).show();
+                                Toast.makeText(SaleForm.this, "Save successful! "+ e, Toast.LENGTH_SHORT).show();
 
                             }
                         }
@@ -344,7 +344,7 @@ public class SaleForm extends AppCompatActivity  implements AdapterView.OnItemSe
 
                             populateProductListView(responseData);
                         }catch (Exception e){
-                            Toast.makeText(SaleForm.this, "Save successful! "+e.toString(), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(SaleForm.this, "Save successful! "+ e, Toast.LENGTH_SHORT).show();
 
                         }
                     }

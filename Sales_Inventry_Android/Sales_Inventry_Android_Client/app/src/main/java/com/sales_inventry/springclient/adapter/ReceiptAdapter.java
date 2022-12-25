@@ -25,9 +25,9 @@ import java.util.logging.Logger;
 
 public class ReceiptAdapter extends RecyclerView.Adapter<ReceiptHolder> {
 
-  private List<ReceiptDTO> receiptList;
+  private final List<ReceiptDTO> receiptList;
 
-  private ReceiptListActivity receiptListActivity;
+  private final ReceiptListActivity receiptListActivity;
 
   public ReceiptAdapter(List<ReceiptDTO> receiptList, ReceiptListActivity receiptListActivity) {
     this.receiptList = receiptList;

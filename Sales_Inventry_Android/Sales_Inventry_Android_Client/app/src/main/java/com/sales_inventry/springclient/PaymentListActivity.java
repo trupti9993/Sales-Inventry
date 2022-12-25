@@ -65,7 +65,7 @@ public class PaymentListActivity extends AppCompatActivity {
 
                populateListView(responseData);
            }catch (Exception e){
-               Toast.makeText(PaymentListActivity.this, "Save successful! "+e.toString(), Toast.LENGTH_SHORT).show();
+               Toast.makeText(PaymentListActivity.this, "Save successful! "+ e, Toast.LENGTH_SHORT).show();
 
            }
           }

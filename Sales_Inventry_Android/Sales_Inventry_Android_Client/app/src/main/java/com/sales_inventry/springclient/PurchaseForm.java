@@ -181,9 +181,9 @@ public class PurchaseForm extends AppCompatActivity implements AdapterView.OnIte
             Integer purchaseId=Integer.parseInt(String.valueOf(inputEditTextId.getText()));
 
             String dateStr = String.valueOf(inputEditTextDate.getText());
-            Date date=formatter.parse(dateStr); ;
+            Date date=formatter.parse(dateStr);
 
-            Integer productId=  ((ProductDTO)productDropDown.getSelectedItem()).getProdId();
+        Integer productId=  ((ProductDTO)productDropDown.getSelectedItem()).getProdId();
 
             Integer partyId= ((PartyDTO)partyDropDown.getSelectedItem()).getPartyId();
 
@@ -242,7 +242,7 @@ public class PurchaseForm extends AppCompatActivity implements AdapterView.OnIte
                 }
               });
     } catch(Exception e){
-        Toast.makeText(PurchaseForm.this, "Save failed!!! "+e.toString(), Toast.LENGTH_SHORT).show();
+        Toast.makeText(PurchaseForm.this, "Save failed!!! "+ e, Toast.LENGTH_SHORT).show();
     }
     });
 
@@ -298,7 +298,7 @@ public class PurchaseForm extends AppCompatActivity implements AdapterView.OnIte
 
                                 populatePartyListView(responseData);
                             }catch (Exception e){
-                                Toast.makeText(PurchaseForm.this, "Save successful! "+e.toString(), Toast.LENGTH_SHORT).show();
+                                Toast.makeText(PurchaseForm.this, "Save successful! "+ e, Toast.LENGTH_SHORT).show();
 
                             }
                         }
@@ -323,7 +323,7 @@ public class PurchaseForm extends AppCompatActivity implements AdapterView.OnIte
 
                                 populateEmployeeListView(responseData);
                             }catch (Exception e){
-                                Toast.makeText(PurchaseForm.this, "Save successful! "+e.toString(), Toast.LENGTH_SHORT).show();
+                                Toast.makeText(PurchaseForm.this, "Save successful! "+ e, Toast.LENGTH_SHORT).show();
 
                             }
                         }
@@ -347,7 +347,7 @@ public class PurchaseForm extends AppCompatActivity implements AdapterView.OnIte
 
                             populateProductListView(responseData);
                         }catch (Exception e){
-                            Toast.makeText(PurchaseForm.this, "Save successful! "+e.toString(), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(PurchaseForm.this, "Save successful! "+ e, Toast.LENGTH_SHORT).show();
 
                         }
                     }

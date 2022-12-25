@@ -22,4 +22,5 @@ public interface PartyApi {
 
   @POST("/party/deleteParty/{partyId}")
   Call<ResponseEntity> deleteParty(@Path("partyId") Integer partyId);
+
 }

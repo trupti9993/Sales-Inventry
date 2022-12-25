@@ -21,9 +21,9 @@ import java.util.logging.Logger;
 
 public class PartyAdapter extends RecyclerView.Adapter<PartyHolder> {
 
-  private List<PartyDTO> partyList;
+  private final List<PartyDTO> partyList;
 
-  private PartyListActivity partyListActivity;
+  private final PartyListActivity partyListActivity;
 
   public PartyAdapter(List<PartyDTO> partyList, PartyListActivity partyListActivity) {
     this.partyList = partyList;

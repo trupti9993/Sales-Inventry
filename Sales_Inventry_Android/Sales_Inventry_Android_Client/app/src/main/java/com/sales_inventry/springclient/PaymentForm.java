@@ -153,7 +153,7 @@ public class PaymentForm extends AppCompatActivity implements AdapterView.OnItem
                 Integer paymentId=Integer.parseInt(String.valueOf(inputEditTextId.getText()));
 
                 String dateStr = String.valueOf(inputEditTextDate.getText());
-                Date date=formatter.parse(dateStr); ;
+                Date date=formatter.parse(dateStr);
 
                 Integer purchaseId=  ((PurchaseDTO)purchaseDropDown.getSelectedItem()).getPurchaseId();
 
@@ -198,7 +198,7 @@ public class PaymentForm extends AppCompatActivity implements AdapterView.OnItem
                             }
                         });
             } catch(Exception e){
-                Toast.makeText(PaymentForm.this, "Save failed!!! "+e.toString(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(PaymentForm.this, "Save failed!!! "+ e, Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -252,7 +252,7 @@ public class PaymentForm extends AppCompatActivity implements AdapterView.OnItem
 
                                 populatePartyListView(responseData);
                             }catch (Exception e){
-                                Toast.makeText(PaymentForm.this, "Save successful! "+e.toString(), Toast.LENGTH_SHORT).show();
+                                Toast.makeText(PaymentForm.this, "Save successful! "+ e, Toast.LENGTH_SHORT).show();
 
                             }
                         }
@@ -277,7 +277,7 @@ public class PaymentForm extends AppCompatActivity implements AdapterView.OnItem
 
                                 populateEmployeeListView(responseData);
                             }catch (Exception e){
-                                Toast.makeText(PaymentForm.this, "Save successful! "+e.toString(), Toast.LENGTH_SHORT).show();
+                                Toast.makeText(PaymentForm.this, "Save successful! "+ e, Toast.LENGTH_SHORT).show();
 
                             }
                         }
@@ -301,7 +301,7 @@ public class PaymentForm extends AppCompatActivity implements AdapterView.OnItem
 
                             populateProductListView(responseData);
                         }catch (Exception e){
-                            Toast.makeText(PaymentForm.this, "Save successful! "+e.toString(), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(PaymentForm.this, "Save successful! "+ e, Toast.LENGTH_SHORT).show();
 
                         }
                     }

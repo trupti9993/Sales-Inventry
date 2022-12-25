@@ -22,4 +22,5 @@ public interface ReceiptApi {
 
   @POST("/receipt/deleteReceipt/{receiptId}")
   Call<ResponseEntity> deleteReceipt(@Path("receiptId") Integer receiptId);
+
 }

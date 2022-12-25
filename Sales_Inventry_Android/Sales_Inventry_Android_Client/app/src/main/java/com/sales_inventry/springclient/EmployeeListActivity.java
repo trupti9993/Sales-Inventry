@@ -62,7 +62,7 @@ public class EmployeeListActivity extends AppCompatActivity {
 
                populateListView(responseData);
            }catch (Exception e){
-               Toast.makeText(EmployeeListActivity.this, "Save successful! "+e.toString(), Toast.LENGTH_SHORT).show();
+               Toast.makeText(EmployeeListActivity.this, "Save successful! "+ e, Toast.LENGTH_SHORT).show();
 
            }
           }

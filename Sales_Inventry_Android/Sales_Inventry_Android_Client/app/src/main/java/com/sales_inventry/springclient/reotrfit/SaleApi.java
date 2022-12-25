@@ -22,4 +22,6 @@ public interface SaleApi {
 
   @POST("/sales/deleteSale/{saleId}")
   Call<ResponseEntity> deleteSale(@Path("saleId") Integer saleId);
+
+
 }
