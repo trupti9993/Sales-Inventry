@@ -41,7 +41,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class PurchaseForm extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
+public class PurchaseForm extends AppCompatActivity implements AdapterView.OnItemSelectedListener, View.OnClickListener {
 
     RetrofitService retrofitService = new RetrofitService();
     ProductApi productApi = retrofitService.getRetrofit().create(ProductApi.class);
@@ -85,6 +85,8 @@ public class PurchaseForm extends AppCompatActivity implements AdapterView.OnIte
       inputEditTextDate.setText(now.getDayOfMonth()+"/"+now.getMonthValue()+"/"+now.getYear());
 
       TextInputEditText inputEditTextQyantity = findViewById(R.id.form_textFieldQuantity);
+
+      inputEditTextQyantity.setOnClickListener(this);
 
       TextInputEditText inputEditTextRate = findViewById(R.id.form_textFieldRate);
 
@@ -377,5 +379,10 @@ public class PurchaseForm extends AppCompatActivity implements AdapterView.OnIte
         aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         //Setting the ArrayAdapter data on the Spinner
         productDropDown.setAdapter(aa);
+    }
+
+    @Override
+    public void onClick(View view) {
+        view.
     }
 }
