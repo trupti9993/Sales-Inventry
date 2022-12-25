@@ -159,12 +159,6 @@ public class PurchaseForm extends AppCompatActivity implements AdapterView.OnIte
                    public void onResponse(Call<ResponseEntity> call, Response<ResponseEntity> response) {
                        PurchaseDTO purchaseDTO= (PurchaseDTO) response.body().getPurchaseData();
 
-                       /*inputEditTextName.setText(employeeDTO.getEmpName());
-                       inputEditMobileNo.setText(employeeDTO.getMobileNo());
-                       inputEditEmail.setText(employeeDTO.getEmail());
-                       inputEditAddress.setText(employeeDTO.getAddress());
-                       inputEditPass.setText(employeeDTO.getPassword());
-                       inputEditTextId.setText(String.valueOf( employeeDTO.getEmployeeId()));*/
                    }
 
                    @Override
@@ -175,11 +169,7 @@ public class PurchaseForm extends AppCompatActivity implements AdapterView.OnIte
                });
        PurchaseListActivity.setPurchaseId(-1);
     }else {
-     //  inputEditTextName.setText("");
-       //inputEditMobileNo.setText("");
-       //inputEditEmail.setText("");
-       //inputEditAddress.setText("");
-       //inputEditPass.setText("");
+
        inputEditTextId.setText("-1");
    }
 
@@ -189,8 +179,6 @@ public class PurchaseForm extends AppCompatActivity implements AdapterView.OnIte
     buttonSave.setOnClickListener(view -> {
     try{
             Integer purchaseId=Integer.parseInt(String.valueOf(inputEditTextId.getText()));
-
-
 
             String dateStr = String.valueOf(inputEditTextDate.getText());
             Date date=formatter.parse(dateStr); ;
