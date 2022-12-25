@@ -123,4 +123,9 @@ public class PurchaseDTO {
 		this.netAmount = netAmount;
 	}
 
+	@Override
+	public String toString() {
+		return  String.valueOf(purchaseId) ;
+	}
+
 }

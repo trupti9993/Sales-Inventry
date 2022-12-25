@@ -125,4 +125,8 @@ public class SalesDTO {
 		this.netAmount = netAmount;
 	}
 
+	@Override
+	public String toString() {
+		return  String.valueOf(salesId) ;
+	}
 }
