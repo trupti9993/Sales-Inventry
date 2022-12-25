@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="25dp"
+    tools:context=".PaymentForm">
+
+  <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:orientation="vertical">
+
+    <EditText
+        android:id="@+id/form_textFieldDate"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:background="#d4d4d4"
+        android:hint="Select Date..."
+        android:padding="15dp"
+        android:textColor="#897"
+        android:textColorHint="#090"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/form_textFieldId"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"
+        android:hint="Id" />
+
+    <Spinner
+        android:id="@+id/form_textFieldPurchase"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" />
+
+    <Spinner
+        android:id="@+id/form_textFieldParty"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" />
+
+
+    <Spinner
+        android:id="@+id/form_textFieldEmployee"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" />
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/form_textFieldAmount"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"
+        android:hint="Amount" />
+  </LinearLayout>
+
+  <com.google.android.material.button.MaterialButton
+      android:id="@+id/form_buttonSave"
+      android:text="SAVE PAYMENT"
+      android:layout_alignParentBottom="true"
+      android:minHeight="60dp"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"/>
+
+</RelativeLayout>
