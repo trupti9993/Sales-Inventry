@@ -11,16 +11,16 @@ import com.sales_inventry.springclient.R;
 
 public class PaymentHolder extends RecyclerView.ViewHolder {
 
-  TextView name, prodType, prodUnit;
+  TextView id, date, amount;
   FloatingActionButton deleteBtn,updateBtn;
 
   public PaymentHolder(@NonNull View itemView) {
     super(itemView);
-    name = itemView.findViewById(R.id.productListItem_name);
-    prodType = itemView.findViewById(R.id.productListItem_prodType);
-    prodUnit = itemView.findViewById(R.id.productListItem_prodUnit);
-    deleteBtn= itemView.findViewById(R.id.productListItem_deleteBtn);
-    updateBtn= itemView.findViewById(R.id.productListItem_updateBtn);
+    id = itemView.findViewById(R.id.paymentListItem_id);
+    date = itemView.findViewById(R.id.paymentListItem_date);
+    amount = itemView.findViewById(R.id.paymentListItem_amount);
+    deleteBtn= itemView.findViewById(R.id.paymentListItem_deleteBtn);
+    updateBtn= itemView.findViewById(R.id.paymentListItem_updateBtn);
 
   }
 }

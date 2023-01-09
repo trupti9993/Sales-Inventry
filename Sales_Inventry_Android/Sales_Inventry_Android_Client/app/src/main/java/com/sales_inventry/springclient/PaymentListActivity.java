@@ -80,7 +80,7 @@ public class PaymentListActivity extends AppCompatActivity {
 
   private void populateListView(List<PaymentDTO> paymentList) {
      PaymentAdapter paymentAdapter = new PaymentAdapter(paymentList,this);
-      //recyclerView.setAdapter(paymentAdapter);
+     recyclerView.setAdapter(paymentAdapter);
   }
 
   @Override

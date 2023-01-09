@@ -130,7 +130,8 @@ public class PaymentForm extends AppCompatActivity implements AdapterView.OnItem
                         @Override
                         public void onResponse(Call<ResponseEntity> call, Response<ResponseEntity> response) {
                             PaymentDTO paymentDTO= (PaymentDTO) response.body().getPaymentData();
-
+                            inputEditTextId.setText(String.valueOf(paymentDTO.getPaymentId()));
+                            inputEditAmount.setText(String.valueOf(paymentDTO.getAmount()));
                         }
 
                         @Override

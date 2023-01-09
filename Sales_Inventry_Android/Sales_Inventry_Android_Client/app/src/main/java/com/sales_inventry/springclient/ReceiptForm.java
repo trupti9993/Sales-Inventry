@@ -128,6 +128,8 @@ public class ReceiptForm extends AppCompatActivity implements AdapterView.OnItem
                         @Override
                         public void onResponse(Call<ResponseEntity> call, Response<ResponseEntity> response) {
                             ReceiptDTO receiptDTO = (ReceiptDTO) response.body().getReceiptData();
+                            inputEditTextId.setText(String.valueOf(receiptDTO.getReceiptId()));
+                            inputEditAmount.setText(String.valueOf(receiptDTO.getAmount()));
                         }
 
                         @Override

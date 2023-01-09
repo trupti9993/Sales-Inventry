@@ -20,6 +20,7 @@ import com.sales_inventry.springclient.reotrfit.EmployeeApi;
 import com.sales_inventry.springclient.reotrfit.PaymentApi;
 import com.sales_inventry.springclient.reotrfit.RetrofitService;
 
+import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -29,6 +30,8 @@ public class PaymentAdapter extends RecyclerView.Adapter<PaymentHolder> {
   private final List<PaymentDTO> paymentList;
 
   private final PaymentListActivity paymentListActivity;
+
+  private SimpleDateFormat formatter=new SimpleDateFormat("dd/MM/yyyy");
 
   public PaymentAdapter(List<PaymentDTO> paymentList, PaymentListActivity paymentListActivity) {
     this.paymentList = paymentList;
@@ -53,14 +56,15 @@ public class PaymentAdapter extends RecyclerView.Adapter<PaymentHolder> {
 try {
   PaymentDTO payment = paymentList.get(position);
   Integer paymentId=payment.getPaymentId();
-   //holder.name.setText(payment.getEmpName());
-  //holder.address.setText(payment.getAddress());
-  //holder.email.setText(payment.getEmail());
+   holder.id.setText(String.valueOf(paymentId));
+
+  holder.date.setText(formatter.format(payment.getDate()));
+  holder.amount.setText(String.valueOf(payment.getAmount()));
 
   holder.updateBtn.setOnClickListener(view -> paymentListActivity.updatePayment(paymentId));
   holder.deleteBtn.setOnClickListener(view -> paymentListActivity.deletePayment(paymentId));
 } catch (Exception e){
-  Toast.makeText(null, "Save failed!!!", Toast.LENGTH_SHORT).show();
+  Toast.makeText(null, "Failed to fetch Payment data..!", Toast.LENGTH_SHORT).show();
   Logger.getLogger(PaymentForm.class.getName()).log(Level.SEVERE, "Error occurred", e);
 }
 

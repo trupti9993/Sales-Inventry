@@ -19,6 +19,7 @@ import com.sales_inventry.springclient.reotrfit.EmployeeApi;
 import com.sales_inventry.springclient.reotrfit.ReceiptApi;
 import com.sales_inventry.springclient.reotrfit.RetrofitService;
 
+import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -28,6 +29,8 @@ public class ReceiptAdapter extends RecyclerView.Adapter<ReceiptHolder> {
   private final List<ReceiptDTO> receiptList;
 
   private final ReceiptListActivity receiptListActivity;
+
+  private SimpleDateFormat formatter=new SimpleDateFormat("dd/MM/yyyy");
 
   public ReceiptAdapter(List<ReceiptDTO> receiptList, ReceiptListActivity receiptListActivity) {
     this.receiptList = receiptList;
@@ -52,9 +55,10 @@ public class ReceiptAdapter extends RecyclerView.Adapter<ReceiptHolder> {
 try {
    ReceiptDTO receipt = receiptList.get(position);
   Integer receiptId=receipt.getReceiptId();
- //  holder.name.setText(employee.getEmpName());
-  //holder.address.setText(employee.getAddress());
-  //holder.email.setText(employee.getEmail());
+  holder.id.setText(String.valueOf(receiptId));
+
+  holder.date.setText(formatter.format(receipt.getDate()));
+  holder.amount.setText(String.valueOf(receipt.getAmount()));
 
   holder.updateBtn.setOnClickListener(view -> receiptListActivity.updateReceipt(receiptId));
   holder.deleteBtn.setOnClickListener(view -> receiptListActivity.deleteReceipt(receiptId));
