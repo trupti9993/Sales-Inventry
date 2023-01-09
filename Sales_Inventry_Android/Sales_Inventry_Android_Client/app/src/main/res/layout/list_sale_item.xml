@@ -1,53 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-  xmlns:app="http://schemas.android.com/apk/res-auto"
-  android:layout_width="match_parent"
-  android:layout_height="wrap_content">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
 
   <TextView
-    android:id="@+id/employeeListItem_name"
-    android:textStyle="bold"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_margin="20dp"
-    android:text="Employee Name"
-    android:textColor="@color/black"
-    android:textSize="16sp"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toTopOf="parent" />
+      android:id="@+id/saleListItem_id"
+      android:textStyle="bold"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_margin="20dp"
+      android:text="Sale Id"
+      android:textColor="@color/black"
+      android:textSize="16sp"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent" />
 
   <TextView
-    android:id="@+id/employeeListItem_email"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_marginStart="20dp"
-    android:paddingBottom="20dp"
-    android:text="Email"
-    android:textSize="16sp"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toBottomOf="@id/employeeListItem_name" />
+      android:id="@+id/saleListItem_date"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="20dp"
+      android:paddingBottom="20dp"
+      android:text="Date"
+      android:textSize="16sp"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/saleListItem_id" />
 
   <TextView
-    android:id="@+id/employeeListItem_address"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_margin="20dp"
-    android:text="Address"
-    android:textSize="16sp"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toBottomOf="@id/employeeListItem_email" />
+      android:id="@+id/saleListItem_amount"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_margin="20dp"
+      android:text="Amount"
+      android:textSize="16sp"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/saleListItem_date" />
 
   <com.google.android.material.floatingactionbutton.FloatingActionButton
-      android:id="@+id/employeeListItem_updateBtn"
+      android:id="@+id/saleListItem_updateBtn"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_margin="20dp"
       android:src="@android:drawable/ic_input_add"
       app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintBottom_toBottomOf="@id/employeeListItem_address" />
+      app:layout_constraintBottom_toBottomOf="@id/saleListItem_amount" />
 
   <com.google.android.material.floatingactionbutton.FloatingActionButton
-      android:id="@+id/employeeListItem_deleteBtn"
+      android:id="@+id/saleListItem_deleteBtn"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_margin="20dp"
@@ -56,9 +56,9 @@
       app:layout_constraintEnd_toEndOf="parent" />
 
   <View
-    android:layout_width="match_parent"
-    android:layout_height="0.5dp"
-    android:background="#C2C2C2"
-    app:layout_constraintEnd_toEndOf="@id/employeeListItem_updateBtn" />
+      android:layout_width="match_parent"
+      android:layout_height="0.5dp"
+      android:background="#C2C2C2"
+      app:layout_constraintEnd_toEndOf="@id/saleListItem_updateBtn" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
