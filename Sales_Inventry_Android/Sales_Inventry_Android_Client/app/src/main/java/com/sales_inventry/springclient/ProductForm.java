@@ -40,6 +40,7 @@ public class ProductForm extends AppCompatActivity {
     TextInputEditText inputEditProdUnit = findViewById(R.id.form_textFieldProdUnit);
     TextInputEditText inputEditNoOfDecimal = findViewById(R.id.form_textFieldNoOfDecimal);
 
+
     MaterialButton buttonSave = findViewById(R.id.form_buttonSave);
 
      inputEditTextId.setVisibility(View.INVISIBLE);
@@ -64,7 +65,7 @@ public class ProductForm extends AppCompatActivity {
 
                    @Override
                    public void onFailure(Call<ResponseEntity> call, Throwable t) {
-                       Toast.makeText(ProductForm.this, "Product Fetch failed!!!", Toast.LENGTH_SHORT).show();
+                       Toast.makeText(ProductForm.this, "Failed to load Product data..!", Toast.LENGTH_SHORT).show();
                        Logger.getLogger(ProductForm.class.getName()).log(Level.SEVERE, "Error occurred", t);
                    }
                });
@@ -78,9 +79,6 @@ public class ProductForm extends AppCompatActivity {
        inputEditTextId.setText("-1");
    }
 
-
-
-
     buttonSave.setOnClickListener(view -> {
       String name = String.valueOf(inputEditTextName.getText());
       String prodType = String.valueOf(inputEditProdType.getText());
@@ -88,6 +86,30 @@ public class ProductForm extends AppCompatActivity {
       String noOfDecimal = String.valueOf(inputEditNoOfDecimal.getText());
 
       Integer productId=Integer.parseInt(String.valueOf(inputEditTextId.getText()));
+
+        if(name.trim().equals("")){
+            Toast.makeText(ProductForm.this, "Please Enter Name..! ", Toast.LENGTH_SHORT).show();
+            inputEditTextName.requestFocus();
+            return;
+        }
+
+        if(prodType.trim().equals("")){
+            Toast.makeText(ProductForm.this, "Please Enter Product Type..! ", Toast.LENGTH_SHORT).show();
+            inputEditProdType.requestFocus();
+            return;
+        }
+
+        if(prodUnit.trim().equals("")){
+            Toast.makeText(ProductForm.this, "Please Enter Product Unit..! ", Toast.LENGTH_SHORT).show();
+            inputEditProdUnit.requestFocus();
+            return;
+        }
+
+        if(noOfDecimal.trim().equals("")){
+            Toast.makeText(ProductForm.this, "Please Enter No Of Decimal..! ", Toast.LENGTH_SHORT).show();
+            inputEditNoOfDecimal.requestFocus();
+            return;
+        }
 
         ProductDTO product = new ProductDTO();
         product.setProdName(name);
@@ -102,7 +124,7 @@ public class ProductForm extends AppCompatActivity {
             @Override
             public void onResponse(Call<ProductDTO> call, Response<ProductDTO> response) {
 
-              Toast.makeText(ProductForm.this, "Save successful! ", Toast.LENGTH_SHORT).show();
+              Toast.makeText(ProductForm.this, "Product Save successful..! ", Toast.LENGTH_SHORT).show();
 
               Intent intent = new Intent(ProductForm.this, ProductListActivity.class);
               startActivity(intent);
@@ -110,7 +132,7 @@ public class ProductForm extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<ProductDTO> call, Throwable t) {
-              Toast.makeText(ProductForm.this, "Save failed!!!", Toast.LENGTH_SHORT).show();
+              Toast.makeText(ProductForm.this, "Product Save failed..!", Toast.LENGTH_SHORT).show();
               Logger.getLogger(ProductForm.class.getName()).log(Level.SEVERE, "Error occurred", t);
             }
           });

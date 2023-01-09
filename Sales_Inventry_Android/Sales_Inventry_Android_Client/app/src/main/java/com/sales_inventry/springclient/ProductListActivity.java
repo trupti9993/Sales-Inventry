@@ -69,14 +69,14 @@ public class ProductListActivity extends AppCompatActivity {
 
                populateListView(responseData);
            }catch (Exception e){
-               Toast.makeText(ProductListActivity.this, "Save successful! "+ e, Toast.LENGTH_SHORT).show();
+               Toast.makeText(ProductListActivity.this, "Failed to load Product data..! ", Toast.LENGTH_SHORT).show();
 
            }
           }
 
           @Override
           public void onFailure(Call<ResponseEntity> call, Throwable t) {
-            Toast.makeText(ProductListActivity.this, "Failed to load employees ", Toast.LENGTH_SHORT).show();
+            Toast.makeText(ProductListActivity.this, "Failed to load Product data..! ", Toast.LENGTH_SHORT).show();
           }
         });
   }
@@ -98,7 +98,7 @@ public class ProductListActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<ResponseEntity> call, Response<ResponseEntity> response) {
 
-                Toast.makeText(ProductListActivity.this, "Delete successful! ", Toast.LENGTH_SHORT).show();
+                Toast.makeText(ProductListActivity.this, "Product Delete successful..! ", Toast.LENGTH_SHORT).show();
 
                 loadAllProducts();
             }
@@ -106,7 +106,7 @@ public class ProductListActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<ResponseEntity> call, Throwable t) {
 
-                Toast.makeText(ProductListActivity.this, "Delete failed!!!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(ProductListActivity.this, "Product Delete failed..!", Toast.LENGTH_SHORT).show();
                 Logger.getLogger(EmployeeForm.class.getName()).log(Level.SEVERE, "Error occurred", t);
             }
         });

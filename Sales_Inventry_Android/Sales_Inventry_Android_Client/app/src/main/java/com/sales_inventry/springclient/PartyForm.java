@@ -64,7 +64,7 @@ public class PartyForm extends AppCompatActivity {
 
                    @Override
                    public void onFailure(Call<ResponseEntity> call, Throwable t) {
-                       Toast.makeText(PartyForm.this, "Party Fetch failed!!!", Toast.LENGTH_SHORT).show();
+                       Toast.makeText(PartyForm.this, "Failed to load Party data..!", Toast.LENGTH_SHORT).show();
                        Logger.getLogger(PartyForm.class.getName()).log(Level.SEVERE, "Error occurred", t);
                    }
                });
@@ -89,6 +89,30 @@ public class PartyForm extends AppCompatActivity {
 
       Integer partyId=Integer.parseInt(String.valueOf(inputEditTextId.getText()));
 
+        if(name.trim().equals("")){
+            Toast.makeText(PartyForm.this, "Please Enter Name..! ", Toast.LENGTH_SHORT).show();
+            inputEditTextName.requestFocus();
+            return;
+        }
+
+        if(mobile.trim().equals("")){
+            Toast.makeText(PartyForm.this, "Please Enter Mobile No..! ", Toast.LENGTH_SHORT).show();
+            inputEditMobileNo.requestFocus();
+            return;
+        }
+
+        if(email.trim().equals("")){
+            Toast.makeText(PartyForm.this, "Please Enter Email..! ", Toast.LENGTH_SHORT).show();
+            inputEditEmail.requestFocus();
+            return;
+        }
+
+        if(address.trim().equals("")){
+            Toast.makeText(PartyForm.this, "Please Enter Address..! ", Toast.LENGTH_SHORT).show();
+            inputEditAddress.requestFocus();
+            return;
+        }
+
         PartyDTO party = new PartyDTO();
         party.setFirstName(name);
         party.setPartyId(partyId);
@@ -102,7 +126,7 @@ public class PartyForm extends AppCompatActivity {
             @Override
             public void onResponse(Call<PartyDTO> call, Response<PartyDTO> response) {
 
-              Toast.makeText(PartyForm.this, "Save successful! ", Toast.LENGTH_SHORT).show();
+              Toast.makeText(PartyForm.this, "Party Save successful..! ", Toast.LENGTH_SHORT).show();
 
               Intent intent = new Intent(PartyForm.this, PartyListActivity.class);
               startActivity(intent);
@@ -110,7 +134,7 @@ public class PartyForm extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<PartyDTO> call, Throwable t) {
-              Toast.makeText(PartyForm.this, "Save failed!!!", Toast.LENGTH_SHORT).show();
+              Toast.makeText(PartyForm.this, "Party Save failed..!", Toast.LENGTH_SHORT).show();
               Logger.getLogger(PartyForm.class.getName()).log(Level.SEVERE, "Error occurred", t);
             }
           });

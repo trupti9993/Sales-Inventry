@@ -83,9 +83,39 @@ public class EmployeeForm extends AppCompatActivity {
       String pass = String.valueOf(inputEditPass.getText());
       Integer employeeId=Integer.parseInt(String.valueOf(inputEditTextId.getText()));
 
+        if(name.trim().equals("")){
+            Toast.makeText(EmployeeForm.this, "Please Enter Name..! ", Toast.LENGTH_SHORT).show();
+            inputEditTextName.requestFocus();
+            return;
+        }
+
+        if(mobile.trim().equals("")){
+            Toast.makeText(EmployeeForm.this, "Please Enter Mobile No..! ", Toast.LENGTH_SHORT).show();
+            inputEditMobileNo.requestFocus();
+            return;
+        }
+
+        if(email.trim().equals("")){
+            Toast.makeText(EmployeeForm.this, "Please Enter Email..! ", Toast.LENGTH_SHORT).show();
+            inputEditEmail.requestFocus();
+            return;
+        }
+
+        if(address.trim().equals("")){
+            Toast.makeText(EmployeeForm.this, "Please Enter Address..! ", Toast.LENGTH_SHORT).show();
+            inputEditAddress.requestFocus();
+            return;
+        }
+
+        if(pass.trim().equals("")){
+            Toast.makeText(EmployeeForm.this, "Please Enter Password..! ", Toast.LENGTH_SHORT).show();
+            inputEditPass.requestFocus();
+            return;
+        }
+
       EmployeeDTO employee = new EmployeeDTO();
       employee.setEmpName(name);
-        employee.setEmployeeId(employeeId);
+      employee.setEmployeeId(employeeId);
       employee.setAddress(address);
       employee.setEmail(email);
       employee.setMobileNo(mobile);
@@ -96,7 +126,7 @@ public class EmployeeForm extends AppCompatActivity {
             @Override
             public void onResponse(Call<EmployeeDTO> call, Response<EmployeeDTO> response) {
 
-              Toast.makeText(EmployeeForm.this, "Save successful! ", Toast.LENGTH_SHORT).show();
+              Toast.makeText(EmployeeForm.this, "Employee Save successful..! ", Toast.LENGTH_SHORT).show();
 
               Intent intent = new Intent(EmployeeForm.this, EmployeeListActivity.class);
               startActivity(intent);
@@ -104,7 +134,7 @@ public class EmployeeForm extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<EmployeeDTO> call, Throwable t) {
-              Toast.makeText(EmployeeForm.this, "Save failed!!!", Toast.LENGTH_SHORT).show();
+              Toast.makeText(EmployeeForm.this, "Employee Save failed..!", Toast.LENGTH_SHORT).show();
               Logger.getLogger(EmployeeForm.class.getName()).log(Level.SEVERE, "Error occurred", t);
             }
           });

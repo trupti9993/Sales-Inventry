@@ -62,14 +62,14 @@ public class EmployeeListActivity extends AppCompatActivity {
 
                populateListView(responseData);
            }catch (Exception e){
-               Toast.makeText(EmployeeListActivity.this, "Save successful! "+ e, Toast.LENGTH_SHORT).show();
+               Toast.makeText(EmployeeListActivity.this, "Failed to load Employee data..!", Toast.LENGTH_SHORT).show();
 
            }
           }
 
           @Override
           public void onFailure(Call<ResponseEntity> call, Throwable t) {
-            Toast.makeText(EmployeeListActivity.this, "Failed to load employees ", Toast.LENGTH_SHORT).show();
+            Toast.makeText(EmployeeListActivity.this, "Failed to load Employee data..! ", Toast.LENGTH_SHORT).show();
           }
         });
   }
@@ -91,7 +91,7 @@ public class EmployeeListActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<ResponseEntity> call, Response<ResponseEntity> response) {
 
-                Toast.makeText(EmployeeListActivity.this, "Delete successful! ", Toast.LENGTH_SHORT).show();
+                Toast.makeText(EmployeeListActivity.this, "Employee Delete successful..! ", Toast.LENGTH_SHORT).show();
 
                 loadEmployees();
             }
@@ -99,7 +99,7 @@ public class EmployeeListActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<ResponseEntity> call, Throwable t) {
 
-                Toast.makeText(EmployeeListActivity.this, "Delete failed!!!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(EmployeeListActivity.this, "Employee Delete failed..!", Toast.LENGTH_SHORT).show();
                 Logger.getLogger(EmployeeForm.class.getName()).log(Level.SEVERE, "Error occurred", t);
             }
         });
