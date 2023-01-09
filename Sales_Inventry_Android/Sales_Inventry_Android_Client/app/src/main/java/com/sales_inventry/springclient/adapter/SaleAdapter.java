@@ -8,16 +8,12 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.sales_inventry.springclient.EmployeeForm;
-import com.sales_inventry.springclient.EmployeeListActivity;
 import com.sales_inventry.springclient.R;
+import com.sales_inventry.springclient.SaleForm;
 import com.sales_inventry.springclient.SaleListActivity;
-import com.sales_inventry.springclient.model.EmployeeDTO;
 import com.sales_inventry.springclient.model.SalesDTO;
-import com.sales_inventry.springclient.reotrfit.EmployeeApi;
-import com.sales_inventry.springclient.reotrfit.RetrofitService;
-import com.sales_inventry.springclient.reotrfit.SaleApi;
 
+import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -27,6 +23,8 @@ public class SaleAdapter extends RecyclerView.Adapter<SaleHolder> {
   private final List<SalesDTO> saleList;
 
   private final SaleListActivity saleListActivity;
+
+  SimpleDateFormat formatter=new SimpleDateFormat("dd/MM/yyyy");
 
   public SaleAdapter(List<SalesDTO> saleList, SaleListActivity saleListActivity) {
     this.saleList = saleList;
@@ -44,23 +42,20 @@ public class SaleAdapter extends RecyclerView.Adapter<SaleHolder> {
   @Override
   public void onBindViewHolder(@NonNull SaleHolder holder, int position) {
 
-    RetrofitService retrofitService = new RetrofitService();
-    SaleApi saleApi = retrofitService.getRetrofit().create(SaleApi.class);
+        try {
+          SalesDTO sale = saleList.get(position);
+          Integer salesId=sale.getSalesId();
+          holder.id.setText(String.valueOf(salesId));
 
+          holder.date.setText(formatter.format(sale.getDate()));
+          holder.amount.setText(String.valueOf(sale.getNetAmount()));
 
-try {
-  SalesDTO employee = saleList.get(position);
-  Integer salesId=employee.getSalesId();
-  // holder.name.setText(employee.getEmpName());
-  //holder.address.setText(employee.getAddress());
-  //holder.email.setText(employee.getEmail());
-
-  holder.updateBtn.setOnClickListener(view -> saleListActivity.updateSale(salesId));
-  holder.deleteBtn.setOnClickListener(view -> saleListActivity.deleteSale(salesId));
-} catch (Exception e){
-  Toast.makeText(null, "Save failed!!!", Toast.LENGTH_SHORT).show();
-  Logger.getLogger(EmployeeForm.class.getName()).log(Level.SEVERE, "Error occurred", e);
-}
+          holder.updateBtn.setOnClickListener(view -> saleListActivity.updateSale(salesId));
+          holder.deleteBtn.setOnClickListener(view -> saleListActivity.deleteSale(salesId));
+        } catch (Exception e){
+          Toast.makeText(null, "Failed to fetch Sale data..!", Toast.LENGTH_SHORT).show();
+          Logger.getLogger(SaleForm.class.getName()).log(Level.SEVERE, "Error occurred", e);
+        }
 
 
   }
