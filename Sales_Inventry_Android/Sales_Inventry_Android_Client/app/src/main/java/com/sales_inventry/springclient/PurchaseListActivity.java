@@ -34,7 +34,7 @@ public class PurchaseListActivity extends AppCompatActivity {
         purchaseId=purId;
     }
 
-  private RecyclerView recyclerView;
+    private RecyclerView recyclerView;
 
     RetrofitService retrofitService = new RetrofitService();
     PurchaseApi purchaseApi = retrofitService.getRetrofit().create(PurchaseApi.class);
@@ -90,22 +90,23 @@ public class PurchaseListActivity extends AppCompatActivity {
   }
 
     public void deletePurchase(Integer purchaseId) {
-        purchaseApi.deletePurchase(purchaseId).enqueue(new Callback<ResponseEntity>() {
-            @Override
-            public void onResponse(Call<ResponseEntity> call, Response<ResponseEntity> response) {
 
-                Toast.makeText(PurchaseListActivity.this, "Purchase Delete successful..! ", Toast.LENGTH_SHORT).show();
+          purchaseApi.deletePurchase(purchaseId).enqueue(new Callback<ResponseEntity>() {
+              @Override
+              public void onResponse(Call<ResponseEntity> call, Response<ResponseEntity> response) {
 
-                loadPurchaseData();
-            }
+                  Toast.makeText(PurchaseListActivity.this, "Purchase Delete successful..! ", Toast.LENGTH_SHORT).show();
 
-            @Override
-            public void onFailure(Call<ResponseEntity> call, Throwable t) {
+                  loadPurchaseData();
+              }
 
-                Toast.makeText(PurchaseListActivity.this, "Purchase Delete failed..!", Toast.LENGTH_SHORT).show();
-                Logger.getLogger(PurchaseForm.class.getName()).log(Level.SEVERE, "Error occurred", t);
-            }
-        });
+              @Override
+              public void onFailure(Call<ResponseEntity> call, Throwable t) {
+
+                  Toast.makeText(PurchaseListActivity.this, "Purchase Delete failed..!", Toast.LENGTH_SHORT).show();
+                  Logger.getLogger(PurchaseForm.class.getName()).log(Level.SEVERE, "Error occurred", t);
+              }
+          });
 
 
     }

@@ -20,6 +20,6 @@ public interface PurchaseApi {
   @GET("/purchase/getPurchase/{purchaseId}")
   Call<ResponseEntity> getPurchase(@Path("purchaseId") Integer purchaseId);
 
-  @POST("/purchase/deletePurchase/{purchaseId")
+  @POST("/purchase/deletePurchase/{purchaseId}")
   Call<ResponseEntity> deletePurchase(@Path("purchaseId") Integer purchaseId);
 }

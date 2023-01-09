@@ -34,7 +34,7 @@ public class SaleListActivity extends AppCompatActivity {
         saleId=id;
     }
 
-  private RecyclerView recyclerView;
+    private RecyclerView recyclerView;
 
     RetrofitService retrofitService = new RetrofitService();
     SaleApi saleApi = retrofitService.getRetrofit().create(SaleApi.class);
