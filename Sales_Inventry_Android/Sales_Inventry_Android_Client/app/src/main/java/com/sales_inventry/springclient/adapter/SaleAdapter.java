@@ -24,7 +24,7 @@ public class SaleAdapter extends RecyclerView.Adapter<SaleHolder> {
 
   private final SaleListActivity saleListActivity;
 
-  SimpleDateFormat formatter=new SimpleDateFormat("dd/MM/yyyy");
+  private SimpleDateFormat formatter=new SimpleDateFormat("dd/MM/yyyy");
 
   public SaleAdapter(List<SalesDTO> saleList, SaleListActivity saleListActivity) {
     this.saleList = saleList;

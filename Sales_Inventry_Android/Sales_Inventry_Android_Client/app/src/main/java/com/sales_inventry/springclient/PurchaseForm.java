@@ -3,7 +3,6 @@
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.Editable;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -16,7 +15,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
-import com.sales_inventry.springclient.adapter.ProductAdapter;
 import com.sales_inventry.springclient.model.EmployeeDTO;
 import com.sales_inventry.springclient.model.PartyDTO;
 import com.sales_inventry.springclient.model.ProductDTO;
@@ -30,7 +28,6 @@ import com.sales_inventry.springclient.reotrfit.RetrofitService;
 
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -54,7 +51,7 @@ public class PurchaseForm extends AppCompatActivity implements AdapterView.OnIte
 
     Spinner employeeDropDown;
 
-    TextInputEditText inputEditTextQyantity ;
+    TextInputEditText inputEditTextQuantity;
 
     TextInputEditText inputEditTextRate ;
 
@@ -96,9 +93,9 @@ public class PurchaseForm extends AppCompatActivity implements AdapterView.OnIte
       LocalDate now = LocalDate.now();
       inputEditTextDate.setText(now.getDayOfMonth()+"/"+now.getMonthValue()+"/"+now.getYear());
 
-       inputEditTextQyantity = findViewById(R.id.form_textFieldQuantity);
+       inputEditTextQuantity = findViewById(R.id.form_textFieldQuantity);
 
-      inputEditTextQyantity.setOnClickListener(this);
+      inputEditTextQuantity.setOnClickListener(this);
 
        inputEditTextRate = findViewById(R.id.form_textFieldRate);
 
@@ -159,6 +156,20 @@ public class PurchaseForm extends AppCompatActivity implements AdapterView.OnIte
                    public void onResponse(Call<ResponseEntity> call, Response<ResponseEntity> response) {
                        PurchaseDTO purchaseDTO= (PurchaseDTO) response.body().getPurchaseData();
 
+                       inputEditTextId.setText(String.valueOf(purchaseDTO.getPurchaseId()));
+
+                       inputEditTextDate.setText(formatter.format(purchaseDTO.getDate()));
+
+                       inputEditTextQuantity.setText(String.valueOf(purchaseDTO.getQuantity()));
+                       inputEditTextRate.setText(String.valueOf(purchaseDTO.getRate()));
+
+                       inputEditAmount.setText(String.valueOf(purchaseDTO.getAmount()));
+
+                       inputEditDiscount.setText(String.valueOf(purchaseDTO.getDiscount()));
+
+                       inputEditTax.setText(String.valueOf(purchaseDTO.getTax()));
+
+                       inputEditNetAmount.setText(String.valueOf(purchaseDTO.getNetAmount()));
                    }
 
                    @Override
@@ -190,7 +201,7 @@ public class PurchaseForm extends AppCompatActivity implements AdapterView.OnIte
             Integer empId= ((EmployeeDTO)employeeDropDown.getSelectedItem()).getEmployeeId();
 
 
-            String qty = String.valueOf(inputEditTextQyantity.getText());
+            String qty = String.valueOf(inputEditTextQuantity.getText());
             Double quantity=  Double.parseDouble(qty.equals("")?"0":qty);
 
             String rateStr = String.valueOf(inputEditTextRate.getText());
@@ -211,7 +222,7 @@ public class PurchaseForm extends AppCompatActivity implements AdapterView.OnIte
 
             if(quantity.equals(0.0)){
                 Toast.makeText(PurchaseForm.this, "Please Enter Quantity..! ", Toast.LENGTH_SHORT).show();
-                inputEditTextQyantity.requestFocus();
+                inputEditTextQuantity.requestFocus();
                 return;
             }
 
@@ -425,7 +436,7 @@ public class PurchaseForm extends AppCompatActivity implements AdapterView.OnIte
 
     @Override
     public void onClick(View view) {
-        String qty = String.valueOf(inputEditTextQyantity.getText());
+        String qty = String.valueOf(inputEditTextQuantity.getText());
         Double quantity=  Double.parseDouble(qty.equals("")?"0":qty);
 
         String rateStr = String.valueOf(inputEditTextRate.getText());

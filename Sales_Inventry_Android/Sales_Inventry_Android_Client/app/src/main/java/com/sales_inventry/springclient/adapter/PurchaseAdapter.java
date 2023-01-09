@@ -19,6 +19,7 @@ import com.sales_inventry.springclient.reotrfit.EmployeeApi;
 import com.sales_inventry.springclient.reotrfit.PurchaseApi;
 import com.sales_inventry.springclient.reotrfit.RetrofitService;
 
+import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -28,6 +29,8 @@ public class PurchaseAdapter extends RecyclerView.Adapter<PurchaseHolder> {
   private final List<PurchaseDTO> purchaseList;
 
   private final PurchaseListActivity   purchaseListActivity;
+
+  private SimpleDateFormat formatter=new SimpleDateFormat("dd/MM/yyyy");
 
   public PurchaseAdapter(List<PurchaseDTO> purchaseList, PurchaseListActivity purchaseListActivity) {
     this.purchaseList = purchaseList;
@@ -52,9 +55,11 @@ public class PurchaseAdapter extends RecyclerView.Adapter<PurchaseHolder> {
 try {
   PurchaseDTO purchase = purchaseList.get(position);
   Integer purchaseId=purchase.getPurchaseId();
- //  holder.name.setText(purchase.getEmpName());
-  //holder.address.setText(purchase.getAddress());
-  //holder.email.setText(purchase.getEmail());
+
+  holder.id.setText(String.valueOf(purchaseId));
+
+  holder.date.setText(formatter.format(purchase.getDate()));
+  holder.amount.setText(String.valueOf(purchase.getNetAmount()));
 
   holder.updateBtn.setOnClickListener(view -> purchaseListActivity.updatePurchase(purchaseId));
   holder.deleteBtn.setOnClickListener(view -> purchaseListActivity.deletePurchase(purchaseId));
