@@ -9,13 +9,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.sales_inventry.springclient.adapter.PartyAdapter;
 import com.sales_inventry.springclient.adapter.SaleAdapter;
-import com.sales_inventry.springclient.model.EmployeeDTO;
-import com.sales_inventry.springclient.model.PartyDTO;
 import com.sales_inventry.springclient.model.ResponseEntity;
 import com.sales_inventry.springclient.model.SalesDTO;
-import com.sales_inventry.springclient.reotrfit.EmployeeApi;
 import com.sales_inventry.springclient.reotrfit.RetrofitService;
 import com.sales_inventry.springclient.reotrfit.SaleApi;
 
@@ -69,14 +65,14 @@ public class SaleListActivity extends AppCompatActivity {
 
                populateListView(responseData);
            }catch (Exception e){
-               Toast.makeText(SaleListActivity.this, "Save successful! "+ e, Toast.LENGTH_SHORT).show();
+               Toast.makeText(SaleListActivity.this, "Failed to load Sale data..! "+ e, Toast.LENGTH_SHORT).show();
 
            }
           }
 
           @Override
           public void onFailure(Call<ResponseEntity> call, Throwable t) {
-            Toast.makeText(SaleListActivity.this, "Failed to load employees ", Toast.LENGTH_SHORT).show();
+            Toast.makeText(SaleListActivity.this, "Failed to load Sale data..! ", Toast.LENGTH_SHORT).show();
           }
         });
   }
@@ -98,7 +94,7 @@ public class SaleListActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<ResponseEntity> call, Response<ResponseEntity> response) {
 
-                Toast.makeText(SaleListActivity.this, "Delete successful! ", Toast.LENGTH_SHORT).show();
+                Toast.makeText(SaleListActivity.this, "Sale Delete successful..! ", Toast.LENGTH_SHORT).show();
 
                 loadAllSalesData();
             }
@@ -106,7 +102,7 @@ public class SaleListActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<ResponseEntity> call, Throwable t) {
 
-                Toast.makeText(SaleListActivity.this, "Delete failed!!!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(SaleListActivity.this, "Sale Delete failed..!", Toast.LENGTH_SHORT).show();
                 Logger.getLogger(SaleForm.class.getName()).log(Level.SEVERE, "Error occurred", t);
             }
         });

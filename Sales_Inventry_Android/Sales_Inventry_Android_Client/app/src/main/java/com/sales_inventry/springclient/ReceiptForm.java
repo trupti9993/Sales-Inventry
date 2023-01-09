@@ -132,7 +132,7 @@ public class ReceiptForm extends AppCompatActivity implements AdapterView.OnItem
 
                         @Override
                         public void onFailure(Call<ResponseEntity> call, Throwable t) {
-                            Toast.makeText(ReceiptForm.this, "Receipt Fetch failed!!!", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(ReceiptForm.this, "Receipt Fetch failed..!", Toast.LENGTH_SHORT).show();
                             Logger.getLogger(ReceiptForm.class.getName()).log(Level.SEVERE, "Error occurred", t);
                         }
                     });
@@ -160,7 +160,11 @@ public class ReceiptForm extends AppCompatActivity implements AdapterView.OnItem
                 String amt = String.valueOf(inputEditAmount.getText());
                 Double amount = Double.parseDouble(amt.equals("") ? "0" : amt);
 
-
+                if(amt.trim().equals("")){
+                    Toast.makeText(ReceiptForm.this, "Please Enter Amount..! ", Toast.LENGTH_SHORT).show();
+                    inputEditAmount.requestFocus();
+                    return;
+                }
                 ReceiptDTO receipt = new ReceiptDTO();
                 receipt.setSalesId(salesId);
                 receipt.setEmpId(empId);
@@ -175,7 +179,7 @@ public class ReceiptForm extends AppCompatActivity implements AdapterView.OnItem
                             @Override
                             public void onResponse(Call<ReceiptDTO> call, Response<ReceiptDTO> response) {
 
-                                Toast.makeText(ReceiptForm.this, "Save successful! ", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(ReceiptForm.this, "Receipt Save successful..! ", Toast.LENGTH_SHORT).show();
 
                                 Intent intent = new Intent(ReceiptForm.this, ReceiptListActivity.class);
                                 startActivity(intent);
@@ -183,12 +187,12 @@ public class ReceiptForm extends AppCompatActivity implements AdapterView.OnItem
 
                             @Override
                             public void onFailure(Call<ReceiptDTO> call, Throwable t) {
-                                Toast.makeText(ReceiptForm.this, "Save failed!!!", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(ReceiptForm.this, "Receipt Save failed..!", Toast.LENGTH_SHORT).show();
                                 Logger.getLogger(ReceiptForm.class.getName()).log(Level.SEVERE, "Error occurred", t);
                             }
                         });
             } catch (Exception e) {
-                Toast.makeText(ReceiptForm.this, "Save failed!!! " + e, Toast.LENGTH_SHORT).show();
+                Toast.makeText(ReceiptForm.this, "Receipt Save failed..! " + e, Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -243,14 +247,14 @@ public class ReceiptForm extends AppCompatActivity implements AdapterView.OnItem
 
                                 populatePartyListView(responseData);
                             } catch (Exception e) {
-                                Toast.makeText(ReceiptForm.this, "Save successful! " + e, Toast.LENGTH_SHORT).show();
+                                Toast.makeText(ReceiptForm.this, "Failed to load Party data..!" , Toast.LENGTH_SHORT).show();
 
                             }
                         }
 
                         @Override
                         public void onFailure(Call<ResponseEntity> call, Throwable t) {
-                            Toast.makeText(ReceiptForm.this, "Failed to load employees ", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(ReceiptForm.this, "Failed to load Party data..! ", Toast.LENGTH_SHORT).show();
                         }
                     });
         }
@@ -268,14 +272,14 @@ public class ReceiptForm extends AppCompatActivity implements AdapterView.OnItem
 
                                 populateEmployeeListView(responseData);
                             } catch (Exception e) {
-                                Toast.makeText(ReceiptForm.this, "Save successful! " + e, Toast.LENGTH_SHORT).show();
+                                Toast.makeText(ReceiptForm.this, "Failed to load Employee data..!" , Toast.LENGTH_SHORT).show();
 
                             }
                         }
 
                         @Override
                         public void onFailure(Call<ResponseEntity> call, Throwable t) {
-                            Toast.makeText(ReceiptForm.this, "Failed to load employees ", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(ReceiptForm.this, "Failed to load Employee data..! ", Toast.LENGTH_SHORT).show();
                         }
                     });
         }
@@ -292,14 +296,14 @@ public class ReceiptForm extends AppCompatActivity implements AdapterView.OnItem
 
                             populateSaleListView(responseData);
                         } catch (Exception e) {
-                            Toast.makeText(ReceiptForm.this, "Save successful! " + e, Toast.LENGTH_SHORT).show();
+                            Toast.makeText(ReceiptForm.this, "Failed to load Sale data..! ", Toast.LENGTH_SHORT).show();
 
                         }
                     }
 
                     @Override
                     public void onFailure(Call<ResponseEntity> call, Throwable t) {
-                        Toast.makeText(ReceiptForm.this, "Failed to load employees ", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(ReceiptForm.this, "Failed to load Sale data..! ", Toast.LENGTH_SHORT).show();
                     }
                 });
     }

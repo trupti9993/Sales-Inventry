@@ -159,7 +159,7 @@ public class SaleForm extends AppCompatActivity  implements AdapterView.OnItemSe
 
                    @Override
                    public void onFailure(Call<ResponseEntity> call, Throwable t) {
-                       Toast.makeText(SaleForm.this, "Sale Fetch failed!!!", Toast.LENGTH_SHORT).show();
+                       Toast.makeText(SaleForm.this, "Sale Fetch failed..!", Toast.LENGTH_SHORT).show();
                        Logger.getLogger(SaleForm.class.getName()).log(Level.SEVERE, "Error occurred", t);
                    }
                });
@@ -205,6 +205,43 @@ public class SaleForm extends AppCompatActivity  implements AdapterView.OnItemSe
             String rateAmt = String.valueOf(inputEditNetAmount.getText());
             Double netAmount= Double.parseDouble(rateAmt.equals("")?"0":rateAmt);
 
+            if(quantity.equals(0.0)){
+                Toast.makeText(SaleForm.this, "Please Enter Quantity..! ", Toast.LENGTH_SHORT).show();
+                inputEditTextQyantity.requestFocus();
+                return;
+            }
+
+            if(rate.equals(0.0)){
+                Toast.makeText(SaleForm.this, "Please Enter Rate..! ", Toast.LENGTH_SHORT).show();
+                inputEditTextRate.requestFocus();
+                return;
+            }
+
+            if(amt.equals(0.0)){
+                Toast.makeText(SaleForm.this, "Please Enter Amount..! ", Toast.LENGTH_SHORT).show();
+                inputEditAmount.requestFocus();
+                return;
+            }
+
+            if(discount.equals(0.0)){
+                Toast.makeText(SaleForm.this, "Please Enter Discount..! ", Toast.LENGTH_SHORT).show();
+                inputEditDiscount.requestFocus();
+                return;
+            }
+
+            if(tax.equals(0.0)){
+                Toast.makeText(SaleForm.this, "Please Enter Tax..! ", Toast.LENGTH_SHORT).show();
+                inputEditTax.requestFocus();
+                return;
+            }
+
+            if(netAmount.equals(0.0)){
+                Toast.makeText(SaleForm.this, "Please Enter Net Amount..! ", Toast.LENGTH_SHORT).show();
+                inputEditNetAmount.requestFocus();
+                return;
+            }
+
+
             SalesDTO sales = new SalesDTO();
             sales.setSalesId(purchaseId);
             sales.setEmpId(empId);
@@ -228,7 +265,7 @@ public class SaleForm extends AppCompatActivity  implements AdapterView.OnItemSe
             @Override
             public void onResponse(Call<SalesDTO> call, Response<SalesDTO> response) {
 
-              Toast.makeText(SaleForm.this, "Save successful! ", Toast.LENGTH_SHORT).show();
+              Toast.makeText(SaleForm.this, "Save Save successful..! ", Toast.LENGTH_SHORT).show();
 
               Intent intent = new Intent(SaleForm.this, SaleListActivity.class);
               startActivity(intent);
@@ -236,12 +273,12 @@ public class SaleForm extends AppCompatActivity  implements AdapterView.OnItemSe
 
             @Override
             public void onFailure(Call<SalesDTO> call, Throwable t) {
-              Toast.makeText(SaleForm.this, "Save failed!!!", Toast.LENGTH_SHORT).show();
+              Toast.makeText(SaleForm.this, "Sale Save failed..!", Toast.LENGTH_SHORT).show();
               Logger.getLogger(SaleForm.class.getName()).log(Level.SEVERE, "Error occurred", t);
             }
           });
         } catch(Exception e){
-            Toast.makeText(SaleForm.this, "Save failed!!! "+ e, Toast.LENGTH_SHORT).show();
+            Toast.makeText(SaleForm.this, "Sale Save failed..! "+ e, Toast.LENGTH_SHORT).show();
         }
     });
   }
@@ -295,14 +332,14 @@ public class SaleForm extends AppCompatActivity  implements AdapterView.OnItemSe
 
                                 populatePartyListView(responseData);
                             }catch (Exception e){
-                                Toast.makeText(SaleForm.this, "Save successful! "+ e, Toast.LENGTH_SHORT).show();
+                                Toast.makeText(SaleForm.this, "Failed to load Party data..! ", Toast.LENGTH_SHORT).show();
 
                             }
                         }
 
                         @Override
                         public void onFailure(Call<ResponseEntity> call, Throwable t) {
-                            Toast.makeText(SaleForm.this, "Failed to load employees ", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(SaleForm.this, "Failed to load Party data..! ", Toast.LENGTH_SHORT).show();
                         }
                     });
         }
@@ -320,14 +357,14 @@ public class SaleForm extends AppCompatActivity  implements AdapterView.OnItemSe
 
                                 populateEmployeeListView(responseData);
                             }catch (Exception e){
-                                Toast.makeText(SaleForm.this, "Save successful! "+ e, Toast.LENGTH_SHORT).show();
+                                Toast.makeText(SaleForm.this, "Failed to load Employee data..! ", Toast.LENGTH_SHORT).show();
 
                             }
                         }
 
                         @Override
                         public void onFailure(Call<ResponseEntity> call, Throwable t) {
-                            Toast.makeText(SaleForm.this, "Failed to load employees ", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(SaleForm.this, "Failed to load Employee data..! ", Toast.LENGTH_SHORT).show();
                         }
                     });
         }
@@ -344,14 +381,14 @@ public class SaleForm extends AppCompatActivity  implements AdapterView.OnItemSe
 
                             populateProductListView(responseData);
                         }catch (Exception e){
-                            Toast.makeText(SaleForm.this, "Save successful! "+ e, Toast.LENGTH_SHORT).show();
+                            Toast.makeText(SaleForm.this, "Failed to load Product data..!", Toast.LENGTH_SHORT).show();
 
                         }
                     }
 
                     @Override
                     public void onFailure(Call<ResponseEntity> call, Throwable t) {
-                        Toast.makeText(SaleForm.this, "Failed to load employees ", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(SaleForm.this, "Failed to load Product data..! ", Toast.LENGTH_SHORT).show();
                     }
                 });
     }

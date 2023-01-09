@@ -163,7 +163,7 @@ public class PurchaseForm extends AppCompatActivity implements AdapterView.OnIte
 
                    @Override
                    public void onFailure(Call<ResponseEntity> call, Throwable t) {
-                       Toast.makeText(PurchaseForm.this, "Purchase Fetch failed!!!", Toast.LENGTH_SHORT).show();
+                       Toast.makeText(PurchaseForm.this, "Purchase Fetch failed..!", Toast.LENGTH_SHORT).show();
                        Logger.getLogger(PurchaseForm.class.getName()).log(Level.SEVERE, "Error occurred", t);
                    }
                });
@@ -209,6 +209,42 @@ public class PurchaseForm extends AppCompatActivity implements AdapterView.OnIte
             String rateAmt = String.valueOf(inputEditNetAmount.getText());
             Double netAmount= Double.parseDouble(rateAmt.equals("")?"0":rateAmt);
 
+            if(quantity.equals(0.0)){
+                Toast.makeText(PurchaseForm.this, "Please Enter Quantity..! ", Toast.LENGTH_SHORT).show();
+                inputEditTextQyantity.requestFocus();
+                return;
+            }
+
+            if(rate.equals(0.0)){
+                Toast.makeText(PurchaseForm.this, "Please Enter Rate..! ", Toast.LENGTH_SHORT).show();
+                inputEditTextRate.requestFocus();
+                return;
+            }
+
+            if(amt.equals(0.0)){
+                Toast.makeText(PurchaseForm.this, "Please Enter Amount..! ", Toast.LENGTH_SHORT).show();
+                inputEditAmount.requestFocus();
+                return;
+            }
+
+            if(discount.equals(0.0)){
+                Toast.makeText(PurchaseForm.this, "Please Enter Discount..! ", Toast.LENGTH_SHORT).show();
+                inputEditDiscount.requestFocus();
+                return;
+            }
+
+            if(tax.equals(0.0)){
+                Toast.makeText(PurchaseForm.this, "Please Enter Tax..! ", Toast.LENGTH_SHORT).show();
+                inputEditTax.requestFocus();
+                return;
+            }
+
+            if(netAmount.equals(0.0)){
+                Toast.makeText(PurchaseForm.this, "Please Enter Net Amount..! ", Toast.LENGTH_SHORT).show();
+                inputEditNetAmount.requestFocus();
+                return;
+            }
+
              PurchaseDTO purchase = new PurchaseDTO();
              purchase.setPurchaseId(purchaseId);
              purchase.setEmpId(empId);
@@ -229,7 +265,7 @@ public class PurchaseForm extends AppCompatActivity implements AdapterView.OnIte
                 @Override
                 public void onResponse(Call<PurchaseDTO> call, Response<PurchaseDTO> response) {
 
-                  Toast.makeText(PurchaseForm.this, "Save successful! ", Toast.LENGTH_SHORT).show();
+                  Toast.makeText(PurchaseForm.this, "Purchase Save successful..! ", Toast.LENGTH_SHORT).show();
 
                   Intent intent = new Intent(PurchaseForm.this, PurchaseListActivity.class);
                   startActivity(intent);
@@ -237,12 +273,12 @@ public class PurchaseForm extends AppCompatActivity implements AdapterView.OnIte
 
                 @Override
                 public void onFailure(Call<PurchaseDTO> call, Throwable t) {
-                  Toast.makeText(PurchaseForm.this, "Save failed!!!", Toast.LENGTH_SHORT).show();
+                  Toast.makeText(PurchaseForm.this, "Purchase Save failed..!", Toast.LENGTH_SHORT).show();
                   Logger.getLogger(PurchaseForm.class.getName()).log(Level.SEVERE, "Error occurred", t);
                 }
               });
     } catch(Exception e){
-        Toast.makeText(PurchaseForm.this, "Save failed!!! "+ e, Toast.LENGTH_SHORT).show();
+        Toast.makeText(PurchaseForm.this, "Purchase Save failed..! "+ e, Toast.LENGTH_SHORT).show();
     }
     });
 
@@ -298,14 +334,14 @@ public class PurchaseForm extends AppCompatActivity implements AdapterView.OnIte
 
                                 populatePartyListView(responseData);
                             }catch (Exception e){
-                                Toast.makeText(PurchaseForm.this, "Save successful! "+ e, Toast.LENGTH_SHORT).show();
+                                Toast.makeText(PurchaseForm.this, "Failed to load Party data..!", Toast.LENGTH_SHORT).show();
 
                             }
                         }
 
                         @Override
                         public void onFailure(Call<ResponseEntity> call, Throwable t) {
-                            Toast.makeText(PurchaseForm.this, "Failed to load employees ", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(PurchaseForm.this, "Failed to load Party data..! ", Toast.LENGTH_SHORT).show();
                         }
                     });
         }
@@ -323,14 +359,14 @@ public class PurchaseForm extends AppCompatActivity implements AdapterView.OnIte
 
                                 populateEmployeeListView(responseData);
                             }catch (Exception e){
-                                Toast.makeText(PurchaseForm.this, "Save successful! "+ e, Toast.LENGTH_SHORT).show();
+                                Toast.makeText(PurchaseForm.this, "Failed to load Employee data..!", Toast.LENGTH_SHORT).show();
 
                             }
                         }
 
                         @Override
                         public void onFailure(Call<ResponseEntity> call, Throwable t) {
-                            Toast.makeText(PurchaseForm.this, "Failed to load employees ", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(PurchaseForm.this, "Failed to load Employee data..! ", Toast.LENGTH_SHORT).show();
                         }
                     });
         }
@@ -347,14 +383,14 @@ public class PurchaseForm extends AppCompatActivity implements AdapterView.OnIte
 
                             populateProductListView(responseData);
                         }catch (Exception e){
-                            Toast.makeText(PurchaseForm.this, "Save successful! "+ e, Toast.LENGTH_SHORT).show();
+                            Toast.makeText(PurchaseForm.this, "Failed to load Product data..!", Toast.LENGTH_SHORT).show();
 
                         }
                     }
 
                     @Override
                     public void onFailure(Call<ResponseEntity> call, Throwable t) {
-                        Toast.makeText(PurchaseForm.this, "Failed to load employees ", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(PurchaseForm.this, "Failed to load Product data..! ", Toast.LENGTH_SHORT).show();
                     }
                 });
     }

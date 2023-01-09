@@ -166,6 +166,11 @@ public class PaymentForm extends AppCompatActivity implements AdapterView.OnItem
                 String amt = String.valueOf(inputEditAmount.getText());
                 Double amount= Double.parseDouble( amt.equals("")?"0":amt);
 
+                if(amt.trim().equals("")){
+                    Toast.makeText(PaymentForm.this, "Please Enter Amount..! ", Toast.LENGTH_SHORT).show();
+                    inputEditAmount.requestFocus();
+                    return;
+                }
 
 
 
@@ -185,7 +190,7 @@ public class PaymentForm extends AppCompatActivity implements AdapterView.OnItem
                             @Override
                             public void onResponse(Call<PaymentDTO> call, Response<PaymentDTO> response) {
 
-                                Toast.makeText(PaymentForm.this, "Save successful! ", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(PaymentForm.this, "Payment Save successful..! ", Toast.LENGTH_SHORT).show();
 
                                 Intent intent = new Intent(PaymentForm.this, PaymentListActivity.class);
                                 startActivity(intent);
@@ -193,12 +198,12 @@ public class PaymentForm extends AppCompatActivity implements AdapterView.OnItem
 
                             @Override
                             public void onFailure(Call<PaymentDTO> call, Throwable t) {
-                                Toast.makeText(PaymentForm.this, "Save failed!!!", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(PaymentForm.this, "Payment Save failed..!", Toast.LENGTH_SHORT).show();
                                 Logger.getLogger(PaymentForm.class.getName()).log(Level.SEVERE, "Error occurred", t);
                             }
                         });
             } catch(Exception e){
-                Toast.makeText(PaymentForm.this, "Save failed!!! "+ e, Toast.LENGTH_SHORT).show();
+                Toast.makeText(PaymentForm.this, "Payment Save failed!!! "+ e, Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -252,14 +257,14 @@ public class PaymentForm extends AppCompatActivity implements AdapterView.OnItem
 
                                 populatePartyListView(responseData);
                             }catch (Exception e){
-                                Toast.makeText(PaymentForm.this, "Save successful! "+ e, Toast.LENGTH_SHORT).show();
+                                Toast.makeText(PaymentForm.this, "Failed to load Party data..!", Toast.LENGTH_SHORT).show();
 
                             }
                         }
 
                         @Override
                         public void onFailure(Call<ResponseEntity> call, Throwable t) {
-                            Toast.makeText(PaymentForm.this, "Failed to load employees ", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(PaymentForm.this, "Failed to load Party data..! ", Toast.LENGTH_SHORT).show();
                         }
                     });
         }
@@ -277,14 +282,14 @@ public class PaymentForm extends AppCompatActivity implements AdapterView.OnItem
 
                                 populateEmployeeListView(responseData);
                             }catch (Exception e){
-                                Toast.makeText(PaymentForm.this, "Save successful! "+ e, Toast.LENGTH_SHORT).show();
+                                Toast.makeText(PaymentForm.this, "Failed to load Employee data..!", Toast.LENGTH_SHORT).show();
 
                             }
                         }
 
                         @Override
                         public void onFailure(Call<ResponseEntity> call, Throwable t) {
-                            Toast.makeText(PaymentForm.this, "Failed to load employees ", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(PaymentForm.this, "Failed to load Employee data..! ", Toast.LENGTH_SHORT).show();
                         }
                     });
         }
@@ -301,14 +306,14 @@ public class PaymentForm extends AppCompatActivity implements AdapterView.OnItem
 
                             populateProductListView(responseData);
                         }catch (Exception e){
-                            Toast.makeText(PaymentForm.this, "Save successful! "+ e, Toast.LENGTH_SHORT).show();
+                            Toast.makeText(PaymentForm.this, "Failed to load Purchase data..! ", Toast.LENGTH_SHORT).show();
 
                         }
                     }
 
                     @Override
                     public void onFailure(Call<ResponseEntity> call, Throwable t) {
-                        Toast.makeText(PaymentForm.this, "Failed to load employees ", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(PaymentForm.this, "Failed to load Purchase data..! ", Toast.LENGTH_SHORT).show();
                     }
                 });
     }

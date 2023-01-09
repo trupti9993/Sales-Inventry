@@ -9,13 +9,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.sales_inventry.springclient.adapter.PartyAdapter;
 import com.sales_inventry.springclient.adapter.ReceiptAdapter;
-import com.sales_inventry.springclient.model.EmployeeDTO;
-import com.sales_inventry.springclient.model.PartyDTO;
 import com.sales_inventry.springclient.model.ReceiptDTO;
 import com.sales_inventry.springclient.model.ResponseEntity;
-import com.sales_inventry.springclient.reotrfit.EmployeeApi;
 import com.sales_inventry.springclient.reotrfit.ReceiptApi;
 import com.sales_inventry.springclient.reotrfit.RetrofitService;
 
@@ -69,21 +65,21 @@ public class ReceiptListActivity extends AppCompatActivity {
 
                populateListView(responseData);
            }catch (Exception e){
-               Toast.makeText(ReceiptListActivity.this, "Save successful! "+ e, Toast.LENGTH_SHORT).show();
+               Toast.makeText(ReceiptListActivity.this, "Failed to load Receipt data..!", Toast.LENGTH_SHORT).show();
 
            }
           }
 
           @Override
           public void onFailure(Call<ResponseEntity> call, Throwable t) {
-            Toast.makeText(ReceiptListActivity.this, "Failed to load employees ", Toast.LENGTH_SHORT).show();
+            Toast.makeText(ReceiptListActivity.this, "Failed to load Receipt data..! ", Toast.LENGTH_SHORT).show();
           }
         });
   }
 
 
-  private void populateListView(List<ReceiptDTO> employeeList) {
-      ReceiptAdapter receiptAdapter = new ReceiptAdapter(employeeList,this);
+  private void populateListView(List<ReceiptDTO> receiptList) {
+      ReceiptAdapter receiptAdapter = new ReceiptAdapter(receiptList,this);
       recyclerView.setAdapter(receiptAdapter);
   }
 
@@ -98,7 +94,7 @@ public class ReceiptListActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<ResponseEntity> call, Response<ResponseEntity> response) {
 
-                Toast.makeText(ReceiptListActivity.this, "Delete successful! ", Toast.LENGTH_SHORT).show();
+                Toast.makeText(ReceiptListActivity.this, "Receipt Delete successful..! ", Toast.LENGTH_SHORT).show();
 
                 loadReceiptData();
             }
@@ -106,8 +102,8 @@ public class ReceiptListActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<ResponseEntity> call, Throwable t) {
 
-                Toast.makeText(ReceiptListActivity.this, "Delete failed!!!", Toast.LENGTH_SHORT).show();
-                Logger.getLogger(EmployeeForm.class.getName()).log(Level.SEVERE, "Error occurred", t);
+                Toast.makeText(ReceiptListActivity.this, "Receipt Delete failed..!", Toast.LENGTH_SHORT).show();
+                Logger.getLogger(ReceiptForm.class.getName()).log(Level.SEVERE, "Error occurred", t);
             }
         });
 
@@ -116,7 +112,7 @@ public class ReceiptListActivity extends AppCompatActivity {
 
     public void updateReceipt(Integer receiptId) {
         ReceiptListActivity.setReceiptId(receiptId);
-        Intent intent = new Intent(this, EmployeeForm.class);
+        Intent intent = new Intent(this, ReceiptForm.class);
         startActivity(intent);
     }
 }

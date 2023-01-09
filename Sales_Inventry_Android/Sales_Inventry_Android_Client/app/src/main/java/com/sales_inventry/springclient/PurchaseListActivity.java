@@ -9,13 +9,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.sales_inventry.springclient.adapter.PartyAdapter;
 import com.sales_inventry.springclient.adapter.PurchaseAdapter;
-import com.sales_inventry.springclient.model.EmployeeDTO;
-import com.sales_inventry.springclient.model.PartyDTO;
 import com.sales_inventry.springclient.model.PurchaseDTO;
 import com.sales_inventry.springclient.model.ResponseEntity;
-import com.sales_inventry.springclient.reotrfit.EmployeeApi;
 import com.sales_inventry.springclient.reotrfit.PurchaseApi;
 import com.sales_inventry.springclient.reotrfit.RetrofitService;
 
@@ -69,14 +65,14 @@ public class PurchaseListActivity extends AppCompatActivity {
 
                populateListView(responseData);
            }catch (Exception e){
-               Toast.makeText(PurchaseListActivity.this, "Save successful! ", Toast.LENGTH_SHORT).show();
+               Toast.makeText(PurchaseListActivity.this, "Failed to load Purchase data..! ", Toast.LENGTH_SHORT).show();
 
            }
           }
 
           @Override
           public void onFailure(Call<ResponseEntity> call, Throwable t) {
-            Toast.makeText(PurchaseListActivity.this, "Failed to load purchase ", Toast.LENGTH_SHORT).show();
+            Toast.makeText(PurchaseListActivity.this, "Failed to load Purchase data..! ", Toast.LENGTH_SHORT).show();
           }
         });
   }
@@ -98,7 +94,7 @@ public class PurchaseListActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<ResponseEntity> call, Response<ResponseEntity> response) {
 
-                Toast.makeText(PurchaseListActivity.this, "Delete successful! ", Toast.LENGTH_SHORT).show();
+                Toast.makeText(PurchaseListActivity.this, "Purchase Delete successful..! ", Toast.LENGTH_SHORT).show();
 
                 loadPurchaseData();
             }
@@ -106,7 +102,7 @@ public class PurchaseListActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<ResponseEntity> call, Throwable t) {
 
-                Toast.makeText(PurchaseListActivity.this, "Delete failed!!!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(PurchaseListActivity.this, "Purchase Delete failed..!", Toast.LENGTH_SHORT).show();
                 Logger.getLogger(PurchaseForm.class.getName()).log(Level.SEVERE, "Error occurred", t);
             }
         });

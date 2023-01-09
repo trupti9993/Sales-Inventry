@@ -65,22 +65,22 @@ public class PaymentListActivity extends AppCompatActivity {
 
                populateListView(responseData);
            }catch (Exception e){
-               Toast.makeText(PaymentListActivity.this, "Save successful! "+ e, Toast.LENGTH_SHORT).show();
+               Toast.makeText(PaymentListActivity.this, "Failed to load Payment data..!"+ e, Toast.LENGTH_SHORT).show();
 
            }
           }
 
           @Override
           public void onFailure(Call<ResponseEntity> call, Throwable t) {
-            Toast.makeText(PaymentListActivity.this, "Failed to load employees ", Toast.LENGTH_SHORT).show();
+            Toast.makeText(PaymentListActivity.this, "Failed to load Payment data..! ", Toast.LENGTH_SHORT).show();
           }
         });
   }
 
 
   private void populateListView(List<PaymentDTO> paymentList) {
-/*      PaymentAdapter paymentAdapter = new PaymentAdapter(paymentList,this);
-      recyclerView.setAdapter(paymentAdapter);*/
+     PaymentAdapter paymentAdapter = new PaymentAdapter(paymentList,this);
+      //recyclerView.setAdapter(paymentAdapter);
   }
 
   @Override
@@ -94,7 +94,7 @@ public class PaymentListActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<ResponseEntity> call, Response<ResponseEntity> response) {
 
-                Toast.makeText(PaymentListActivity.this, "Delete successful! ", Toast.LENGTH_SHORT).show();
+                Toast.makeText(PaymentListActivity.this, "Payment Delete successful..! ", Toast.LENGTH_SHORT).show();
 
                 loadEmployees();
             }
@@ -102,7 +102,7 @@ public class PaymentListActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<ResponseEntity> call, Throwable t) {
 
-                Toast.makeText(PaymentListActivity.this, "Delete failed!!!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(PaymentListActivity.this, "Payment Deletion failed..!", Toast.LENGTH_SHORT).show();
                 Logger.getLogger(PaymentForm.class.getName()).log(Level.SEVERE, "Error occurred", t);
             }
         });
