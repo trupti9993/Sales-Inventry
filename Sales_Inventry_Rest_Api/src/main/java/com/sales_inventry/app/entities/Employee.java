@@ -34,9 +34,6 @@ public class Employee {
 	@Column(name = "address", nullable = false)
 	String address;
 
-	@Column(name = "password", nullable = false)
-	String password;
-
 	@JsonManagedReference
 	@OneToMany(mappedBy = "empId", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	Set<Purchase> purchase;
@@ -57,9 +54,8 @@ public class Employee {
 		this.setEmpName(employeeDto.getEmpName());
 		this.setMobileNo(employeeDto.getMobileNo());
 		this.setEmail(employeeDto.getEmail());
-		this.setPassword(employeeDto.getPassword());
 		this.setAddress(employeeDto.getAddress());
-		if(employeeDto.getEmployeeId()!=null&&employeeDto.getEmployeeId()!=-1) {
+		if (employeeDto.getEmployeeId() != null && employeeDto.getEmployeeId() != -1) {
 			this.setEmployeeId(employeeDto.getEmployeeId());
 		}
 	}
@@ -106,14 +102,6 @@ public class Employee {
 
 	public void setAddress(String address) {
 		this.address = address;
-	}
-
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
 	}
 
 }

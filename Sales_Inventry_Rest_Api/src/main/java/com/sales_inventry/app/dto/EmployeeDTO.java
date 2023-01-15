@@ -14,8 +14,7 @@ public class EmployeeDTO {
 
 	String address;
 
-	String password;
-
+	
 	public Integer getEmployeeId() {
 		return employeeId;
 	}
@@ -36,10 +35,7 @@ public class EmployeeDTO {
 		return address;
 	}
 
-	public String getPassword() {
-		return password;
-	}
-
+	
 	public void setEmployeeId(Integer employeeId) {
 		this.employeeId = employeeId;
 	}
@@ -60,15 +56,11 @@ public class EmployeeDTO {
 		this.address = address;
 	}
 
-	public void setPassword(String password) {
-		this.password = password;
-	}
-
+	
 	public EmployeeDTO(Employee emp) {
 		this.setEmpName(emp.getEmpName());
 		this.setMobileNo(emp.getMobileNo());
 		this.setEmail(emp.getEmail());
-		this.setPassword(emp.getPassword());
 		this.setAddress(emp.getAddress());
 		this.setEmployeeId(emp.getEmployeeId());
 	}
@@ -79,7 +71,7 @@ public class EmployeeDTO {
 	@Override
 	public String toString() {
 		return "EmployeeDTO [employeeId=" + employeeId + ", empName=" + empName + ", mobileNo=" + mobileNo + ", email="
-				+ email + ", address=" + address + ", password=" + password + "]";
+				+ email + ", address=" + address+ "]";
 	}
 	
 	
