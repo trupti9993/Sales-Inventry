@@ -2,17 +2,20 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:background="@drawable/capture">
 
   <TextView
       android:id="@+id/receiptListItem_id"
-      android:textStyle="bold"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:layout_margin="20dp"
+      android:layout_marginStart="4dp"
+      android:layout_marginTop="4dp"
       android:text="Receipt Id"
+      android:inputType="number"
       android:textColor="@color/black"
       android:textSize="16sp"
+      android:textStyle="bold"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toTopOf="parent" />
 
@@ -20,10 +23,12 @@
       android:id="@+id/receiptListItem_date"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:layout_marginStart="20dp"
-      android:paddingBottom="20dp"
+      android:layout_marginStart="4dp"
+      android:layout_marginTop="5dp"
       android:text="Date"
-      android:textSize="16sp"
+      android:textColor="@color/black"
+      android:textSize="12sp"
+      android:textStyle="bold"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toBottomOf="@id/receiptListItem_id" />
 
@@ -31,8 +36,13 @@
       android:id="@+id/receiptListItem_amount"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:layout_margin="20dp"
+      android:layout_marginStart="4dp"
+      android:layout_marginTop="5dp"
       android:text="Amount"
+      android:inputType="numberDecimal"
+      android:layout_marginBottom="20dp"
+      android:textStyle="bold"
+      android:textColor="@color/black"
       android:textSize="16sp"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toBottomOf="@id/receiptListItem_date" />
@@ -41,16 +51,18 @@
       android:id="@+id/receiptListItem_updateBtn"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:layout_margin="20dp"
+      android:layout_marginStart="228dp"
+      android:layout_marginBottom="8dp"
       android:src="@android:drawable/ic_input_add"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintBottom_toBottomOf="@id/receiptListItem_amount" />
+      app:layout_constraintBottom_toBottomOf="@id/receiptListItem_amount"
+      app:layout_constraintStart_toStartOf="parent" />
 
   <com.google.android.material.floatingactionbutton.FloatingActionButton
       android:id="@+id/receiptListItem_deleteBtn"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:layout_margin="20dp"
+      android:layout_marginEnd="16dp"
+      android:layout_marginBottom="8dp"
       android:src="@android:drawable/ic_input_delete"
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toEndOf="parent" />

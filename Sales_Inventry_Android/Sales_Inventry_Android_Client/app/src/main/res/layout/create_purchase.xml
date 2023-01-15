@@ -32,7 +32,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="5dp"
-        android:hint="Id" />
+        android:hint="Id"
+        android:inputType="number"/>
 
     <Spinner
         android:id="@+id/form_textFieldProduct"
@@ -55,28 +56,32 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="5dp"
-        android:hint="Quantity" />
+        android:hint="Quantity"
+        android:inputType="number"/>
 
     <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/form_textFieldRate"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="5dp"
-        android:hint="Rate" />
+        android:hint="Rate"
+        android:inputType="numberDecimal" />
 
     <com.google.android.material.textfield.TextInputEditText
       android:id="@+id/form_textFieldAmount"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:layout_marginBottom="5dp"
-      android:hint="Amount" />
+      android:hint="Amount"
+        android:inputType="numberDecimal"/>
 
     <com.google.android.material.textfield.TextInputEditText
       android:id="@+id/form_textFieldDiscount"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:layout_marginBottom="5dp"
-      android:hint="Discount" />
+      android:hint="Discount"
+      android:inputType="number"/>
 
 
   <com.google.android.material.textfield.TextInputEditText
@@ -84,14 +89,16 @@
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:layout_marginBottom="5dp"
-      android:hint="Tax" />
+      android:hint="Tax"
+      android:inputType="number"/>
 
     <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/form_textFieldNetAmount"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="5dp"
-        android:hint="Net Amount" />
+        android:hint="Net Amount"
+        android:inputType="number"/>
   </LinearLayout>
 
   <com.google.android.material.button.MaterialButton

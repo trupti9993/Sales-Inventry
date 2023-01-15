@@ -5,12 +5,20 @@
     android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
     tools:context=".MainActivity" >
 
   <RelativeLayout
       android:layout_width="match_parent"
       android:layout_height="match_parent">
+
+    <Button
+        android:id="@+id/start"
+        android:layout_width="300sp"
+        android:layout_height="70dp"
+      android:layout_below="@id/labele"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="150dp"
+        android:text="Start"/>
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
@@ -20,22 +28,23 @@
           android:id="@+id/topAppBar"
           android:layout_width="match_parent"
           android:layout_height="?attr/actionBarSize"
-          app:title="Sales And Inventry"
+          app:title="Sales And Inventory"
           app:navigationIcon="@drawable/ic_baseline_menu_24"
-          android:background="@color/white"
-          />
+          android:background="@drawable/capture" />
 
     </com.google.android.material.appbar.AppBarLayout>
 
     <TextView
+        android:id="@+id/labele"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:fontFamily="cursive"
+        android:text="Sales And Inventory"
         android:textAlignment="center"
-        android:text="Sales And Inventry"
         android:textColor="@color/black"
-        android:textSize="50dp" />
+        android:textSize="50dp"
+        android:textStyle="bold" />
 
   </RelativeLayout>
 
@@ -48,7 +57,8 @@
       android:layout_gravity="start"
       app:headerLayout="@layout/nav_header"
       app:menu="@menu/my_navigation_items"
-      android:visibility="visible"/>
+      android:visibility="visible"
+      android:background="@drawable/img"/>
 
 
 </androidx.drawerlayout.widget.DrawerLayout>

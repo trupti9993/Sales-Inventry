@@ -3,38 +3,49 @@
   xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-  android:layout_height="wrap_content">
+  android:layout_height="wrap_content"
+    android:background="@drawable/capture">
 
   <TextView
     android:id="@+id/productListItem_name"
-    android:textStyle="bold"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_margin="20dp"
-    android:text="Prod Name"
-    android:textColor="@color/black"
-    android:textSize="16sp"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="4dp"
+      android:layout_marginTop="4dp"
+      android:text="Product Name"
+      android:inputType="text"
+      android:textColor="@color/black"
+      android:textSize="16sp"
+      android:textStyle="bold"
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintTop_toTopOf="parent" />
 
   <TextView
     android:id="@+id/productListItem_prodType"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_marginStart="20dp"
-    android:paddingBottom="20dp"
-    android:text="Prod Type"
-    android:textSize="16sp"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="4dp"
+      android:layout_marginTop="5dp"
+    android:text="Product Type"
+      android:inputType="text"
+      android:textColor="@color/black"
+      android:textSize="12sp"
+      android:textStyle="bold"
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintTop_toBottomOf="@id/productListItem_name" />
 
   <TextView
     android:id="@+id/productListItem_prodUnit"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_margin="20dp"
-    android:text="Prod Unit"
-    android:textSize="16sp"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="4dp"
+      android:layout_marginTop="5dp"
+    android:text="Product Unit"
+      android:inputType="numberDecimal"
+      android:layout_marginBottom="20dp"
+      android:textStyle="bold"
+      android:textColor="@color/black"
+      android:textSize="16sp"
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintTop_toBottomOf="@id/productListItem_prodType" />
 
@@ -42,16 +53,18 @@
       android:id="@+id/productListItem_updateBtn"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:layout_margin="20dp"
+      android:layout_marginStart="224dp"
+      android:layout_marginBottom="8dp"
       android:src="@android:drawable/ic_input_add"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintBottom_toBottomOf="@id/productListItem_prodType" />
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintStart_toStartOf="parent" />
 
   <com.google.android.material.floatingactionbutton.FloatingActionButton
       android:id="@+id/productListItem_deleteBtn"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:layout_margin="20dp"
+      android:layout_marginEnd="16dp"
+      android:layout_marginBottom="8dp"
       android:src="@android:drawable/ic_input_delete"
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toEndOf="parent" />

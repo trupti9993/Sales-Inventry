@@ -30,7 +30,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="5dp"
-        android:hint="Id" />
+        android:hint="Id"
+        android:inputType="number"/>
 
     <Spinner
         android:id="@+id/form_textFieldSale"
@@ -53,7 +54,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="5dp"
-        android:hint="Amount" />
+        android:hint="Amount"
+        android:inputType="numberDecimal"/>
   </LinearLayout>
 
   <com.google.android.material.button.MaterialButton

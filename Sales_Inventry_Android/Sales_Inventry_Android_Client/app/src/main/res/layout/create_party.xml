@@ -17,35 +17,40 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="5dp"
-        android:hint="Id" />
+        android:hint="Id"
+        android:inputType="number"/>
 
     <com.google.android.material.textfield.TextInputEditText
       android:id="@+id/form_textFieldName"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:layout_marginBottom="5dp"
-      android:hint="@string/form_name" />
+      android:hint="@string/form_name"
+      android:inputType="text"/>
 
     <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/form_textFieldMobileNo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="5dp"
-        android:hint="Mobile No" />
+        android:hint="Mobile No"
+        android:inputType="phone"/>
 
     <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/form_textFieldEmail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="5dp"
-        android:hint="Email" />
+        android:hint="Email"
+        android:inputType="textEmailAddress"/>
 
     <com.google.android.material.textfield.TextInputEditText
       android:id="@+id/form_textFieldAddress"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:layout_marginBottom="5dp"
-      android:hint="Address" />
+      android:hint="Address"
+      android:inputType="text"/>
 
 
   </LinearLayout>
