@@ -2,7 +2,10 @@ package com.sales_inventry.springclient;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
+import android.util.Patterns;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -126,10 +129,13 @@ public class PartyForm extends AppCompatActivity {
             @Override
             public void onResponse(Call<PartyDTO> call, Response<PartyDTO> response) {
 
-              Toast.makeText(PartyForm.this, "Party Save successful..! ", Toast.LENGTH_SHORT).show();
+                if(validate(inputEditEmail))
+                {
+                    Toast.makeText(PartyForm.this, "Party Save successful..! ", Toast.LENGTH_SHORT).show();
 
-              Intent intent = new Intent(PartyForm.this, PartyListActivity.class);
-              startActivity(intent);
+                    Intent intent = new Intent(PartyForm.this, ProductListActivity.class);
+                    startActivity(intent);
+                }
             }
 
             @Override
@@ -140,4 +146,14 @@ public class PartyForm extends AppCompatActivity {
           });
     });
   }
+    private boolean validate(EditText inputEditEmail)
+    {
+        String input = inputEditEmail.getText().toString();
+        if(Patterns.EMAIL_ADDRESS.matcher(input).matches())
+        { return true;}
+        else{
+            inputEditEmail.setError("Enter valid Email");
+            return false;
+        }
+    }
 }

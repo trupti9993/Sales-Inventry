@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -15,18 +16,23 @@ import androidx.fragment.app.Fragment;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.navigation.NavigationView;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
+    Button btnstart;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        btnstart = findViewById(R.id.start);
+        btnstart.setOnClickListener(this);
         MaterialToolbar toolbar = findViewById(R.id.topAppBar);
         DrawerLayout drawerLayout = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.navigation_view);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View v) {
+
 
                 drawerLayout.openDrawer(GravityCompat.START);
 
@@ -83,5 +89,11 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
+    }
+
+    @Override
+    public void onClick(View view) {
+        Intent intent = new Intent(MainActivity.this, PartyForm.class);
+        startActivity(intent);
     }
 }

@@ -2,6 +2,7 @@ package com.sales_inventry.springclient;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Toast;
 
@@ -88,26 +89,22 @@ public class ProductForm extends AppCompatActivity {
       Integer productId=Integer.parseInt(String.valueOf(inputEditTextId.getText()));
 
         if(name.trim().equals("")){
-            Toast.makeText(ProductForm.this, "Please Enter Name..! ", Toast.LENGTH_SHORT).show();
-            inputEditTextName.requestFocus();
+            inputEditTextName.setError("Name is Required Field..");
             return;
         }
 
         if(prodType.trim().equals("")){
-            Toast.makeText(ProductForm.this, "Please Enter Product Type..! ", Toast.LENGTH_SHORT).show();
-            inputEditProdType.requestFocus();
+            inputEditProdType.setError("Please Enter Product Type..! ");
             return;
         }
 
         if(prodUnit.trim().equals("")){
-            Toast.makeText(ProductForm.this, "Please Enter Product Unit..! ", Toast.LENGTH_SHORT).show();
-            inputEditProdUnit.requestFocus();
+            inputEditProdUnit.setError("Please Enter Product Unit..! ");
             return;
         }
 
         if(noOfDecimal.trim().equals("")){
-            Toast.makeText(ProductForm.this, "Please Enter No Of Decimal..! ", Toast.LENGTH_SHORT).show();
-            inputEditNoOfDecimal.requestFocus();
+            inputEditNoOfDecimal.setError("Please Enter No Of pisces..! ");
             return;
         }
 
@@ -122,11 +119,13 @@ public class ProductForm extends AppCompatActivity {
         productApi.saveProduct(product)
           .enqueue(new Callback<ProductDTO>() {
             @Override
-            public void onResponse(Call<ProductDTO> call, Response<ProductDTO> response) {
+            public void onResponse(Call<ProductDTO> call, Response<ProductDTO> response)
+            {
+
 
               Toast.makeText(ProductForm.this, "Product Save successful..! ", Toast.LENGTH_SHORT).show();
 
-              Intent intent = new Intent(ProductForm.this, ProductListActivity.class);
+              Intent intent = new Intent(ProductForm.this, SaleForm.class);
               startActivity(intent);
             }
 

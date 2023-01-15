@@ -286,7 +286,7 @@ public class SaleForm extends AppCompatActivity  implements AdapterView.OnItemSe
 
               Toast.makeText(SaleForm.this, "Save Save successful..! ", Toast.LENGTH_SHORT).show();
 
-              Intent intent = new Intent(SaleForm.this, SaleListActivity.class);
+              Intent intent = new Intent(SaleForm.this, PaymentForm.class);
               startActivity(intent);
             }
 

@@ -12,6 +12,8 @@ public class ProductDTO {
 
 	Integer noOfDecimals;
 
+	Integer stock;
+
 	public ProductDTO() {
 	}
 
@@ -55,9 +57,17 @@ public class ProductDTO {
 		this.noOfDecimals = noOfDecimals;
 	}
 
+	public Integer getStock() {
+		return stock;
+	}
+
+	public void setStock(Integer stock) {
+		this.stock = stock;
+	}
+
 	@Override
 	public String toString() {
-		return prodName ;
+		return prodName +" ("+stock+")" ;
 	}
 
 }

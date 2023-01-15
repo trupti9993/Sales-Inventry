@@ -1,7 +1,10 @@
 package com.sales_inventry.springclient;
 
 import android.content.Intent;
+import android.text.TextUtils;
+import android.util.Patterns;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
@@ -25,6 +28,7 @@ public class EmployeeForm extends AppCompatActivity {
     setContentView(R.layout.create_employee);
 
     initializeComponents();
+
   }
 
   private void initializeComponents() {
@@ -33,7 +37,7 @@ public class EmployeeForm extends AppCompatActivity {
     TextInputEditText inputEditMobileNo = findViewById(R.id.form_textFieldMobileNo);
     TextInputEditText inputEditEmail = findViewById(R.id.form_textFieldEmail);
     TextInputEditText inputEditAddress = findViewById(R.id.form_textFieldAddress);
-    TextInputEditText inputEditPass = findViewById(R.id.form_textFieldPassword);
+
     MaterialButton buttonSave = findViewById(R.id.form_buttonSave);
 
      inputEditTextId.setVisibility(View.INVISIBLE);
@@ -52,7 +56,6 @@ public class EmployeeForm extends AppCompatActivity {
                        inputEditMobileNo.setText(employeeDTO.getMobileNo());
                        inputEditEmail.setText(employeeDTO.getEmail());
                        inputEditAddress.setText(employeeDTO.getAddress());
-                       inputEditPass.setText(employeeDTO.getPassword());
                        inputEditTextId.setText(String.valueOf( employeeDTO.getEmployeeId()));
                    }
 
@@ -68,28 +71,23 @@ public class EmployeeForm extends AppCompatActivity {
        inputEditMobileNo.setText("");
        inputEditEmail.setText("");
        inputEditAddress.setText("");
-       inputEditPass.setText("");
        inputEditTextId.setText("-1");
    }
-
-
-
-
     buttonSave.setOnClickListener(view -> {
       String name = String.valueOf(inputEditTextName.getText());
       String address = String.valueOf(inputEditAddress.getText());
       String email = String.valueOf(inputEditEmail.getText());
       String mobile = String.valueOf(inputEditMobileNo.getText());
-      String pass = String.valueOf(inputEditPass.getText());
       Integer employeeId=Integer.parseInt(String.valueOf(inputEditTextId.getText()));
 
         if(name.trim().equals("")){
             Toast.makeText(EmployeeForm.this, "Please Enter Name..! ", Toast.LENGTH_SHORT).show();
             inputEditTextName.requestFocus();
             return;
+
         }
 
-        if(mobile.trim().equals("")){
+        if((mobile.trim().equals("")) && (mobile.length() !=10)){
             Toast.makeText(EmployeeForm.this, "Please Enter Mobile No..! ", Toast.LENGTH_SHORT).show();
             inputEditMobileNo.requestFocus();
             return;
@@ -107,11 +105,7 @@ public class EmployeeForm extends AppCompatActivity {
             return;
         }
 
-        if(pass.trim().equals("")){
-            Toast.makeText(EmployeeForm.this, "Please Enter Password..! ", Toast.LENGTH_SHORT).show();
-            inputEditPass.requestFocus();
-            return;
-        }
+
 
       EmployeeDTO employee = new EmployeeDTO();
       employee.setEmpName(name);
@@ -119,17 +113,21 @@ public class EmployeeForm extends AppCompatActivity {
       employee.setAddress(address);
       employee.setEmail(email);
       employee.setMobileNo(mobile);
-      employee.setPassword(pass);
+
 
       employeeApi.saveEmployee(employee)
           .enqueue(new Callback<EmployeeDTO>() {
             @Override
             public void onResponse(Call<EmployeeDTO> call, Response<EmployeeDTO> response) {
 
-              Toast.makeText(EmployeeForm.this, "Employee Save successful..! ", Toast.LENGTH_SHORT).show();
+                if(validate(inputEditEmail))
+                {
+                    Toast.makeText(EmployeeForm.this, "Employee Save successful..! ", Toast.LENGTH_SHORT).show();
 
-              Intent intent = new Intent(EmployeeForm.this, EmployeeListActivity.class);
-              startActivity(intent);
+                    Intent intent = new Intent(EmployeeForm.this, EmployeeListActivity.class);
+                    startActivity(intent);
+                }
+
             }
 
             @Override
@@ -140,4 +138,15 @@ public class EmployeeForm extends AppCompatActivity {
           });
     });
   }
+    private boolean validate(EditText inputEditEmail)
+    {
+        String input = inputEditEmail.getText().toString();
+        if(Patterns.EMAIL_ADDRESS.matcher(input).matches())
+        { return true;}
+        else{
+            inputEditEmail.setError("Enter valid Email");
+            return false;
+        }
+
+    }
 }

@@ -12,8 +12,6 @@ public class EmployeeDTO {
 
   private String address;
 
-  private String password;
-
   public Integer getEmployeeId() {
     return employeeId;
   }
@@ -52,14 +50,6 @@ public class EmployeeDTO {
 
   public void setAddress(String address) {
     this.address = address;
-  }
-
-  public String getPassword() {
-    return password;
-  }
-
-  public void setPassword(String password) {
-    this.password = password;
   }
 
   @Override
