@@ -211,11 +211,8 @@ CREATE TABLE IF NOT EXISTS `employee` (
   `address` varchar(250) DEFAULT NULL,
   `email` varchar(25) DEFAULT NULL,
   `mobile_no` varchar(25) DEFAULT NULL,
-  `password` varchar(25) DEFAULT NULL,
-  `man_id` int(11) DEFAULT NULL,
-  PRIMARY KEY (`emp_id`),
-  KEY `FK_employee_employee` (`man_id`),
-  CONSTRAINT `FK_employee_employee` FOREIGN KEY (`man_id`) REFERENCES `employee` (`emp_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+    PRIMARY KEY (`emp_id`)
+ 
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
 -- Dumping data for table sales_inventery.employee: ~0 rows (approximately)
