@@ -12,8 +12,6 @@ public class ProductDTO {
 
 	String prodUnit;
 
-	Integer noOfDecimals;
-
 	Integer stock;
 
 	public ProductDTO(Product product) {
@@ -21,7 +19,6 @@ public class ProductDTO {
 		this.prodName = product.getProdName();
 		this.prodType = product.getProdType();
 		this.prodUnit = product.getProdUnit();
-		this.noOfDecimals = product.getNoOfDecimals();
 	}
 
 	public ProductDTO() {
@@ -57,14 +54,6 @@ public class ProductDTO {
 
 	public void setProdUnit(String prodUnit) {
 		this.prodUnit = prodUnit;
-	}
-
-	public Integer getNoOfDecimals() {
-		return noOfDecimals;
-	}
-
-	public void setNoOfDecimals(Integer noOfDecimals) {
-		this.noOfDecimals = noOfDecimals;
 	}
 
 	public Integer getStock() {

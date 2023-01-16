@@ -31,9 +31,6 @@ public class Product {
 	@Column(name = "prod_unit", nullable = false)
 	String prodUnit;
 
-	@Column(name = "no_of_decimals", nullable = false)
-	Integer noOfDecimals;
-
 	@JsonManagedReference
 	@OneToMany(mappedBy = "prodId", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	Set<Purchase> purchase;
@@ -47,7 +44,6 @@ public class Product {
 		this.prodName = productDTO.getProdName();
 		this.prodType = productDTO.getProdType();
 		this.prodUnit = productDTO.getProdUnit();
-		this.noOfDecimals = productDTO.getNoOfDecimals();
 	}
 
 	public Integer getProdId() {
@@ -80,14 +76,6 @@ public class Product {
 
 	public void setProdUnit(String prodUnit) {
 		this.prodUnit = prodUnit;
-	}
-
-	public Integer getNoOfDecimals() {
-		return noOfDecimals;
-	}
-
-	public void setNoOfDecimals(Integer noOfDecimals) {
-		this.noOfDecimals = noOfDecimals;
 	}
 
 	public Set<Purchase> getPurchase() {
