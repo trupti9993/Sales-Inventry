@@ -8,6 +8,8 @@ public interface SalesService {
 
 	List<SalesDTO> getAllSalesDetails();
 
+	List<SalesDTO> getAllSalesDetailsForReceipt();
+	
 	void saveSalesToDB(SalesDTO sale);
 
 	SalesDTO getSale(Integer saleId) throws Exception;

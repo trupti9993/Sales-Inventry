@@ -44,6 +44,20 @@ public class PurchaseServiceImpl implements PurchaseService {
 	}
 
 	@Override
+	public List<PurchaseDTO> getAllPurchaseDetailsForPayment() {
+		List<Purchase> partyList = (List<Purchase>) purchaseRepository.findAll();
+		List<PurchaseDTO> partyDtoList = new ArrayList<PurchaseDTO>();
+
+		for (Purchase emp : partyList) {
+			if (emp.getPurchase().isEmpty()) {
+				partyDtoList.add(new PurchaseDTO(emp));
+			}
+		}
+
+		return partyDtoList;
+	}
+
+	@Override
 	public void savePurchaseToDB(PurchaseDTO purchaseDTO) {
 		Purchase purchase = new Purchase();
 

@@ -43,6 +43,19 @@ public class SalesServiceImpl implements SalesService {
 		return partyDtoList;
 	}
 
+	public List<SalesDTO> getAllSalesDetailsForReceipt() {
+		List<Sales> partyList = (List<Sales>) salesRepository.findAll();
+		List<SalesDTO> partyDtoList = new ArrayList<SalesDTO>();
+
+		for (Sales emp : partyList) {
+			if (emp.getReceipt().isEmpty()) {
+				partyDtoList.add(new SalesDTO(emp));
+			}
+		}
+
+		return partyDtoList;
+	}
+
 	@Override
 	public void saveSalesToDB(SalesDTO salesDTO) {
 		Sales sales = new Sales();

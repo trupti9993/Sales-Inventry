@@ -56,6 +56,17 @@ public class PurchaseController {
 
 	}
 
+	@GetMapping("/getAllPurchaseDataForPayment")
+	public ResponseEntity<Response> getAllPurchaseDetailsForPayment() {
+
+		Response response = new Response();
+		response.setPurchaseResponseData(purchaseService.getAllPurchaseDetailsForPayment());
+		response.setStatus(Response.SUCCESS_STATUS);
+
+		return ResponseEntity.ok(response);
+
+	}
+
 	@PostMapping("/deletePurchase/{purchaseId}")
 	public ResponseEntity<Response> deletePurchase(@PathVariable("purchaseId") Integer purchaseId) throws Exception {
 

@@ -55,6 +55,18 @@ public class SalesController {
 		return ResponseEntity.ok(response);
 
 	}
+	
+	@GetMapping("/getAllSalesDataForReceipt")
+	public ResponseEntity<Response> getAllSalesDetailsForReceipt() {
+
+		Response response = new Response();
+		response.setSaleResponseData(salesService.getAllSalesDetailsForReceipt());
+		response.setStatus(Response.SUCCESS_STATUS);
+
+		return ResponseEntity.ok(response);
+
+	}
+
 
 	@PostMapping("/deleteSale/{saleId}")
 	public ResponseEntity<Response> deleteSale(@PathVariable("saleId") Integer saleId) throws Exception {
