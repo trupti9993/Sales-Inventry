@@ -14,6 +14,8 @@ public class ProductDTO {
 
 	Integer noOfDecimals;
 
+	Integer stock;
+
 	public ProductDTO(Product product) {
 		this.prodId = product.getProdId();
 		this.prodName = product.getProdName();
@@ -63,6 +65,14 @@ public class ProductDTO {
 
 	public void setNoOfDecimals(Integer noOfDecimals) {
 		this.noOfDecimals = noOfDecimals;
+	}
+
+	public Integer getStock() {
+		return stock;
+	}
+
+	public void setStock(Integer stock) {
+		this.stock = stock;
 	}
 
 }

@@ -20,11 +20,14 @@ public class ProductServiceImpl implements ProductService {
 
 	@Override
 	public List<ProductDTO> getAllProductsDetails() {
+
 		List<Product> prodList = (List<Product>) productRepository.findAll();
 		List<ProductDTO> prodDtoList = new ArrayList<ProductDTO>();
 
 		for (Product prod : prodList) {
-			prodDtoList.add(new ProductDTO(prod));
+			ProductDTO productDTO = new ProductDTO(prod);
+			productDTO.setStock(productRepository.getProdQty(prod.getProdId()));
+			prodDtoList.add(productDTO);
 		}
 
 		return prodDtoList;
