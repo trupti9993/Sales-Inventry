@@ -203,6 +203,31 @@ SET status=0;
 END//
 DELIMITER ;
 
+DROP FUNCTION IF EXISTS getProdQty;
+DELIMITER //
+
+CREATE DEFINER=`root`@`localhost` FUNCTION `getProdQty`(
+	`prodId` INTEGER
+)
+RETURNS int(11)
+LANGUAGE SQL
+NOT DETERMINISTIC
+CONTAINS SQL
+SQL SECURITY DEFINER
+COMMENT ''
+BEGIN
+  DECLARE  purchaseQty INTEGER;
+  DECLARE  salesQty INTEGER;
+  
+  	  SELECT IFNULL(SUM(quantity),0) INTO purchaseQty FROM purchase WHERE prod_id=prodId ;
+	  SELECT IFNULL(SUM(quantity),0) INTO salesQty FROM sales WHERE prod_id=prodId;
+	  
+  RETURN purchaseQty-salesQty;
+END
+
+
+DELIMITER ;
+
 -- Dumping structure for table sales_inventery.employee
 DROP TABLE IF EXISTS `employee`;
 CREATE TABLE IF NOT EXISTS `employee` (
