@@ -90,6 +90,7 @@ Purchase ->
          e.g- http://localhost:8080/purchase/getPurchase/1
    
    GET:  http://localhost:8080/purchase/getAllPurchaseData
+         http://localhost:8080/purchase/getAllPurchaseDataForPayment
    
     POST: http://localhost:8080/purchase/deletePurchase/{purchaseId}
          http://localhost:8080/purchase/deletePurchase/1
@@ -115,7 +116,8 @@ Sale ->
    GET:  http://localhost:8080/sales/getSales/{saleId}
          e.g- http://localhost:8080/sales/getSales/1
    
-   GET:  http://localhost:8080/sales/getAllSalesData 
+   GET:  http://localhost:8080/sales/getAllSalesData
+         http://localhost:8080/sales/getAllSalesDataForReceipt
    
    POST: http://localhost:8080/sales/deleteSale/{saleId}
          http://localhost:8080/sales/deleteSale/1
