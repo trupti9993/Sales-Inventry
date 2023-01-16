@@ -10,8 +10,6 @@ public class ProductDTO {
 
 	String prodUnit;
 
-	Integer noOfDecimals;
-
 	Integer stock;
 
 	public ProductDTO() {
@@ -47,14 +45,6 @@ public class ProductDTO {
 
 	public void setProdUnit(String prodUnit) {
 		this.prodUnit = prodUnit;
-	}
-
-	public Integer getNoOfDecimals() {
-		return noOfDecimals;
-	}
-
-	public void setNoOfDecimals(Integer noOfDecimals) {
-		this.noOfDecimals = noOfDecimals;
 	}
 
 	public Integer getStock() {

@@ -39,7 +39,6 @@ public class ProductForm extends AppCompatActivity {
     TextInputEditText inputEditTextId = findViewById(R.id.form_textFieldId);
     TextInputEditText inputEditProdType = findViewById(R.id.form_textFieldProdType);
     TextInputEditText inputEditProdUnit = findViewById(R.id.form_textFieldProdUnit);
-    TextInputEditText inputEditNoOfDecimal = findViewById(R.id.form_textFieldNoOfDecimal);
 
 
     MaterialButton buttonSave = findViewById(R.id.form_buttonSave);
@@ -59,7 +58,6 @@ public class ProductForm extends AppCompatActivity {
                       inputEditTextName.setText(productDTO.getProdName());
                       inputEditProdType.setText(productDTO.getProdType());
                         inputEditProdUnit.setText(productDTO.getProdUnit());
-                       inputEditNoOfDecimal.setText( String.valueOf(productDTO.getNoOfDecimals()));
 
                        inputEditTextId.setText(String.valueOf( productDTO.getProdId()));
                    }
@@ -75,7 +73,7 @@ public class ProductForm extends AppCompatActivity {
        inputEditTextName.setText("");
        inputEditProdType.setText("");
        inputEditProdUnit.setText("");
-       inputEditNoOfDecimal.setText("");
+
 
        inputEditTextId.setText("-1");
    }
@@ -84,7 +82,6 @@ public class ProductForm extends AppCompatActivity {
       String name = String.valueOf(inputEditTextName.getText());
       String prodType = String.valueOf(inputEditProdType.getText());
       String prodUnit = String.valueOf(inputEditProdUnit.getText());
-      String noOfDecimal = String.valueOf(inputEditNoOfDecimal.getText());
 
       Integer productId=Integer.parseInt(String.valueOf(inputEditTextId.getText()));
 
@@ -103,17 +100,13 @@ public class ProductForm extends AppCompatActivity {
             return;
         }
 
-        if(noOfDecimal.trim().equals("")){
-            inputEditNoOfDecimal.setError("Please Enter No Of pisces..! ");
-            return;
-        }
+
 
         ProductDTO product = new ProductDTO();
         product.setProdName(name);
         product.setProdId(productId);
         product.setProdType(prodType);
         product.setProdUnit(prodUnit);
-        product.setNoOfDecimals(Integer.parseInt(noOfDecimal));
 
 
         productApi.saveProduct(product)
