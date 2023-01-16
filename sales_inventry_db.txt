@@ -213,10 +213,9 @@ CREATE TABLE IF NOT EXISTS `employee` (
   `email` varchar(25) DEFAULT NULL,
   `mobile_no` varchar(25) DEFAULT NULL,
   PRIMARY KEY (`emp_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 
--- Dumping data for table sales_inventery.employee: ~0 rows (approximately)
-DELETE FROM `employee`;
+-- Data exporting was unselected.
 
 -- Dumping structure for function sales_inventery.getProdQty
 DROP FUNCTION IF EXISTS `getProdQty`;
@@ -244,10 +243,9 @@ CREATE TABLE IF NOT EXISTS `party` (
   `email` varchar(25) DEFAULT NULL,
   `mobile_no` varchar(25) DEFAULT NULL,
   PRIMARY KEY (`party_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
 
--- Dumping data for table sales_inventery.party: ~0 rows (approximately)
-DELETE FROM `party`;
+-- Data exporting was unselected.
 
 -- Dumping structure for table sales_inventery.payment
 DROP TABLE IF EXISTS `payment`;
@@ -267,8 +265,7 @@ CREATE TABLE IF NOT EXISTS `payment` (
   CONSTRAINT `payment_ibfk_3` FOREIGN KEY (`purchase_id`) REFERENCES `purchase` (`purchase_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=latin1;
 
--- Dumping data for table sales_inventery.payment: ~0 rows (approximately)
-DELETE FROM `payment`;
+-- Data exporting was unselected.
 
 -- Dumping structure for table sales_inventery.product
 DROP TABLE IF EXISTS `product`;
@@ -277,12 +274,10 @@ CREATE TABLE IF NOT EXISTS `product` (
   `prod_name` varchar(25) NOT NULL,
   `prod_type` varchar(25) NOT NULL,
   `prod_unit` varchar(25) DEFAULT NULL,
-  `no_of_decimals` int(11) DEFAULT NULL,
   PRIMARY KEY (`prod_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 
--- Dumping data for table sales_inventery.product: ~0 rows (approximately)
-DELETE FROM `product`;
+-- Data exporting was unselected.
 
 -- Dumping structure for table sales_inventery.purchase
 DROP TABLE IF EXISTS `purchase`;
@@ -305,10 +300,9 @@ CREATE TABLE IF NOT EXISTS `purchase` (
   CONSTRAINT `purchase_ibfk_1` FOREIGN KEY (`emp_id`) REFERENCES `employee` (`emp_id`),
   CONSTRAINT `purchase_ibfk_2` FOREIGN KEY (`party_id`) REFERENCES `party` (`party_id`),
   CONSTRAINT `purchase_ibfk_3` FOREIGN KEY (`prod_id`) REFERENCES `product` (`prod_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
 
--- Dumping data for table sales_inventery.purchase: ~0 rows (approximately)
-DELETE FROM `purchase`;
+-- Data exporting was unselected.
 
 -- Dumping structure for table sales_inventery.receipt
 DROP TABLE IF EXISTS `receipt`;
@@ -326,10 +320,9 @@ CREATE TABLE IF NOT EXISTS `receipt` (
   CONSTRAINT `receipt_ibfk_1` FOREIGN KEY (`emp_id`) REFERENCES `employee` (`emp_id`),
   CONSTRAINT `receipt_ibfk_2` FOREIGN KEY (`party_id`) REFERENCES `party` (`party_id`),
   CONSTRAINT `receipt_ibfk_3` FOREIGN KEY (`sales_id`) REFERENCES `sales` (`sales_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=latin1;
 
--- Dumping data for table sales_inventery.receipt: ~0 rows (approximately)
-DELETE FROM `receipt`;
+-- Data exporting was unselected.
 
 -- Dumping structure for table sales_inventery.sales
 DROP TABLE IF EXISTS `sales`;
@@ -352,10 +345,9 @@ CREATE TABLE IF NOT EXISTS `sales` (
   CONSTRAINT `sales_ibfk_1` FOREIGN KEY (`emp_id`) REFERENCES `employee` (`emp_id`),
   CONSTRAINT `sales_ibfk_2` FOREIGN KEY (`party_id`) REFERENCES `party` (`party_id`),
   CONSTRAINT `sales_ibfk_3` FOREIGN KEY (`prod_id`) REFERENCES `product` (`prod_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
 
--- Dumping data for table sales_inventery.sales: ~0 rows (approximately)
-DELETE FROM `sales`;
+-- Data exporting was unselected.
 
 /*!40103 SET TIME_ZONE=IFNULL(@OLD_TIME_ZONE, 'system') */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
