@@ -43,13 +43,7 @@
         android:layout_marginBottom="5dp"
         android:hint="Prod Unit" />
 
-    <com.google.android.material.textfield.TextInputEditText
-      android:id="@+id/form_textFieldNoOfDecimal"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:layout_marginBottom="5dp"
-      android:hint="No of Decimal"
-      android:inputType="number"/>
+
 
 
   </LinearLayout>
