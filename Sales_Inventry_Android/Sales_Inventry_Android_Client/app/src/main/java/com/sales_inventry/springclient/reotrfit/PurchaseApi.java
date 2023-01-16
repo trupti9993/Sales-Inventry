@@ -11,6 +11,9 @@ import retrofit2.http.Path;
 
 public interface PurchaseApi {
 
+  @GET("/purchase/getAllPurchaseDataForPayment")
+  Call<ResponseEntity> getAllPurchaseDataForPayment();
+
   @GET("/purchase/getAllPurchaseData")
   Call<ResponseEntity> getAllPurchaseData();
 

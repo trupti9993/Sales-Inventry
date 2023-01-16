@@ -11,6 +11,9 @@ import retrofit2.http.Path;
 
 public interface SaleApi {
 
+  @GET("/sales/getAllSalesDataForReceipt")
+  Call<ResponseEntity> getAllSalesDataForReceipt();
+
   @GET("/sales/getAllSalesData")
   Call<ResponseEntity> getAllSalesData();
 

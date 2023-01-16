@@ -29,6 +29,7 @@ import com.sales_inventry.springclient.reotrfit.PartyApi;
 import com.sales_inventry.springclient.reotrfit.EmployeeApi;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -203,8 +204,29 @@ public class ReceiptForm extends AppCompatActivity implements AdapterView.OnItem
     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
 
         switch (adapterView.getId()) {
-            case R.id.form_textFieldProduct:
-                ReceiptDTO purchase = (ReceiptDTO) adapterView.getSelectedItem();
+            case R.id.form_textFieldSale:
+                SalesDTO sale = (SalesDTO) adapterView.getSelectedItem();
+                inputEditAmount.setText(String.valueOf(sale.getNetAmount()));
+
+
+
+                partyApi.getParty(sale.getPartyId())
+                        .enqueue(new Callback<ResponseEntity>() {
+                            @Override
+                            public void onResponse(Call<ResponseEntity> call, Response<ResponseEntity> response) {
+                                PartyDTO partyDTO= (PartyDTO) response.body().getPartyData();
+                                List<PartyDTO> responseData = new ArrayList<>();
+                                responseData.add(partyDTO);
+                                populatePartyListView(responseData);
+                            }
+
+                            @Override
+                            public void onFailure(Call<ResponseEntity> call, Throwable t) {
+                                Toast.makeText(ReceiptForm.this, "Failed to load Party data..!", Toast.LENGTH_SHORT).show();
+                                Logger.getLogger(PartyForm.class.getName()).log(Level.SEVERE, "Error occurred", t);
+                            }
+                        });
+
 
                 //  Toast.makeText(getApplicationContext(), prod.getProdName() +" >> ", Toast.LENGTH_LONG).show();
                 break;
@@ -233,34 +255,10 @@ public class ReceiptForm extends AppCompatActivity implements AdapterView.OnItem
     protected void onResume() {
         super.onResume();
         getAllPurchaseData();
-        loadAllParty();
         loadAllEmployee();
     }
 
-    private void loadAllParty() {
-        {
 
-            partyApi.getAllParty()
-                    .enqueue(new Callback<ResponseEntity>() {
-                        @Override
-                        public void onResponse(Call<ResponseEntity> call, Response<ResponseEntity> response) {
-                            try {
-                                List<PartyDTO> responseData = (List<PartyDTO>) response.body().getPartyResponseData();
-
-                                populatePartyListView(responseData);
-                            } catch (Exception e) {
-                                Toast.makeText(ReceiptForm.this, "Failed to load Party data..!" , Toast.LENGTH_SHORT).show();
-
-                            }
-                        }
-
-                        @Override
-                        public void onFailure(Call<ResponseEntity> call, Throwable t) {
-                            Toast.makeText(ReceiptForm.this, "Failed to load Party data..! ", Toast.LENGTH_SHORT).show();
-                        }
-                    });
-        }
-    }
 
     private void loadAllEmployee() {
         {
@@ -289,7 +287,7 @@ public class ReceiptForm extends AppCompatActivity implements AdapterView.OnItem
 
     private void getAllPurchaseData() {
 
-        saleApi.getAllSalesData()
+        saleApi.getAllSalesDataForReceipt()
                 .enqueue(new Callback<ResponseEntity>() {
                     @Override
                     public void onResponse(Call<ResponseEntity> call, Response<ResponseEntity> response) {
